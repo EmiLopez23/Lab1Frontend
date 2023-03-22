@@ -1,21 +1,36 @@
 import React, {useState} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 export default function Register(){
+    const navigate = useNavigate()
     const [email,setEmail] = useState("");
     const [username, setUsername] = useState("");
     const [password,setPassword] = useState("");
+    const[error,setError]=useState(null)
 
 
     function handleSubmit(event){
         event.preventDefault()
-        const user={
-            username: event.target.name.value,
-            password:event.target.password.value,
-            email: event.target.email.value
+        const user={username,password,email}
+        try{
+            fetch("http://localhost:8080/register", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(user),
+              }).then(resp=>{
+                if (!resp.ok) {
+                    throw new Error(resp.text());
+                  }
+                navigate("/login");
+              })
+
+              
+        }catch(error){
+            setError(error.message)
         }
-        console.log(user)
     }
 
     return <div className="body"> 
@@ -29,21 +44,21 @@ export default function Register(){
                     value={email}
                     name="email"
                     placeholder="Email"
-                    onChange={(target)=>setEmail(target.value)}
+                    onChange={(e)=>setEmail(e.target.value)}
                     required/>
                 <input
                     type="text"
                     value={username}
                     name="name"
                     placeholder="Username"
-                    onChange={(target)=>setUsername(target.value)}
+                    onChange={(e)=>setUsername(e.target.value)}
                     required/>
                 <input
                     type="password"
                     value={password}
                     name="password"
                     placeholder="Password"
-                    onChange={(target)=>setPassword(target.value)}
+                    onChange={(e)=>setPassword(e.target.value)}
                     required/>
                 <button>Register</button>
             </form>

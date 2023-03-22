@@ -11,7 +11,7 @@ export default function Login(){
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         const credentials = { username, password };
     
         try {
@@ -33,19 +33,20 @@ export default function Login(){
         }
       };
 
+
     return <div className="body"> 
         <div className="card">
             <div className="title">
                 <h1>LOG IN</h1>
             </div>
-            {error && <div>{error}</div>}
+            {error && <div className="error-div">{error}</div>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
                     value={username}
                     name="name"
                     placeholder="Username"
-                    onChange={(e)=>setUsername(e.target.value)}
+                    onChange={(e)=>{setUsername(e.target.value); setError(null)}}
                     required/>
                 <input
                     type="password"
