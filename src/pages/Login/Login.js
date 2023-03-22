@@ -7,38 +7,38 @@ export default function Login(){
     const navigate = useNavigate()
     const [username, setUsername] = useState("");
     const [password,setPassword] = useState("");
+    const [error, setError] = useState(null)
 
-    const user = {username,password}
-
-    function handleSubmit(event){
-        event.preventDefault()
-        fetch("http://localhost:8080/login",{
-            headers:{
-                "Content-Type":"application/json"
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        const credentials = { username, password };
+    
+        try {
+          const response = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
             },
-            method:"post",
-            body: JSON.stringify(user)
-        }).then((response)=>{
-            if (!response.ok) {
-            throw new Error(response.statusText);
-            }
-            return response.json()})
-            .then(data=>{
-                localStorage.setItem("token",data)
-                navigate("/")
-            })
-            .catch(error=>{
-            alert("Wrong Credentials")
-            console.error("error: ", error )
-            })
-        
-    }
+            body: JSON.stringify(credentials),
+          });
+          if (!response.ok) {
+            throw new Error(await response.text());
+          }
+          const data = await response.json();
+          localStorage.setItem("token",data.token);
+          navigate("/");
+        } catch (error) {
+          setError(error.message);
+        }
+      };
 
     return <div className="body"> 
         <div className="card">
             <div className="title">
                 <h1>LOG IN</h1>
             </div>
+            {error && <div>{error}</div>}
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
