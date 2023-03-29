@@ -8,11 +8,10 @@ export default function Login(){
     const [username, setUsername] = useState("");
     const [password,setPassword] = useState("");
     const [error, setError] = useState(null)
+    const user = {username,password}
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        const credentials = { username, password };
     
         try {
           const response = await fetch("http://localhost:8080/login", {
@@ -20,7 +19,7 @@ export default function Login(){
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(credentials),
+            body: JSON.stringify(user),
           });
           if (!response.ok) {
             throw new Error(await response.text());
@@ -32,6 +31,7 @@ export default function Login(){
           setError(error.message);
         }
       };
+
 
 
     return <div className="body"> 

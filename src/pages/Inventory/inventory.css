@@ -1,0 +1,33 @@
+:root{
+    --primary-violet:#8c20e7;
+    --secondary-violet:#6e13b9;
+}
+
+.form-card{
+    border: 1px solid var(--primary-violet);
+    color: white;
+    box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+.form-control.input-focus{
+    color: white !important;
+    border: 1px solid var(--primary-violet);
+}
+
+.btn.btn-violet{
+    border-color: var(--primary-violet);
+    background-color: var(--primary-violet);
+    color: white;
+}
+
+.btn.btn-violet:hover{
+    background-color: var(--secondary-violet);
+    border-color:var(--secondary-violet);
+}
+
+
+.btn.btn-violet:active{
+    background-color: var(--secondary-violet) !important;
+    border-color:var(--secondary-violet) !important;
+}
+

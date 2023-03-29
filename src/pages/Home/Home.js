@@ -6,6 +6,7 @@ import "./Home.css"
 export default function Home(){
     
     const navigate = useNavigate()
+    
     useEffect(()=>{
     if(!localStorage.getItem("token")){
       navigate("/login")

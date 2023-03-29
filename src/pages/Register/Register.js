@@ -9,7 +9,6 @@ export default function Register(){
     const [password,setPassword] = useState("");
     const[error,setError]=useState(null)
 
-
     async function handleSubmit(event){
         event.preventDefault()
         const user={username,password,email}
@@ -33,6 +32,8 @@ export default function Register(){
             setError(error.message)
         }
     }
+
+
     
     return <div className="body"> 
         <div className="card">
