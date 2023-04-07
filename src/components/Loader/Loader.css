@@ -1,0 +1,7 @@
+@import url("/src/App.css");
+
+.spinner-border{
+    color: var(--primary-violet);
+    height: 60px !important;
+    width: 60px !important;
+}

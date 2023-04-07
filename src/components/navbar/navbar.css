@@ -1,33 +1,14 @@
-.nav-bar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    background-color: rgb(61, 14, 162);
-}
+@import url("/src/App.css");
 
-.profile-div{
-    border-radius: 50%;
-    border:3px solid white;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.search-btn{
+    border-color: var(--primary-violet) !important;
+    color: var(--primary-violet) !important;
 }
 
 
-.log-out{
-    border-radius: 5px;
-    height: 40px;
-    width: 90px;
-    background-color: transparent;
-    border: 2px solid blue;
-    color: white;
-    cursor: pointer;
-}
-
-.log-out:hover{
-    background-color: blue;
-    transition: .4s;
+.search-btn:hover{
+    background-color: var(--primary-violet) !important;
+    color: white !important;
 }
 

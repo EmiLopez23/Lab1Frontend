@@ -1,11 +1,19 @@
-*{
-  font-family: 'Open Sans', sans-serif;
+:root{
+  --primary-violet:#8c20e7;
+  --secondary-violet:#6e13b9;
 }
-.App-header{
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
+
+.form-card{
+  border: 1px solid var(--primary-violet);
+  box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
+}
+
+.validation-form-control{
+  height: 50px;
+}
+
+.link{
+  color: var(--primary-violet);
 }
 
 

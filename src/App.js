@@ -1,21 +1,32 @@
 import './App.css';
-import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import Inventory from './pages/Inventory/Inventory';
+import { BrowserRouter as Router, Route, Navigate} from 'react-router-dom';
+import RoutesWithNotFound from './utilities/RoutesWithNotFound';
+import { PrivateRoutes, PublicRoutes } from './routes/Routes';
+import AuthGuard from './guards/AuthGuard';
+import { Suspense, lazy } from 'react';
+import Loader from './components/Loader/Loader';
+
+const Login = lazy(()=> import("./pages/Login/Login"))
+const Register = lazy(()=> import('./pages/Register/Register'))
+const Home = lazy(()=>import('./pages/Home/Home'))
+const Inventory = lazy(()=>import('./pages/Inventory/Inventory'))
 
 function App() {
 
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<Home/>} />
-        <Route exact path="/login" element={<Login/>} />
-        <Route exact path="/register" element={<Register/>} />
-        <Route exact path="/inventory" element={<Inventory/>} />
-      </Routes>
-    </Router>
+    <Suspense fallback={<Loader/>}>
+      <Router>
+        <RoutesWithNotFound>
+          <Route path='/' element={<Navigate replace to={PrivateRoutes.HOME}/>}/>
+          <Route exact path={PublicRoutes.LOGIN} element={<Login/>} />
+          <Route exact path={PublicRoutes.REGISTER} element={<Register/>} />
+          <Route element={<AuthGuard/>}>
+            <Route exact path={PrivateRoutes.HOME} element={<Home/>} />
+            <Route exact path={PrivateRoutes.INVENTORY} element={<Inventory/>}/>
+          </Route>
+        </RoutesWithNotFound>
+      </Router>
+    </Suspense>
   );
 }
 
