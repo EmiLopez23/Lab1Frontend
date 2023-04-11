@@ -6,7 +6,7 @@ import { UserContext } from "../../contexts/UserContext";
 import AddItem from "../../components/AddItem/AddItem";
 
 export default function Inventory(){
-    const {token} = useContext(UserContext)
+    const {token,role} = useContext(UserContext)
     const [items,setItems] = useState([])
     const [add,setAdd] = useState(false)
 
@@ -39,12 +39,13 @@ export default function Inventory(){
         <div>
             <h1 className="text-light">Inventory</h1>
         </div>
+        {role==="ADMIN" &&
         <div className="d-flex justify-content-end ">
             <button onClick={open} className="btn add-btn">Add New Item</button>
+        </div>}
+        <div className="items-container p-3">
+            {items.map(item=><ItemCard key={item.name} item={item}/>)}
         </div>
-            <div className="items-container p-3">
-                {items.map(item=><ItemCard key={item.name} item={item}/>)}
-            </div>
         </div>
         {add && <div className="popup-container">
             <AddItem/>
