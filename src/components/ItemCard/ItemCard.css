@@ -1,0 +1,13 @@
+@import url("/src/App.css");
+.item-card{
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    color: white;
+    padding: 5px;
+}
+
+.item-img{
+    width: 134px;
+    height: auto;
+}

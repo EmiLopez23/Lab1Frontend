@@ -4,6 +4,7 @@ import FormButton from "../../components/button/FormButton";
 import "./Login.css"
 import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
+import ApiService from "../../services/ApiService";
 
 
 export default function Login(){
@@ -11,7 +12,7 @@ export default function Login(){
     const [user,setUser] = useState({username:"",password:""})
     const [error, setError] = useState(false)
     const [validation,SetValidation] = useState(false)
-    const {updateToken} = useContext(UserContext)
+    const {login} = useContext(UserContext)
 
 
     const handleInputChange = (event)=>{
@@ -20,31 +21,27 @@ export default function Login(){
     }
 
 
-    const handleSubmit = async (event) => {
+    async function handleSubmit(event){
       event.preventDefault();
+      
       if(!event.target.checkValidity()){
-        event.stopPropagation()
-        SetValidation(true)}
-      else{
-        try {
-          const response = await fetch("http://localhost:8080/api/auth/login", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-          });
-          if (!response.ok) {
-            throw new Error(await response.text());
-          }
-          const data = await response.json();
-          updateToken(data.token)
+        event.stopPropagation();
+        SetValidation(true)
+        return;
+      }
+      
+      
+      try {  
+          const data = await ApiService.login(user)
+          login(data.token, data.role)
           navigate("/", { replace: true })
+
         } catch (error) {
           setError(true)
+          SetValidation(false)
         }
-      }
-     };
+      
+      };
 
 
 
@@ -79,23 +76,3 @@ export default function Login(){
       </div>
     </div>
 }
-
-//<input
-//type="password"
-//value={password}
-//name="password"
-//id="password"
-//className="form-control"
-//placeholder="Password"
-//onChange={(e)=>setPassword(e.target.value)}
-//required/>
-
-//<input
-//type="text"
-//value={username}
-//name="name"
-//id="username"
-//className="form-control"
-//placeholder="Username"
-//onChange={(e)=>{setUsername(e.target.value); setError(null)}}
-//required/>

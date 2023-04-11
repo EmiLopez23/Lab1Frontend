@@ -1,24 +1,30 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState} from "react";
 
 const UserContext = createContext();
 
-const UserProvider = ({ children }) => {
-    const [token, setToken] = useState(localStorage.getItem("token"));
+function UserProvider({ children }) {
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [role, setRole] = useState(localStorage.getItem("role"));
 
-    useEffect(()=>{
-      setToken(localStorage.getItem("token"))
-    },[])
-
-    const updateToken = (newToken) => {
-        localStorage.setItem("token",newToken)
-        setToken(newToken)
-    }
-  
-    return (
-      <UserContext.Provider value={{token,updateToken}}>
-        {children}
-      </UserContext.Provider>);
+  const login = (token,role) => {
+    setToken(token);
+    setRole(role)
+    localStorage.setItem("token", token);
+    localStorage.setItem("role", role);
   };
 
+  const logout = () => {
+    setToken(null);
+    setRole(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+  };
 
-export { UserContext, UserProvider };
+  return (
+    <UserContext.Provider value={{ token, role, login, logout}}>
+      {children}
+    </UserContext.Provider>
+  )
+}
+
+export { UserContext, UserProvider }

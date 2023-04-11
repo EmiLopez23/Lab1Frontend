@@ -4,13 +4,14 @@ import FormButton from "../../components/button/FormButton";
 import "./Register.css"
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import ApiService from "../../services/ApiService";
 
 
 export default function Register(){
     const navigate = useNavigate()
     const [newUser,setNewUser] = useState({email:"", username:"",password:""})
     const[error,setError]=useState(false)
-    const {updateToken} = useContext(UserContext)
+    const {login} = useContext(UserContext)
     const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"); 
     
     
@@ -19,8 +20,7 @@ export default function Register(){
         setNewUser({...newUser,[name]:value})
 
         if (name === 'password') {
-            const isValid = passwordRegex.test(value);
-            isValid 
+            passwordRegex.test(value) 
             ? event.target.classList.remove("is-invalid")
             : event.target.classList.add("is-invalid");
           }
@@ -28,39 +28,20 @@ export default function Register(){
 
     async function handleSubmit(event){
         event.preventDefault()
-        if (event.target.elements.password.validity.patternMismatch) {
-            setError(true);
-            console.log("La contraseña no cumple con el patrón especificado");
-            
-            console.log(passwordRegex.test(newUser.password))
-          }
-        else if(!event.target.checkValidity()){
+        if(!event.target.checkValidity()){
             event.stopPropagation()
             setError(true)
-            console.log("NO se mando el formulario")
+            return;
         }
-        else{
-            console.log("se mando el formulario")
-           // try{
-           //     const response = await fetch("http://localhost:8080/api/auth/register", {
-           //         method: "POST",
-           //         headers: {
-           //           "Content-Type": "application/json",
-           //         },
-           //         body: JSON.stringify(newUser),
-           //       })
-           //   
-           //     if (!response.ok) {
-           //         throw new Error(await response.text());
-           //         }
-           //     const data = await response.json();
-           //     updateToken(data.token)
-           //     navigate("/")
-           // }catch(error){
-           //     setError(true)
-           // }
+        try{
+            const data = await ApiService.register(newUser)
+            login(data.token, data.role)
+            navigate("/", { replace: true })
+
+        }catch(error){
+            setError(true)
         }
-    }
+        }
 
 
 
@@ -93,25 +74,3 @@ export default function Register(){
     </div>
 }
 
-
-//<input
-//type="email"
-//value={email}
-//name="email"
-//placeholder="Email"
-//onChange={(e)=>setEmail(e.target.value)}
-//required/>
-//<input
-//type="text"
-//value={username}
-//name="name"
-//placeholder="Username"
-//onChange={(e)=>setUsername(e.target.value)}
-//required/>
-//<input
-//type="password"
-//value={password}
-//name="password"
-//placeholder="Password"
-//onChange={(e)=>setPassword(e.target.value)}
-//required/>

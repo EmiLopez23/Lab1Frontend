@@ -1,0 +1,6 @@
+@import url("/src/App.css");
+
+.form-control.input-focus{
+    border: 1px solid var(--primary-violet);
+}
+
