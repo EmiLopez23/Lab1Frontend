@@ -1,51 +1,74 @@
-import React, { useContext, useState } from "react";
+import React, {useEffect, useState } from "react";
 import "./AddItem.css"
-import Games from "../../pages/Inventory/Games";
 import FormButton from "../button/FormButton";
-import { UserContext } from "../../contexts/UserContext";
+import ItemInput from "../ItemInput/ItemInput";
 
 export default function AddItem(){
+    const[games,setGames]=useState({})
     const[item,setItem] = useState({
         name:"",
+        game:"",
+        valuesId:[],
         img:null,
-        game:"CS:GO",
-        category:null,
-        rarity:null
-    })
-    const [validated, setValidated] = useState(false);
-    const games = Games
+        
+    })  
+    
+
+    useEffect(()=>{
+        fetch("http://localhost:8080/games/all")
+        .then(resp=>resp.json())
+        .then(data=>{
+            let dataToReturn = {}
+            
+            data.forEach((item)=> {
+              dataToReturn = {
+                ...dataToReturn,
+                [item.name]: item
+              }
+             })
+          setGames(dataToReturn)
+         })
+    },[])
 
     const handleInputChange = (event)=>{
         const name = event.target.name
         let value= event.target.value;
-        if(name==="img"){
-            value = event.target.files[0]}
-        
-        setItem({...item,[name]:value})
+        if(name === "valuesId"){
+            setItem((prevItem) => {
+                const newValuesId = [value];
+                return {
+                  ...prevItem,
+                  valuesId: [...prevItem.valuesId, ...newValuesId]
+                };
+              })
+        }
+        else{setItem({...item,[name]:value})}
+      }
+
+      function handleImageChange(event) {
+        setItem({ ...item, img: event.target.files[0] });
       }
 
     function handleSubmit(event){
         event.preventDefault()
-        const form = event.target;
-        //if (!form.checkValidity()) {
-        //    event.stopPropagation();
-        //    return;
-        //    
-        //}
-        setValidated(true); 
-        const formData = new FormData(form);
-        const gameType = item.game === "CS:GO" ? "cs" : "rocket";
-        const url = `http://localhost:8080/inventory/item/${gameType}/add`;
-        fetch(url,{
+        const form = new FormData()
+        form.append("name",item.name)
+        form.append("game",item.game)
+        form.append("valuesId",item.valuesId)
+        form.append("img",item.img)
+        console.log(item)
+        console.log(form)
+        fetch("http://localhost:8080/inventory/item/add",{
             method:"POST",
-            body:formData,
-            headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}
-        }).then(console.log("succesfully created"))
-        .catch(err=>console.log(err))
+            headers:{
+                'enctype': 'multipart/form-data'
+            },
+            body: form
+        }).then(resp=>console.log(resp))
     }
     
     return <> 
-    <form onSubmit={handleSubmit} className={`rounded-3 p-5 form-card  bg-dark ${validated ? "was-validated" : "needs-validation"} text-light`} noValidate>
+    <form onSubmit={handleSubmit} className={`rounded-3 p-5 form-card  bg-dark text-light`} noValidate>
         
         <div id="game" className="mb-3 form-group">
         <label htmlFor="game-select" className="form-label">Game</label>
@@ -55,50 +78,18 @@ export default function AddItem(){
         name="game" 
         onChange={handleInputChange} 
         required>
-            {games.map(game=><option value={game.name} key={game.name}>{game.name}</option>)}
+            <option value="" hidden defaultValue>Select Game...</option>
+            {Object.values(games).map(game=><option value={game.name} key={game.name}>{game.name}</option>)}
         </select>
-        <div className="invalid-feedback">Please select a game.</div>
         </div>
 
         <div id="name" className="mb-3 form-group">
         <label htmlFor="name-select" className="form-label">Name</label>
         <input className="form-control" id="name-select" type="text" placeholder="Name" name="name" value={item.name} onChange={handleInputChange} required/>
-        <div className="invalid-feedback">Item should have a name.</div>
         </div>
         
 
-        <div id="category" className="mb-3 form-group">
-        <label htmlFor="Category" className="form-label">Category</label>
-        <select 
-        className="form-select" 
-        id="Category" 
-        name="category" 
-        onChange={handleInputChange} 
-        required>
-
-            <option defaultValue hidden value="">Select Category</option>
-            {games.find((game)=>game.name===item.game).categories.map(cat=><option value={cat} key={cat}>{cat}</option>)}
-        
-        </select>
-        <div className="invalid-feedback">Item must have a category.</div>
-        </div>
-        
-
-        <div id="rarity" className="mb-3 form-group">
-        <label htmlFor="Rarity" className="form-label">Rarity</label>
-        <select 
-        className="form-select" 
-        id="Rarity" 
-        name="rarity" 
-        onChange={handleInputChange} 
-        required>
-
-            <option defaultValue hidden value="">Select Rarity</option>
-            {games.find((game)=>game.name===item.game).rarity.map(rar=><option value={rar} key={rar}>{rar}</option>)}
-
-        </select>
-        <div className="invalid-feedback">Item must have a rarity.</div>
-        </div>
+        {games[item.game]?.categories.map((category,index)=><ItemInput category={category} key={index} onChange={handleInputChange}/>)}
 
 
         <div id="img" className="mb-3 form-group">
@@ -108,9 +99,9 @@ export default function AddItem(){
         className="form-control input-focus bg-dark text-light" 
         type="file" 
         name="img"
-        onChange={handleInputChange} 
+        onChange={handleImageChange} 
         required/>
-        <div className="invalid-feedback">Please select an image.</div>
+        
         </div>
 
 

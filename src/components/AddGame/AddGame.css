@@ -1,0 +1,22 @@
+.parking{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+  gap: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  max-width: 80%;
+}
+
+.grid-square{
+    height: 50px;
+    width: 50px;
+    
+}
+
+.free{
+    background-color: green;
+}
+
+.occupied{
+    background-color: red;
+}

@@ -3,6 +3,10 @@
   --secondary-violet:#6e13b9;
 }
 
+.header{
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(255,255,255,0.15);
+}
+
 .form-card{
   border: 1px solid var(--primary-violet);
   box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
@@ -14,6 +18,23 @@
 
 .link{
   color: var(--primary-violet);
+}
+
+.btn.btn-violet{
+    border-color: var(--primary-violet);
+    background-color: var(--primary-violet);
+    color: white;
+}
+
+.btn.btn-violet:hover{
+    background-color: var(--secondary-violet);
+    border-color:var(--secondary-violet);
+}
+
+
+.btn.btn-violet:active{
+    background-color: var(--secondary-violet) !important;
+    border-color:var(--secondary-violet) !important;
 }
 
 
