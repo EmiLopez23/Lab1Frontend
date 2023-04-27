@@ -5,6 +5,7 @@ import ItemInput from "../ItemInput/ItemInput";
 
 export default function AddItem(){
     const[games,setGames]=useState({})
+    const[success,setSuccess]=useState(false)
     const[item,setItem] = useState({
         name:"",
         game:"",
@@ -64,11 +65,18 @@ export default function AddItem(){
                 'enctype': 'multipart/form-data'
             },
             body: form
-        }).then(resp=>console.log(resp))
+        }).then(resp=>{
+          if(resp.ok){setSuccess(true)}
+          else{throw new Error("Error while creating Item")}
+        }).catch(err=>console.log(err.message))
     }
     
     return <> 
     <form onSubmit={handleSubmit} className={`rounded-3 p-5 form-card  bg-dark text-light`} noValidate>
+        {success &&
+          <div class="alert alert-success" role="alert">
+          Succesfully Created
+        </div>}
         
         <div id="game" className="mb-3 form-group">
         <label htmlFor="game-select" className="form-label">Game</label>

@@ -5,6 +5,7 @@ import { UserContext } from "../../contexts/UserContext"
 export default function AddToInventory(){
     const {token} = useContext(UserContext)
     const[games,setGames]=useState({})
+    const[success,setSuccess]=useState(false)
     const[game,setGame]=useState("")
     const[itemtoAdd,setItemToAdd] = useState({
         quantity:1,
@@ -47,7 +48,7 @@ export default function AddToInventory(){
             },
             body:JSON.stringify(itemtoAdd)
         }).then(resp=>{
-            if(resp.ok){console.log("succes")}
+            if(resp.ok){setSuccess(true)}
             else{
                 throw new Error("Error")
             }
@@ -56,7 +57,11 @@ export default function AddToInventory(){
 
 
     return (
-        <form onSubmit={handleSubmit} className={`rounded-3 p-5 form-card  bg-dark text-light`} noValidate>
+        <form onSubmit={handleSubmit} className={`rounded-3 p-5 form-card  bg-dark text-light`}>
+            {success &&
+                <div class="alert alert-success" role="alert">
+                    Succesfully added
+                </div>}
             <div className="mb-3 form-group">
                 <label className="form-label">Game</label>
                 <select className="form-control" value={game} name="game" onChange={handleGameChange} required>

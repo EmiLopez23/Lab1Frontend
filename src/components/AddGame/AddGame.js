@@ -6,6 +6,7 @@ import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
 export default function AddGame(){
     const [game,setGame] = useState("")
+    const[success,setSuccess]=useState(false)
     const [inputValues, setInputValues] = useState([{ category: "", values: "" }]);
 
   function addCategory() {
@@ -24,19 +25,21 @@ export default function AddGame(){
       body:JSON.stringify({game,inputValues})
     })
     .then(resp=>{
-      if(resp.ok){
-        console.log("succesfully created")
-      }
+      if(resp.ok){setSuccess(true)}
       else{
-        throw new Error("pifiaste pa")
-      }
+        throw new Error("Could not create Game")
+        }
     })
     .catch(error=>console.error(error.message))
   }
 
     
     return <div className="d-flex justify-content-center align-items-center">
-        <form className="rounded-3 p-5 form-card  bg-dark text-light">  
+        <form className="rounded-3 p-5 form-card  bg-dark text-light">
+        {success &&
+                <div class="alert alert-success" role="alert">
+                    Succesfully Created New Game
+                </div>}  
         <div className="form-group">
             <label className="form-label text-light">Insert Game Name</label>
             <input className="form-control" id="game-name" value={game} placeholder="Game Name" onChange={e=>setGame(e.target.value)} required/>

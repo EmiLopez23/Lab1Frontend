@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FormButton from "../../components/button/FormButton";
 import "./Login.css"
@@ -12,7 +12,13 @@ export default function Login(){
     const [user,setUser] = useState({username:"",password:""})
     const [error, setError] = useState(false)
     const [validation,SetValidation] = useState(false)
-    const {login} = useContext(UserContext)
+    const {login,token} = useContext(UserContext)
+
+    useEffect(()=>{
+      if(token){
+        navigate("/", { replace: true })
+      }
+    })
 
 
     const handleInputChange = (event)=>{

@@ -6,15 +6,4 @@
     gap: 10px;
 }
 
-.add-btn{
-    border-color: var(--primary-violet);
-    color: var(--primary-violet);
-}
-
-
-.add-btn:hover{
-    background-color: var(--primary-violet);
-    color: white;
-}
-
 

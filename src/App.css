@@ -26,6 +26,17 @@
     color: white;
 }
 
+.btn.btn-outline-violet{
+  border-color: var(--primary-violet);
+  color: var(--primary-violet);
+}
+
+
+.btn.btn-outline-violet:hover{
+    background-color: var(--primary-violet);
+    color: white;
+}
+
 .btn.btn-violet:hover{
     background-color: var(--secondary-violet);
     border-color:var(--secondary-violet);

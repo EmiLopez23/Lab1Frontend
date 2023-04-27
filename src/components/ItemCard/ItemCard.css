@@ -1,13 +1,41 @@
 @import url("/src/App.css");
+
 .item-card{
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    color: white;
-    padding: 5px;
+    position: relative;
+    background-color: black;
 }
 
 .item-img{
     width: 134px;
     height: auto;
+}
+
+.info-btn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(33,37,41,0.5);
+    opacity: 0;
+}
+
+.info-button{
+    border-color: white;
+    color: white;
+    transition: 0.4s;
+
+}
+
+.info-button:hover{
+    background-color: black;
+    box-shadow: 0 0 9px 4px rgb(148 24 236);
+    color: white;
+}
+
+.info-btn:hover{
+    opacity: 1;
 }

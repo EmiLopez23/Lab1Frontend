@@ -24,30 +24,6 @@ export default function Inventory(){
         })
     },[token])
 
-    
-    function openItemToInventoryAdder(){
-        toggleToInventory(true)
-    }
-
-    function closeItemToInventoryAdder(){
-        toggleToInventory(false)
-    }
-
-    function openItemGenerator(){
-        toggleItem(true)
-    }
-
-    function closeItemGenerator(){
-        toggleItem(false)
-    }
-
-    function openGameGenerator(){
-        toggleGame(true)
-    }
-
-    function closeGameGenerator(){
-        toggleGame(false)
-    }
 
 
     return <>
@@ -58,14 +34,14 @@ export default function Inventory(){
         
         <div className="d-flex justify-content-end gap-2">
             <div className="">
-                <button onClick={openItemToInventoryAdder} className="btn add-btn">Add Item to Inventory</button>
+                <button onClick={()=>toggleToInventory(true)} className="btn btn-outline-violet">Add Item to Inventory</button>
             </div>
             {role==="ADMIN" && <>
                 <div className="">
-                    <button onClick={openGameGenerator} className="btn add-btn">Add Game</button>
+                    <button onClick={()=>toggleGame(true)} className="btn btn-outline-violet">Add Game</button>
                 </div>
                 <div className="">
-                    <button onClick={openItemGenerator} className="btn add-btn">Add New Item</button>
+                    <button onClick={()=>toggleItem(true)} className="btn btn-outline-violet">Add New Item</button>
                 </div>
             </>
             }
@@ -74,8 +50,8 @@ export default function Inventory(){
             {items.map(item=><ItemCard key={item.name} item={item}/>)}
         </div>
         </div>
-        {addToInventory && <PopUpContainer element={<AddToInventory/>} onClick={closeItemToInventoryAdder}/>}
-        {addItem && <PopUpContainer element={<AddItem/>} onClick={closeItemGenerator} />}
-        {addGame && <PopUpContainer element={<AddGame/>} onClick={closeGameGenerator} />}
+        {addToInventory && <PopUpContainer element={<AddToInventory/>} onClick={()=>toggleToInventory(false)}/>}
+        {addItem && <PopUpContainer element={<AddItem/>} onClick={()=>toggleItem(false)} />}
+        {addGame && <PopUpContainer element={<AddGame/>} onClick={()=>toggleGame(false)} />}
     </> 
 }
