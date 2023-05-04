@@ -5,6 +5,7 @@ import AddItem from "../../components/AddItem/AddItem";
 import PopUpContainer from "../../components/PopUpContainer/PopUpContainer";
 import AddGame from "../../components/AddGame/AddGame";
 import GeneralInventory from "../../components/Inventories/GeneralInventory";
+import PersonalInventory from "../../components/Inventories/PersonalInventory";
 
 export default function Inventory(){
     const {role} = useContext(UserContext)
@@ -15,7 +16,7 @@ export default function Inventory(){
 
 
     return <>
-        <div className="main-section px-5">
+        <div className="main-section px-5 mt-4">
         
         <div className="d-flex justify-content-between align-items-center gap-2">
             <div className="d-flex gap-2">
@@ -35,7 +36,8 @@ export default function Inventory(){
         {inventory === 0 ?
             <GeneralInventory/>
         :
-        <div></div>}
+            <PersonalInventory/>
+        }
         </div>
         {addItem && <PopUpContainer element={<AddItem/>} onClick={()=>toggleItem(false)} />}
         {addGame && <PopUpContainer element={<AddGame/>} onClick={()=>toggleGame(false)} />}

@@ -4,8 +4,7 @@ export default function Home(){
 
 
 
-    return <div className="home">
-            <div className="main p-5 vh-100">
-            </div>
+    return <div className="home mt-4 vh-100 d-flex align-items-center justify-content-center">
+            <h1 className="text-light">Coming Soon...</h1>
             </div>
 }

@@ -1,24 +1,31 @@
 import { useContext, useEffect, useState } from "react"
 import "./GeneralInventory.css"
+import "./PersonalInventory.css"
 import { UserContext } from "../../contexts/UserContext"
 import ItemCard from "../ItemCard/ItemCard"
-import{ApiURL} from ".../"
 
 export default function PersonalInventory(){
     const {token} = useContext(UserContext)
-    const [items,setItems] = useState([])
+    const [itemsData,setItemsData] = useState([])
 
     useEffect(()=>{
-        fetch(ApiURL.localHost + "inventory/all", {
-            method: "GET"
+        fetch("http://localhost:8080/user/inventory", {
+            headers:{
+                Authorization:`Bearer ${token}`,
+            }
         })
         .then(res => res.json())
         .then(data =>{
-            setItems(data)
+            console.log(data)
+            setItemsData(data)
         })
     },[token])
 
     return <div className="inventory-container py-3">
-            {items.map(item=><ItemCard key={item.name} item={item}/>)}
+            {itemsData.map((data,index)=>
+                <div className="personal-items-container" key={index}>
+                <div className="personal-item-qty" key={data.quantity}>{data.quantity}</div>
+                <ItemCard key={data.item.name} showBtn={false} item={data.item}/>
+                </div>)}
         </div>
 }

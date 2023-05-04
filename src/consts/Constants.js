@@ -8,7 +8,3 @@ export const PrivateRoutes = {
     HOME: "home",
     INVENTORY:"inventory"
 }
-
-export const ApiURL = {
-    localHost: "http://localhost:8080/"
-}

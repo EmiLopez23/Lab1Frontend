@@ -12,9 +12,8 @@ export default function Navbar(){
     return <div className="navbar navbar-expand-lg bg-dark p-3 justify-content-between">
     <div className="items-container">
       <ul className="navbar-items">
+        <li className="navbar-li"><Link className="navbar-link" to={"/"}>Home</Link></li>
         <li className="navbar-li"><Link className="navbar-link" to={"/inventory"}>Inventory</Link></li>
-        <li className="navbar-li"><Link className="navbar-link">Most Wanted</Link></li>
-        <li className="navbar-li"><Link className="navbar-link">All</Link></li>
       </ul>
             
     </div>

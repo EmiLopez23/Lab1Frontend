@@ -6,7 +6,6 @@ import AuthGuard from './guards/AuthGuard';
 import { Suspense, lazy } from 'react';
 import Loader from './components/Loader/Loader';
 import { UserProvider } from './contexts/UserContext';
-import AddGame from './components/AddGame/AddGame';
 import Wrapper from './wrapper/Wrapper';
 
 const Login = lazy(()=> import("./pages/Login/Login"))
@@ -29,7 +28,6 @@ function App() {
               <Route element={<Wrapper/>}>
               <Route exact path={PrivateRoutes.HOME} element={<Home/>} />
               <Route exact path={PrivateRoutes.INVENTORY} element={<Inventory/>}/>
-              <Route exact path="/add" element={<AddGame/>}/>
               </Route>
             </Route>
           </RoutesWithNotFound>

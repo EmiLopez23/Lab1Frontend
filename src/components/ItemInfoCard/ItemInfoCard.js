@@ -5,15 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck,faCircleXmark } from "@fortawesome/free-solid-svg-icons"
 
 
-export default function ItemInfoCard({item}){
+export default function ItemInfoCard({item, showBtn}){
     const {token} = useContext(UserContext)
     const [qty, setQty] = useState(null)
     const [AddStep,setAddStep] = useState(0)
 
     function handleSubmit(event){
         event.preventDefault()
-        console.log({itemId: item.id,quantity: qty})
         setAddStep(1)
+        console.log({itemId: item.id,quantity: qty})
         fetch("http://localhost:8080/user/inventory/addItem",{
             method:"POST",
             headers:{
@@ -68,7 +68,8 @@ export default function ItemInfoCard({item}){
                     </div>
                 </div>
             </div>
-            <div className="add-to-inventory-container mt-4">
+            {showBtn &&
+                <div className="add-to-inventory-container mt-4">
                 <div className="add-to-inventory-input">
                     <input type="number" className="form-control" name="quantity" placeholder="Quantity" min={1} onChange={(e)=>{setQty(e.target.value); setAddStep(0)}} required/>
                 </div>
@@ -77,7 +78,7 @@ export default function ItemInfoCard({item}){
                 </div>
                 
                 
-            </div>
+            </div>}
         </>
     )
 }

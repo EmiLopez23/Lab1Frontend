@@ -5,7 +5,7 @@ import { faInfo } from "@fortawesome/free-solid-svg-icons";
 import ItemInfoCard from "../ItemInfoCard/ItemInfoCard";
 import PopUpContainer from "../PopUpContainer/PopUpContainer";
 
-export default function ItemCard({item}){
+export default function ItemCard({item, showBtn=true}){
     const [info,showInfo] = useState(false)
     return <div className="rounded-1 item-card">
         <div>
@@ -14,6 +14,6 @@ export default function ItemCard({item}){
         <div className="info-btn">
             <button className="btn rounded-5 info-button" onClick={()=>showInfo(true)}><FontAwesomeIcon className="mx-1" icon={faInfo} /></button>
         </div>
-        {info && <PopUpContainer element={<ItemInfoCard item={item}/>} onClick={()=>showInfo(false)}/>}
+        {info && <PopUpContainer element={<ItemInfoCard item={item} showBtn={showBtn}/>} onClick={()=>showInfo(false)}/>}
     </div>
 }
