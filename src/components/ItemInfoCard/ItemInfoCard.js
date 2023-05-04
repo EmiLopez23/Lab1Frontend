@@ -13,7 +13,6 @@ export default function ItemInfoCard({item, showBtn}){
     function handleSubmit(event){
         event.preventDefault()
         setAddStep(1)
-        console.log({itemId: item.id,quantity: qty})
         fetch("http://localhost:8080/user/inventory/addItem",{
             method:"POST",
             headers:{
@@ -22,7 +21,7 @@ export default function ItemInfoCard({item, showBtn}){
             },
             body:JSON.stringify({itemId: item.id,quantity: qty})
         }).then(resp=>{
-            if(resp.ok){}
+            if(resp.ok){console.log(resp)}
             else{
                 throw new Error("Error")
             }

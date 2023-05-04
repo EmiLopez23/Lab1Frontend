@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import FormButton from "../../components/button/FormButton";
 import "./Register.css"
@@ -11,10 +11,16 @@ export default function Register(){
     const navigate = useNavigate()
     const [newUser,setNewUser] = useState({email:"", username:"",password:""})
     const[error,setError]=useState(false)
-    const {login} = useContext(UserContext)
+    const {login,token} = useContext(UserContext)
     const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"); 
     
-    
+    useEffect(()=>{
+        if(token){
+          navigate("/", { replace: true })
+        }
+      })
+
+
     const handleInputChange = (event)=>{
         const{name,value} = event.target;
         setNewUser({...newUser,[name]:value})
@@ -48,7 +54,7 @@ export default function Register(){
     
     return <div className="d-flex justify-content-center align-items-center bg-dark vh-100"> 
         <div className="register text-light form-card p-5 rounded-3">
-            <form className={`mb-5 ${error ? "was-validated" : "needs-validation"}`} onSubmit={handleSubmit} noValidate>
+            <form className={`mb-5 ${error ? "was-validated" : "needs-validation"}`} onSubmit={handleSubmit}>
                 <h3 className="text-center mb-3">REGISTER</h3>
                 <div className="form-group mb-3 ">
                     <label className="form-label">Email</label>

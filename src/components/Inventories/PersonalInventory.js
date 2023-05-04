@@ -16,7 +16,6 @@ export default function PersonalInventory(){
         })
         .then(res => res.json())
         .then(data =>{
-            console.log(data)
             setItemsData(data)
         })
     },[token])
