@@ -1,56 +1,42 @@
-import React, { useContext, useEffect, useState } from "react";
-import ItemCard from "../../components/ItemCard/ItemCard";
+import React, { useContext,useState } from "react";
 import "./Inventory.css"
 import { UserContext } from "../../contexts/UserContext";
 import AddItem from "../../components/AddItem/AddItem";
 import PopUpContainer from "../../components/PopUpContainer/PopUpContainer";
 import AddGame from "../../components/AddGame/AddGame";
-import AddToInventory from "../../components/AddToInventory/AddToInventory";
+import GeneralInventory from "../../components/Inventories/GeneralInventory";
 
 export default function Inventory(){
-    const {token,role} = useContext(UserContext)
-    const [items,setItems] = useState([])
+    const {role} = useContext(UserContext)
     const [addItem,toggleItem] = useState(false)
     const [addGame,toggleGame] = useState(false)
-    const [addToInventory,toggleToInventory] = useState(false)
-
-    useEffect(()=>{
-        fetch("http://localhost:8080/inventory/all", {
-            method: "GET"
-        })
-        .then(res => res.json())
-        .then(data =>{
-            setItems(data)
-        })
-    },[token])
+    const [inventory,setInventory] = useState(0)
 
 
 
     return <>
         <div className="main-section px-5">
-        <div>
-            <h1 className="text-light">Inventory</h1>
-        </div>
         
-        <div className="d-flex justify-content-end gap-2">
-            <div className="">
-                <button onClick={()=>toggleToInventory(true)} className="btn btn-outline-violet">Add Item to Inventory</button>
+        <div className="d-flex justify-content-between align-items-center gap-2">
+            <div className="d-flex gap-2">
+                <button className={`btn toggle-inventory-btn ${inventory===0 ? "active" : ""}`} onClick={()=>setInventory(0)}>All</button>
+                <button className={`btn toggle-inventory-btn ${inventory===1 ? "active" : ""}`} onClick={()=>setInventory(1)}>My Inventory</button>
             </div>
-            {role==="ADMIN" && <>
+            {role==="ADMIN" && <div className="d-flex gap-2">
                 <div className="">
-                    <button onClick={()=>toggleGame(true)} className="btn btn-outline-violet">Add Game</button>
+                    <button onClick={()=>toggleGame(true)} className="btn toggle-inventory-btn">Add Game</button>
                 </div>
                 <div className="">
-                    <button onClick={()=>toggleItem(true)} className="btn btn-outline-violet">Add New Item</button>
+                    <button className="btn toggle-inventory-btn" onClick={()=>toggleItem(true)}>Add New Item</button>
                 </div>
-            </>
+            </div>
             }
         </div>
-        <div className="items-container p-3">
-            {items.map(item=><ItemCard key={item.name} item={item}/>)}
+        {inventory === 0 ?
+            <GeneralInventory/>
+        :
+        <div></div>}
         </div>
-        </div>
-        {addToInventory && <PopUpContainer element={<AddToInventory/>} onClick={()=>toggleToInventory(false)}/>}
         {addItem && <PopUpContainer element={<AddItem/>} onClick={()=>toggleItem(false)} />}
         {addGame && <PopUpContainer element={<AddGame/>} onClick={()=>toggleGame(false)} />}
     </> 

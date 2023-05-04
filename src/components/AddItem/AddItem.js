@@ -9,10 +9,12 @@ export default function AddItem(){
     const[item,setItem] = useState({
         name:"",
         game:"",
-        valuesId:[],
+        valuesId:{},
         img:null,
         
     })  
+
+    const[gameCategories, setCategories] = useState([])
     
 
     useEffect(()=>{
@@ -34,17 +36,23 @@ export default function AddItem(){
     const handleInputChange = (event)=>{
         const name = event.target.name
         let value= event.target.value;
-        if(name === "valuesId"){
-            setItem((prevItem) => {
-                const newValuesId = [value];
-                return {
-                  ...prevItem,
-                  valuesId: [...prevItem.valuesId, ...newValuesId]
-                };
-              })
+        if(gameCategories.includes(name)){
+          setItem((prevItem) => {
+            return {
+              ...prevItem,
+              valuesId: {...prevItem.valuesId, 
+                [name]:value}
+            };
+          })
         }
-        else{setItem({...item,[name]:value})}
-      }
+        else{
+          setItem({...item,[name]:value})
+        }
+        if(name==="game"){
+          setCategories(games[value]?.categories.map(c=>c.name))
+        }
+       }
+
 
       function handleImageChange(event) {
         setItem({ ...item, img: event.target.files[0] });
@@ -55,10 +63,8 @@ export default function AddItem(){
         const form = new FormData()
         form.append("name",item.name)
         form.append("game",item.game)
-        form.append("valuesId",item.valuesId)
+        form.append("valuesId",Object.values(item.valuesId))
         form.append("img",item.img)
-        console.log(item)
-        console.log(form)
         fetch("http://localhost:8080/inventory/item/add",{
             method:"POST",
             headers:{
@@ -72,7 +78,7 @@ export default function AddItem(){
     }
     
     return <> 
-    <form onSubmit={handleSubmit} className={`rounded-3 p-5 form-card  bg-dark text-light`} noValidate>
+    <form onSubmit={handleSubmit} className="text-light">
         {success &&
           <div class="alert alert-success" role="alert">
           Succesfully Created

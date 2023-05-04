@@ -34,8 +34,8 @@ export default function AddGame(){
   }
 
     
-    return <div className="d-flex justify-content-center align-items-center">
-        <form className="rounded-3 p-5 form-card  bg-dark text-light">
+    return <>
+        <form className="text-light">
         {success &&
                 <div class="alert alert-success" role="alert">
                     Succesfully Created New Game
@@ -57,5 +57,5 @@ export default function AddGame(){
                       <button className="btn btn-violet ms-2" onClick={handleSubmit}>Submit</button>
         </div>
         </form>
-    </div>
+    </>
 }

@@ -1,14 +1,38 @@
 .item-info-container{
-    padding: 30px;
     width: max-content;
     height: fit-content;
     gap: 100px;
     align-items: center;    
 }
+.add-to-inventory-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-to-inventory-input{
+    width: 70%;
+}
+
+.add-to-inventory-btn{
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.my-spinner{
+    width: 30px;
+    height: 30px;
+    border: 3px solid var(--primary-violet);
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;;
+}
 
 .item-info-img{
     width: 200px;
     height: auto;
+    background-color: black;
 }
 .categories{
     display: flex;
@@ -21,4 +45,13 @@
     border-radius: 5px;
     color: white;
     
+}
+
+@keyframes spin{
+    0%{
+        transform: rotate(0deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
 }

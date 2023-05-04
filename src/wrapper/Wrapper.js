@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 export default function Wrapper(){
     return(
         <>
-        <div className="header">
+        <div className="header mb-4">
             <Navbar/>
         </div>
         <Outlet/>

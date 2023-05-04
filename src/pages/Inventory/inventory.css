@@ -1,9 +1,32 @@
-@import url("/src/App.css");
+.toggle-inventory-btn{
+    padding: 10px;
+    border: 2px solid var(--primary-violet);
+    color: white;
+}
 
-.items-container{
+.toggle-inventory-btn:hover{
+    padding: 10px;
+    border: 2px solid var(--primary-violet);
+    color: white;
+    background-color: var(--primary-violet);
+}
+
+.toggle-inventory-btn:active,.active {
+    padding: 10px;
+    border: 2px solid var(--primary-violet) !important;
+    color: white !important;
+    background-color: var(--primary-violet) !important;
+}
+
+
+.inventory-container{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
+.plus-icon{
+    margin-left: 2.5px;
+    margin-right: 2.5px;
+}
 

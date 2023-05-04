@@ -1,13 +1,12 @@
 import './App.css';
 import { BrowserRouter as Router, Route, Navigate} from 'react-router-dom';
 import RoutesWithNotFound from './utilities/RoutesWithNotFound';
-import { PrivateRoutes, PublicRoutes } from './routes/Routes';
+import { PrivateRoutes, PublicRoutes } from './consts/Constants.js';
 import AuthGuard from './guards/AuthGuard';
 import { Suspense, lazy } from 'react';
 import Loader from './components/Loader/Loader';
 import { UserProvider } from './contexts/UserContext';
 import AddGame from './components/AddGame/AddGame';
-import Navbar from './components/navbar/Navbar';
 import Wrapper from './wrapper/Wrapper';
 
 const Login = lazy(()=> import("./pages/Login/Login"))

@@ -13,10 +13,10 @@
 }
 
 .close-btn{
-    color: white;
     position: absolute;
     top: 0;
     right: 0;
+    color: white;
     font-size: 2rem;
     margin: 20px;
     cursor: pointer;
