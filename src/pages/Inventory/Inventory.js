@@ -32,6 +32,7 @@ export default function Inventory(){
                 </div>
             </div>
             }
+        
         </div>
         {inventory === 0 ?
             <GeneralInventory/>

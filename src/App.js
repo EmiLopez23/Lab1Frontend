@@ -7,6 +7,7 @@ import { Suspense, lazy } from 'react';
 import Loader from './components/Loader/Loader';
 import { UserProvider } from './contexts/UserContext';
 import Wrapper from './wrapper/Wrapper';
+import CreatePost from './components/CreatePost/CreatePost';
 
 const Login = lazy(()=> import("./pages/Login/Login"))
 const Register = lazy(()=> import('./pages/Register/Register'))
@@ -28,6 +29,7 @@ function App() {
               <Route element={<Wrapper/>}>
               <Route exact path={PrivateRoutes.HOME} element={<Home/>} />
               <Route exact path={PrivateRoutes.INVENTORY} element={<Inventory/>}/>
+              <Route exact path='/create-post' element={<CreatePost/>}/>
               </Route>
             </Route>
           </RoutesWithNotFound>

@@ -15,6 +15,7 @@ export default function Navbar(){
       <img src={logo} alt="logo" className="logo" onClick={()=>navigate("/",{replace:true})}/>
       <ul className="navbar-items">
         <li className="navbar-li"><Link className="navbar-link" to={"/inventory"}>Inventory</Link></li>
+        <li className="navbar-li"><Link className="navbar-link" to={"/create-post"}>Create Post</Link></li>
       </ul>
             
     </div>

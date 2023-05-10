@@ -2,10 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import "./GeneralInventory.css"
 import { UserContext } from "../../contexts/UserContext";
+import Filter from "../Filter/Filter";
+
 
 export default function GeneralInventory(){
     const {token} = useContext(UserContext)
     const [items,setItems] = useState([])
+    const [filteredItems,setFilteredItems] = useState([])
 
     useEffect(()=>{
         fetch("http://localhost:8080/inventory/all", {
@@ -14,10 +17,16 @@ export default function GeneralInventory(){
         .then(res => res.json())
         .then(data =>{
             setItems(data)
+            setFilteredItems(data)            
         })
     },[token])
 
-    return <div className="inventory-container py-3">
-            {items.map(item=><ItemCard key={item.name} item={item}/>)}
-        </div>
+
+    return(
+        <div> 
+            <Filter allItems={items} setFilteredItems={setFilteredItems}/>
+            <div className="inventory-container py-3">
+                {filteredItems.map(item=><ItemCard key={item.name} item={item}/>)}
+            </div>
+        </div>)
 }
