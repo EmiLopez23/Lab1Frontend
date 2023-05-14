@@ -2,12 +2,7 @@
 
 .item-card{
     position: relative;
-    background-color: black;
-}
-
-.item-img{
-    width: 134px;
-    height: auto;
+    
 }
 
 .info-btn{

@@ -30,7 +30,7 @@ export default function PersonalInventory(){
                 {filteredItems.map((data,index)=>
                     <div className="personal-items-container" key={index}>
                     <div className="personal-item-qty" key={data.quantity}>{data.quantity}</div>
-                    <ItemCard key={data.item.name} showBtn={false} item={data.item}/>
+                    <ItemCard key={data.item.name} item={data.item}/>
                     </div>)}
             </div>
         </div>)

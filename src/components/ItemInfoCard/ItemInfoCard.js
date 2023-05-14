@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck,faCircleXmark } from "@fortawesome/free-solid-svg-icons"
 
 
-export default function ItemInfoCard({item, showBtn}){
+export default function ItemInfoCard({item}){
     const {token} = useContext(UserContext)
     const [qty, setQty] = useState(null)
     const [AddStep,setAddStep] = useState(0)
@@ -67,7 +67,6 @@ export default function ItemInfoCard({item, showBtn}){
                     </div>
                 </div>
             </div>
-            {showBtn &&
                 <div className="add-to-inventory-container mt-4">
                 <div className="add-to-inventory-input">
                     <input type="number" className="form-control" name="quantity" placeholder="Quantity" min={1} onChange={(e)=>{setQty(e.target.value); setAddStep(0)}} required/>
@@ -77,7 +76,7 @@ export default function ItemInfoCard({item, showBtn}){
                 </div>
                 
                 
-            </div>}
+            </div>
         </>
     )
 }

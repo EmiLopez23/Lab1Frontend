@@ -11,8 +11,7 @@ export default function Register(){
     const navigate = useNavigate()
     const [newUser,setNewUser] = useState({email:"", username:"",password:""})
     const[error,setError]=useState(false)
-    const {login,token} = useContext(UserContext)
-    const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"); 
+    const {login,token} = useContext(UserContext) 
     
     useEffect(()=>{
         if(token){
@@ -24,12 +23,6 @@ export default function Register(){
     const handleInputChange = (event)=>{
         const{name,value} = event.target;
         setNewUser({...newUser,[name]:value})
-
-        if (name === 'password') {
-            passwordRegex.test(value) 
-            ? event.target.classList.remove("is-invalid")
-            : event.target.classList.add("is-invalid");
-          }
       }
 
     async function handleSubmit(event){
@@ -67,9 +60,6 @@ export default function Register(){
                 <div className="form-group mb-3">
                     <label className="form-label">Password</label>
                     <input className={`form-control validation-form-control`} type="password" placeholder="Password" name="password" value={newUser.password} onChange={handleInputChange} required/>
-                    <div className="invalid-feedback">
-                        Password must have at least 8 characters, one upperCase letter, one lowerCase letter and one number.
-                    </div>
                 </div>
                 <div>
                     <FormButton className="w-75 fs-5" text="Register"/>
