@@ -5,26 +5,19 @@ import "./CreatePost.css"
 
 export default function OfferItems({gameName,wantedItems,setWantedItems}){
     const{token} = useContext(UserContext)
-    const [allItems,setItems] = useState([])
     const [filteredItems,setFilteredItems] = useState([])
 
     useEffect(()=>{
-        fetch("http://localhost:8080/inventory/all", {
+        if(gameName !== ""){fetch("http://localhost:8080/inventory/all", {
             headers:{
                 Authorization:`Bearer ${token}`,
             }
         })
         .then(res => res.json())
         .then(data =>{
-            setFilteredItems(data)
-            setItems(data)
-        })
-    },[token])
-
-
-    useEffect(()=>{
-        setFilteredItems(allItems.filter((item)=>item.game.name===gameName))
-    },[gameName])
+            setFilteredItems(data.filter((item) => item.game.name === gameName));
+        })}
+    },[token,gameName])
 
     function addItem(item){
         const index =wantedItems.indexOf(item)
@@ -45,14 +38,14 @@ export default function OfferItems({gameName,wantedItems,setWantedItems}){
     
     return (<div className="wanted-item-container">
         <h6 className="text-light">Items from Inventory</h6>
-            <div className="items">
+            <div className="items mb-3">
                 {filteredItems.map((item,index)=><ItemImg key={index} width={100} item={item} onClick={()=>addItem(item)}/>)}
             </div>
             <h5 className="text-light">Items you Want</h5>
-            {wantedItems.map((itemWanted)=>
-                    <div className="text-light items-to-trade">
-                        <div>{itemWanted.name + "(" + itemWanted.qty + ")"}</div>
-                        <button onClick={()=>deleteItem(itemWanted)} className="btn btn-danger">Delete</button>
+            {wantedItems.map((itemWanted,index)=>
+                    <div className="text-light items-to-trade" key={index}>
+                        <div key={index + itemWanted.name}>{itemWanted.name + "(" + itemWanted.qty + ")"}</div>
+                        <button onClick={()=>deleteItem(itemWanted)} key={index+"btn"} className="btn btn-danger">Delete</button>
                     </div>)}
     </div>)
 }

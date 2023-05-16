@@ -26,9 +26,9 @@
 }
 
 .btn.btn-violet{
-    border-color: var(--primary-violet);
-    background-color: var(--primary-violet);
-    color: white;
+    border-color: var(--primary-violet) !important;
+    background-color: var(--primary-violet) !important;
+    color: white !important;
 }
 
 .btn.btn-outline-violet{
@@ -43,8 +43,9 @@
 }
 
 .btn.btn-violet:hover{
-    background-color: var(--secondary-violet);
-    border-color:var(--secondary-violet);
+    background-color: var(--secondary-violet) !important;
+    border-color:var(--secondary-violet) !important;
+    color: white;
 }
 
 

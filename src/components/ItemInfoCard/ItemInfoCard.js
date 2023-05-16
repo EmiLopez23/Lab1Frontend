@@ -13,6 +13,7 @@ export default function ItemInfoCard({item}){
     function handleSubmit(event){
         event.preventDefault()
         setAddStep(1)
+        console.log({itemId: item.id,quantity: qty})
         fetch("http://localhost:8080/user/inventory/addItem",{
             method:"POST",
             headers:{

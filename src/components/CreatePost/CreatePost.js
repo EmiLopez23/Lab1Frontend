@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import "./CreatePost.css"
 import OfferItems from "./OfferItems"
 import WantedItems from "./WantedItems"
+import { UserContext } from "../../contexts/UserContext"
+import { faRepeat } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 
 
 
 export default function CreatePost(){
+    const{token} = useContext(UserContext)
     const [games,setGames] = useState([])
     const [activeGame,setActiveGame]=useState("")
     const [offeredItems,setOfferedItems] = useState([])
@@ -20,29 +24,48 @@ export default function CreatePost(){
              })
         },[])
 
-    function printResult(){
-        const offer = offeredItems.map((item) => ({
-            id: item.id,
-            qty: item.qty,
+    function transformObject(list){
+        return list.map((item) => ({
+            id: parseInt(item.id),
+            qty: parseInt(item.qty),
           }));
-          console.log(offer)
-        const wanted = wantedItems.map((item) => ({
-            id: item.id,
-            qty: item.qty,
-          }));
-          console.log(wanted)
     }
 
-    return <div className="create-post-card p-3">
-        <select className="form-select mb-5" onChange={(e)=>setActiveGame(e.target.value)}>
+    function handleSubmit(){
+        const postObject = {"gameName":activeGame,
+                            "offeredItems":transformObject(offeredItems),
+                            "wantedItems":transformObject(wantedItems)}
+        console.log(postObject)
+        fetch("http://localhost:8080/post/create-post",{
+            method:"POST",
+            headers:{
+                Authorization:`Bearer ${token}`,
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify(postObject),
+        })
+        .then(resp=>
+            {if(resp.ok){
+                console.log("created")
+            }
+            else{
+                console.log("error")
+            }
+        })
+    }
+
+    return <div className="create-post-card p-5">
+        <select className="form-select mb-3" onChange={(e)=>setActiveGame(e.target.value)}>
                 <option>Select a game...</option>
                 {games?.map((game,index) => <option value={game.name} key={index}>{game.name}</option>)}
             </select>
-        <div className="create-post-grid">
+        <div className="create-post-grid mb-3">
             <OfferItems gameName={activeGame} offeredItems={offeredItems} setOfferedItems={setOfferedItems}/>
             <WantedItems gameName={activeGame} wantedItems={wantedItems} setWantedItems={setWantedItems}/>
         </div>
-        <button className="btn btn-success" onClick={()=>printResult()}>Post trade</button>
+        <div className="btn-container">
+            <button className="btn btn-violet" onClick={handleSubmit} disabled={(offeredItems.length === 0 || wantedItems.length === 0)}><FontAwesomeIcon icon={faRepeat} /> Post Trade</button>
+        </div>
     </div>
 
 }
