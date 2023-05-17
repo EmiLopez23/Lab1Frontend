@@ -7,7 +7,7 @@ import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
 export default function AddItem(){
     const[games,setGames]=useState({})
-    const[success,setSuccess]=useState(true)
+    const[success,setSuccess]=useState(false)
     const[item,setItem] = useState({
         name:"",
         game:"",
