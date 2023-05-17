@@ -3,6 +3,7 @@ import "./ItemInfoCard.css"
 import { UserContext } from "../../contexts/UserContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck,faCircleXmark } from "@fortawesome/free-solid-svg-icons"
+import ItemImg from "../ItemCard/ItemImg"
 
 
 export default function ItemInfoCard({item}){
@@ -52,9 +53,7 @@ export default function ItemInfoCard({item}){
     return(
         <>
             <div className="d-flex item-info-container rounded-1">
-                <div className="item-img">
-                    <img src={`http://localhost:8080/${item.imgPath}`} className="rounded-1 item-info-img" alt={item.name}/>
-                </div>
+                <ItemImg item={item} width={220}/>
                 <div className="text-light">
                     <div>
                         <h6>Item Name: </h6>
