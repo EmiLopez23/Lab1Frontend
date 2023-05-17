@@ -36,6 +36,7 @@ export default function AddItem(){
     const handleInputChange = (event)=>{
         const name = event.target.name
         let value= event.target.value;
+        setSuccess(false)
         if(gameCategories.includes(name)){
           setItem((prevItem) => {
             return {
@@ -80,7 +81,7 @@ export default function AddItem(){
     return <> 
     <form onSubmit={handleSubmit} className="text-light">
         {success &&
-          <div class="alert alert-success" role="alert">
+          <div class="alert alert-success" role="alert" style={{position:"fixed",bottom:0,right:10}}>
           Succesfully Created
         </div>}
         
