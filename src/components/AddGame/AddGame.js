@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, {useContext, useState } from "react";
 import "./AddGame.css"
 import CategoryForm from "./categoryForm/categoryForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function AddGame(){
+    const{token} = useContext(UserContext)
     const [game,setGame] = useState("")
     const[success,setSuccess]=useState(false)
     const [inputValues, setInputValues] = useState([{ category: "", values: "" }]);
@@ -21,7 +23,8 @@ export default function AddGame(){
     e.preventDefault();
     fetch("http://localhost:8080/games/add",{
       method:"POST",
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type": "application/json",
+                Authorization: `Bearer ${token}`},
       body:JSON.stringify({game,inputValues})
     })
     .then(resp=>{

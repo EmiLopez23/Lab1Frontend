@@ -1,5 +1,5 @@
 import React, { useContext,useState } from "react";
-import "./Inventory.css"
+import "./inventory.css"
 import { UserContext } from "../../contexts/UserContext";
 import AddItem from "../../components/AddItem/AddItem";
 import PopUpContainer from "../../components/PopUpContainer/PopUpContainer";
