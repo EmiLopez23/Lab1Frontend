@@ -1,0 +1,44 @@
+.post-card{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(16 19 22);
+}
+
+.post-header{
+    display: flex;
+    border-bottom: 1px solid blueviolet;
+}
+
+.post-main{
+    display: grid;
+    grid-template-columns: minmax(100px,1fr) 5% minmax(100px,1fr);
+    grid-auto-flow: row;
+    column-gap: 10px;
+}
+
+.trade-icon{
+    background-color: blueviolet;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+.trade-icon:hover{
+    animation: spin-trade 0.5s;
+}
+
+.trade-btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+@keyframes spin-trade{
+    0%{
+        rotate: 0deg;
+    }
+    100%{
+        rotate: 180deg;
+    }
+}

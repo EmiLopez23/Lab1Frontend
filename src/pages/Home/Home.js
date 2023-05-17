@@ -1,11 +1,11 @@
-import PostCard from "../../components/PostCard/PostCard"
+import Post from "../../components/PostCard/Post"
 import "./Home.css"
 
 export default function Home(){
 
-    return <div className="home mt-4 vh-100">
+    return <div className="home mt-4 px-3 vh-100">
             <div>
-                <PostCard/>
+                <Post/>
             </div>
             </div>
 }

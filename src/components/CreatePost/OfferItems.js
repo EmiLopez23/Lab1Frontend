@@ -28,7 +28,9 @@ export default function OfferItems({gameName,offeredItems,setOfferedItems}){
     function addItem(item){
         const index = offeredItems.indexOf(item)
         if(index>-1){
-            offeredItems[index].qty += 1
+            item.qty += 1
+            const withoutItem = offeredItems.filter(element => element.id !== item.id)
+            setOfferedItems([...withoutItem, item])
         }
         else{
             item.qty=1

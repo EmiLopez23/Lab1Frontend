@@ -2,10 +2,12 @@ import React, {useEffect, useState } from "react";
 import "./AddItem.css"
 import FormButton from "../button/FormButton";
 import ItemInput from "../ItemInput/ItemInput";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 
 export default function AddItem(){
     const[games,setGames]=useState({})
-    const[success,setSuccess]=useState(false)
+    const[success,setSuccess]=useState(true)
     const[item,setItem] = useState({
         name:"",
         game:"",
@@ -82,7 +84,7 @@ export default function AddItem(){
     <form onSubmit={handleSubmit} className="text-light">
         {success &&
           <div class="alert alert-success" role="alert" style={{position:"fixed",bottom:0,right:10}}>
-          Succesfully Created
+          <FontAwesomeIcon icon={faCircleCheck} /> Succesfully Created
         </div>}
         
         <div id="game" className="mb-3 form-group">
