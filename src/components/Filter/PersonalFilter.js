@@ -4,13 +4,8 @@ export default function PersonalFilter({setFilteredItems,allItems}){
     const[games,setGames]=useState([])
     const[activeGame,setActiveGame]=useState("")
 
-    useEffect(()=>{
-        if(activeGame==="") setFilteredItems(allItems)
-        else{
-            setFilteredItems(allItems.filter((itemData)=>itemData.item.game.name === activeGame))
-        }
-    },[activeGame])
-
+    /*Tuve que hacer dos componenentes distintos porque un filtro es para items y otro para User Items */
+    /*Call the API to get all games */
     useEffect(()=>{
         fetch("http://localhost:8080/games/all")
         .then(resp=>resp.json())
@@ -18,6 +13,16 @@ export default function PersonalFilter({setFilteredItems,allItems}){
             setGames(data)
              })
         },[])
+    
+    /*Every time activeGame changes it triggers this UseEffect to filter the items */
+    useEffect(()=>{
+        (activeGame==="") 
+        
+        ? setFilteredItems(allItems)
+        
+        : setFilteredItems(allItems.filter((itemData)=>itemData.item.game.name === activeGame))
+    },[activeGame,allItems,setFilteredItems])
+
 
 
     return(

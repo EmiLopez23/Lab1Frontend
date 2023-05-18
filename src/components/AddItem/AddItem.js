@@ -18,7 +18,7 @@ export default function AddItem(){
 
     const[gameCategories, setCategories] = useState([])
     
-
+    /*Call the API to get all games. It transforms the object into a new one that has every game name as a key*/
     useEffect(()=>{
         fetch("http://localhost:8080/games/all")
         .then(resp=>resp.json())
@@ -35,6 +35,11 @@ export default function AddItem(){
          })
     },[])
 
+
+    /*Catch all the changes in the inputs and set the item useState. 
+      Every input has an specific name that matches with the atributes in Item useState.
+      Every time an input field changes, it triggers this function updating the item atributes value .
+      If the input changing is the one that has the games names, it sets the categories array wich contains every category of the selected game */
     const handleInputChange = (event)=>{
         const name = event.target.name
         let value= event.target.value;
@@ -60,7 +65,8 @@ export default function AddItem(){
       function handleImageChange(event) {
         setItem({ ...item, img: event.target.files[0] });
       }
-
+    
+    /*It creates a formData and send it to the backend. FormData is used to send the image */
     function handleSubmit(event){
         event.preventDefault()
         const form = new FormData()

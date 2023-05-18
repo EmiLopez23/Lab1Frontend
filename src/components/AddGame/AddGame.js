@@ -11,10 +11,13 @@ export default function AddGame(){
     const[success,setSuccess]=useState(false)
     const [inputValues, setInputValues] = useState([{ category: "", values: "" }]);
 
+
+  /*Updates the category array */
   function addCategory() {
     setInputValues([...inputValues, { category: "", values: "" }]);
   }
 
+  /*Filters the category array to remove the desire input field */
   function removeCategory(index) {
     setInputValues(inputValues.filter((_, i) => i !== index));
   }

@@ -8,6 +8,8 @@ import ItemImg from "./ItemImg";
 
 export default function ItemCard({item}){
     const [info,showInfo] = useState(false)
+    /*Container to show the item images.
+     When Hover it shows an info btn that shows a popup with more info*/
     return <div className="rounded-1 item-card">
         <ItemImg item={item} width={134}/>
         <div className="info-btn">

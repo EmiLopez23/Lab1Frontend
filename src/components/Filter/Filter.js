@@ -4,13 +4,7 @@ export default function Filter({setFilteredItems,allItems}){
     const[games,setGames]=useState([])
     const[activeGame,setActiveGame]=useState("")
 
-    useEffect(()=>{
-        if(activeGame==="") setFilteredItems(allItems)
-        else{
-            setFilteredItems(allItems.filter((item)=>item.game.name === activeGame))
-        }
-    },[activeGame])
-
+    /*Call the API to get all games */
     useEffect(()=>{
         fetch("http://localhost:8080/games/all")
         .then(resp=>resp.json())
@@ -18,6 +12,19 @@ export default function Filter({setFilteredItems,allItems}){
             setGames(data)
              })
         },[])
+    
+    /*Every time activeGame changes it triggers this UseEffect to filter the items */
+    useEffect(()=>{ 
+        
+        (activeGame==="")
+        
+        ? setFilteredItems(allItems)
+        
+        : setFilteredItems(allItems.filter((item)=>item.game.name === activeGame))
+
+    },[activeGame, allItems, setFilteredItems])
+
+    
 
 
     return(

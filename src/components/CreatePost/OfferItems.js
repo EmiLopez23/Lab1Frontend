@@ -8,6 +8,7 @@ export default function OfferItems({gameName,offeredItems,setOfferedItems}){
     const{token} = useContext(UserContext)
     const [filteredItems,setFilteredItems] = useState([])
 
+    /* Call the API to get all the items and filter them by game */
     useEffect(()=>{
         if(gameName!==""){fetch("http://localhost:8080/user/inventory", {
             headers:{
@@ -20,11 +21,12 @@ export default function OfferItems({gameName,offeredItems,setOfferedItems}){
         })}
     },[token,gameName])
 
-    
+    /* Filters the array to delete the item */
     function deleteItem(item){
         setOfferedItems(offeredItems.filter(wanted=>wanted!==item))
     }
 
+    /* If item doesn´t exists push to array, else udpdate qty and array */
     function addItem(item){
         const index = offeredItems.indexOf(item)
         if(index>-1){

@@ -1,4 +1,5 @@
 export default function ItemInput({category,onChange}){
+    /*Input field that represents every category of the game in Item Add Form */
     return(
         <div className="mb-3 form-group">
             <label className="form-label" htmlFor={category.name}>{category.name}</label>

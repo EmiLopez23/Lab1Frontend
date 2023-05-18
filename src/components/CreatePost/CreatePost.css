@@ -4,20 +4,6 @@
     column-gap: 20px;
 }
 
-.items{
-    display: flex;
-    gap: 10px;
-    background-color: rgb(22 25 29);
-    border-radius: 5px;
-    padding: 5px;
-    overflow-x: auto;
-    min-height: 110px;
-}
-
-.items::-webkit-scrollbar {
-    display: none;
-  }
-
 .items-to-trade{
     background-color: rgb(22 25 29);
     padding: 10px;

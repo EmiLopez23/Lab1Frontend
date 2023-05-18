@@ -4,7 +4,7 @@ import "./Post.css"
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import ItemImg from "../ItemCard/ItemImg";
+import ImgSlider from "../ImgSlider/ImgSlider";
 
 export default function Post(){
     const [items,setItems] =useState([])
@@ -30,18 +30,14 @@ export default function Post(){
         <div className="post-main">
             <div>
                 <div className="mb-2">Offered</div>
-                <div className="items">
-                    {items.map((item,index)=><ItemImg key={index} width={100} item={item}/>)}
-                </div>
+                <ImgSlider items={items}/>
             </div>
             <div className="text-light trade-btn-container">
                 <FontAwesomeIcon icon={faRotate} className="trade-icon"/>
             </div>
             <div>
                 <div className="mb-2">Wanted</div>
-                <div className="items">
-                    {items.map((item,index)=><ItemImg key={index} width={100} item={item}/>)}
-                </div>
+                <ImgSlider items={items}/>
             </div>
         </div>
     </div>

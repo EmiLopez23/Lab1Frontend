@@ -7,9 +7,12 @@ import PersonalFilter from "../Filter/PersonalFilter"
 
 export default function PersonalInventory(){
     const {token} = useContext(UserContext)
+    /*This array persist all the items in inventory */
     const [itemsData,setItemsData] = useState([])
+    /*This array filter all the items in inventory */
     const [filteredItems, setFilteredItems] = useState([])
 
+    /*Call the API to set all the items in general inventory.*/
     useEffect(()=>{
         fetch("http://localhost:8080/user/inventory", {
             headers:{
