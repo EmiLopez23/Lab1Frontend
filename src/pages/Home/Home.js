@@ -38,7 +38,7 @@ export default function Home(){
         (searchPostInput!=="")
             ? setSearchResults(searchPost(trades,searchPostInput))
             : setSearchResults(trades)
-    },[searchPostInput])
+    },[searchPostInput,trades])
 
     return <div className="home mt-4 p-3">
             <input 
