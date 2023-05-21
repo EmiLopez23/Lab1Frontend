@@ -2,15 +2,13 @@ import React, {useContext, useEffect, useState } from "react";
 import "./AddItem.css"
 import FormButton from "../button/FormButton";
 import ItemInput from "../ItemInput/ItemInput";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import ApiService from "../../services/ApiService";
 import { UserContext } from "../../contexts/UserContext";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function AddItem(){
     const {token} = useContext(UserContext)
     const[games,setGames]=useState({})
-    const[success,setSuccess]=useState(false)
     const[item,setItem] = useState({
         name:"",
         game:"",
@@ -43,7 +41,6 @@ export default function AddItem(){
     const handleInputChange = (event)=>{
         const name = event.target.name
         let value= event.target.value;
-        setSuccess(false)
         if(gameCategories.includes(name)){
           setItem((prevItem) => {
             return {
@@ -74,6 +71,7 @@ export default function AddItem(){
         form.append("game",item.game)
         form.append("valuesId",Object.values(item.valuesId))
         form.append("img",item.img)
+        const toastId = toast.loading("Creating...")
         fetch("http://localhost:8080/inventory/item/add",{
             method:"POST",
             headers:{
@@ -81,18 +79,15 @@ export default function AddItem(){
             },
             body: form
         }).then(resp=>{
-          if(resp.ok){setSuccess(true)}
+          if(resp.ok){
+            toast.success("Successfully created",{ id: toastId })}
           else{throw new Error("Error while creating Item")}
-        }).catch(err=>console.log(err.message))
+        }).catch(err=>toast.error(err.message,{ id: toastId }))
     }
     
     return <> 
+    <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
     <form onSubmit={handleSubmit} className="text-light">
-        {success &&
-          <div class="alert alert-success" role="alert" style={{position:"fixed",bottom:0,right:10}}>
-          <FontAwesomeIcon icon={faCircleCheck} /> Succesfully Created
-        </div>}
-        
         <div id="game" className="mb-3 form-group">
         <label htmlFor="game-select" className="form-label">Game</label>
         <select 

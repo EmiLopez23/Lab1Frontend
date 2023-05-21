@@ -3,10 +3,10 @@ import "./CreatePost.css"
 import OfferItems from "./OfferItems"
 import WantedItems from "./WantedItems"
 import { UserContext } from "../../contexts/UserContext"
-import { faCircleCheck, faRepeat } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleXmark } from "@fortawesome/free-regular-svg-icons"
 import ApiService from "../../services/ApiService"
+import { Toaster, toast } from "react-hot-toast"
+import { faRepeat } from "@fortawesome/free-solid-svg-icons"
 
 
 
@@ -17,8 +17,6 @@ export default function CreatePost(){
     const [activeGame,setActiveGame]=useState("")
     const [offeredItems,setOfferedItems] = useState([])
     const [wantedItems,setWantedItems] = useState([])
-    /* 0:post trade, 1: success, 2: error */ 
-    const [success,setSuccess] = useState(0)
 
     useEffect(()=>{
         async function fetchGames(){
@@ -44,6 +42,8 @@ export default function CreatePost(){
         const postObject = {"gameName":activeGame,
                             "offeredItems":transformObject(offeredItems),
                             "wantedItems":transformObject(wantedItems)}
+        
+        const toastId = toast.loading("Creating post...")
         fetch("http://localhost:8080/post/create-post",{
             method:"POST",
             headers:{
@@ -53,16 +53,19 @@ export default function CreatePost(){
             body:JSON.stringify(postObject),
         })
         .then(resp=>
-            {if(resp.ok){
-                setSuccess(1)
+            {if(!resp.ok){
+                throw new Error("Error while creating Post")
             }
             else{
-                setSuccess(2)
+                toast.success("Successfully created",{id:toastId})
             }
         })
+        .catch(error=>toast.error(error.message, {id:toastId}))
     }
 
-    return <div className="create-post-card p-5">
+    return <>
+    <Toaster position="bottom-right" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
+     <div className="create-post-card p-5">
         <select className="form-select mb-3" onChange={(e)=>setActiveGame(e.target.value)}>
                 <option>Select a game...</option> 
                 {games?.map((game,index) => <option value={game} key={index}>{game}</option>)}
@@ -72,12 +75,9 @@ export default function CreatePost(){
             <WantedItems gameName={activeGame} wantedItems={wantedItems} setWantedItems={setWantedItems}/>
         </div>
         <div className="btn-container">
-            {success===0
-                ? <button className="btn btn-violet" onClick={handleSubmit} disabled={(offeredItems.length === 0 || wantedItems.length === 0)}><FontAwesomeIcon icon={faRepeat} /> Post Trade</button>
-                : success === 1 
-                    ? <div className="btn btn-success" onClick={()=>setSuccess(0)}><FontAwesomeIcon icon={faCircleCheck}/> Success</div>
-                    : <div className="btn btn-danger" onClick={()=>setSuccess(0)}><FontAwesomeIcon icon={faCircleXmark}/> Error</div>}
+                <button className="btn btn-violet" onClick={handleSubmit} disabled={(offeredItems.length === 0 || wantedItems.length === 0)}><FontAwesomeIcon icon={faRepeat} /> Post Trade</button>
         </div>
     </div>
+    </>
 
 }

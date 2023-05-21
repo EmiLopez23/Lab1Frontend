@@ -46,7 +46,7 @@ export default function Home(){
                 </div>
             
             <h4 className="text-light">Latest Posts</h4>
-            <div>
+            <div className="posts-container">
                 {searchResults.map((trade,index)=><Post key={index} trade={trade}/>)}
             </div>
             </div>

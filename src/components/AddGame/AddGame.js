@@ -4,11 +4,11 @@ import CategoryForm from "./categoryForm/categoryForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { UserContext } from "../../contexts/UserContext";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function AddGame(){
     const{token} = useContext(UserContext)
     const [game,setGame] = useState("")
-    const[success,setSuccess]=useState(false)
     const [inputValues, setInputValues] = useState([{ category: "", values: "" }]);
 
 
@@ -24,6 +24,7 @@ export default function AddGame(){
 
   function handleSubmit(e) {
     e.preventDefault();
+    const toastId = toast.loading("Creating game...")
     fetch("http://localhost:8080/games/add",{
       method:"POST",
       headers: {"Content-Type": "application/json",
@@ -31,21 +32,20 @@ export default function AddGame(){
       body:JSON.stringify({game,inputValues})
     })
     .then(resp=>{
-      if(resp.ok){setSuccess(true)}
+      if(resp.ok){
+        toast.success("Succesfully Created", { id: toastId })
+      }
       else{
         throw new Error("Could not create Game")
         }
     })
-    .catch(error=>console.error(error.message))
+    .catch(error=>toast.error(error.message,{ id: toastId }))
   }
 
     
     return <>
-        <form className="text-light">
-        {success &&
-                <div class="alert alert-success" role="alert">
-                    Succesfully Created New Game
-                </div>}  
+        <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
+        <form className="text-light"> 
         <div className="form-group">
             <label className="form-label text-light">Insert Game Name</label>
             <input className="form-control" id="game-name" value={game} placeholder="Game Name" onChange={e=>setGame(e.target.value)} required/>
