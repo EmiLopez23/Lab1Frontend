@@ -28,7 +28,7 @@ export default function Filter({setFilteredItems,allItems, myItems=false}){
 
 
     return(
-        <div className="d-flex justify-content-end p-3">
+        <div className="d-flex pt-4">
             <select className="form-select" style={{width:160}} onChange={(e)=>setActiveGame(e.target.value)}>
                 <option value={""}>All</option>
                 {games?.map((game,index) => <option value={game.name} key={index}>{game.name}</option>)}

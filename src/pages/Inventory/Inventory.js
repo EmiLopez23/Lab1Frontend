@@ -24,13 +24,9 @@ export default function Inventory(){
                 <button className={`btn toggle-inventory-btn ${inventory===1 ? "active" : ""}`} onClick={()=>setInventory(1)}>My Inventory</button>
             </div>
             {role==="ADMIN" && <div className="d-flex gap-2">
-                <div className="">
-                    <button onClick={()=>toggleGame(true)} className="btn toggle-inventory-btn">Add Game</button>
-                </div>
-                <div className="">
-                    <button className="btn toggle-inventory-btn" onClick={()=>toggleItem(true)}>Add New Item</button>
-                </div>
-            </div>
+                        <button onClick={()=>toggleGame(true)} className="btn toggle-inventory-btn">Add Game</button>
+                        <button onClick={()=>toggleItem(true)} className="btn toggle-inventory-btn" >Add New Item</button>
+                    </div>
             }
         
         </div>
