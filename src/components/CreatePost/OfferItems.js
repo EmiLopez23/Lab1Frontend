@@ -3,6 +3,7 @@ import { useState } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import "./CreatePost.css"
 import ItemImg from "../ItemImage/ItemImg"
+import ApiService from "../../services/ApiService"
 
 export default function OfferItems({gameName,offeredItems,setOfferedItems}){
     const{token} = useContext(UserContext)
@@ -10,15 +11,16 @@ export default function OfferItems({gameName,offeredItems,setOfferedItems}){
 
     /* Call the API to get all the items and filter them by game */
     useEffect(()=>{
-        if(gameName!==""){fetch("http://localhost:8080/user/inventory", {
-            headers:{
-                Authorization:`Bearer ${token}`,
+        async function fetchUserInventory(){
+            try{
+                const userInventory = await ApiService.getUserInventory(token)
+                setFilteredItems(userInventory.filter((itemData) => itemData.item.game.name === gameName));
+            }catch(error){
+                console.error(error)
             }
-        })
-        .then(res => res.json())
-        .then(data =>{
-            setFilteredItems(data.filter((itemData) => itemData.item.game.name === gameName));
-        })}
+        }
+        if(gameName!=="") {fetchUserInventory()}
+        
     },[token,gameName])
 
     /* Filters the array to delete the item */

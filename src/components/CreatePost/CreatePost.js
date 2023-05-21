@@ -6,6 +6,7 @@ import { UserContext } from "../../contexts/UserContext"
 import { faCircleCheck, faRepeat } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons"
+import ApiService from "../../services/ApiService"
 
 
 
@@ -20,11 +21,16 @@ export default function CreatePost(){
     const [success,setSuccess] = useState(0)
 
     useEffect(()=>{
-        fetch("http://localhost:8080/games/all")
-        .then(resp=>resp.json())
-        .then(data=>{
-            setGames(data)
-             })
+        async function fetchGames(){
+            try{
+                const gamesFetched = await ApiService.getGames()
+                const gamesNameList = Object.keys(gamesFetched)
+                setGames(gamesNameList)
+            }catch(error){
+                console.error(error)
+            }
+        }
+        fetchGames()
         },[])
 
     function transformObject(list){
@@ -59,7 +65,7 @@ export default function CreatePost(){
     return <div className="create-post-card p-5">
         <select className="form-select mb-3" onChange={(e)=>setActiveGame(e.target.value)}>
                 <option>Select a game...</option> 
-                {games?.map((game,index) => <option value={game.name} key={index}>{game.name}</option>)}
+                {games?.map((game,index) => <option value={game} key={index}>{game}</option>)}
             </select>
         <div className="create-post-grid mb-3">
             <OfferItems gameName={activeGame} offeredItems={offeredItems} setOfferedItems={setOfferedItems}/>

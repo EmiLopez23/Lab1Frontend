@@ -1,11 +1,14 @@
-import React, {useEffect, useState } from "react";
+import React, {useContext, useEffect, useState } from "react";
 import "./AddItem.css"
 import FormButton from "../button/FormButton";
 import ItemInput from "../ItemInput/ItemInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import ApiService from "../../services/ApiService";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function AddItem(){
+    const {token} = useContext(UserContext)
     const[games,setGames]=useState({})
     const[success,setSuccess]=useState(false)
     const[item,setItem] = useState({
@@ -20,20 +23,17 @@ export default function AddItem(){
     
     /*Call the API to get all games. It transforms the object into a new one that has every game name as a key*/
     useEffect(()=>{
-        fetch("http://localhost:8080/games/all")
-        .then(resp=>resp.json())
-        .then(data=>{
-            let dataToReturn = {}
-            
-            data.forEach((item)=> {
-              dataToReturn = {
-                ...dataToReturn,
-                [item.name]: item
-              }
-             })
-          setGames(dataToReturn)
-         })
-    },[])
+        async function fetchGames(){
+          try{
+            const gamesFetched = await ApiService.getGames()
+            setGames(gamesFetched)
+          }catch(error){
+            console.error(error)
+          }
+        }
+        
+        fetchGames()
+    },[token])
 
 
     /*Catch all the changes in the inputs and set the item useState. 

@@ -3,6 +3,7 @@ import "./GeneralInventory.css"
 import { UserContext } from "../../contexts/UserContext"
 import ItemCard from "../ItemCard/ItemCard"
 import Filter from "../Filter/Filter"
+import ApiService from "../../services/ApiService"
 
 export default function PersonalInventory(){
     const {token} = useContext(UserContext)
@@ -13,16 +14,16 @@ export default function PersonalInventory(){
 
     /*Call the API to set all the items in general inventory.*/
     useEffect(()=>{
-        fetch("http://localhost:8080/user/inventory", {
-            headers:{
-                Authorization:`Bearer ${token}`,
+        async function fetchUserInventory(){
+            try{
+                const inventory = await ApiService.getUserInventory(token)
+                setItemsData(inventory)
+                setFilteredItems(inventory)
+            }catch(error){
+                console.error(error)
             }
-        })
-        .then(res => res.json())
-        .then(data =>{
-            setItemsData(data)
-            setFilteredItems(data)
-        })
+        }
+        fetchUserInventory()
     },[token])
 
     return (

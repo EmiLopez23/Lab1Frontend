@@ -3,6 +3,7 @@ import ItemCard from "../ItemCard/ItemCard";
 import "./GeneralInventory.css"
 import { UserContext } from "../../contexts/UserContext";
 import Filter from "../Filter/Filter";
+import ApiService from "../../services/ApiService";
 
 
 export default function GeneralInventory(){
@@ -14,14 +15,17 @@ export default function GeneralInventory(){
 
     /*Call the API to set all the items in general inventory.*/
     useEffect(()=>{
-        fetch("http://localhost:8080/inventory/all", {
-            method: "GET"
-        })
-        .then(res => res.json())
-        .then(data =>{
-            setItems(data)
-            setFilteredItems(data)            
-        })
+        async function fetchInventory(){
+            try{
+                const inventory = await ApiService.getInventory()
+                setItems(inventory)
+                setFilteredItems(inventory)
+            }catch(error){
+                console.error(error)
+            }
+        }
+
+        fetchInventory()
     },[token])
 
 

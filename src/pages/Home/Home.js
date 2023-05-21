@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import Post from "../../components/PostCard/Post"
 import "./Home.css"
 import { UserContext } from "../../contexts/UserContext"
+import ApiService from "../../services/ApiService"
 
 export default function Home(){
     const [trades,setTrades] =useState([])
@@ -9,31 +10,22 @@ export default function Home(){
     const [searchPostInput, setSearchPost] = useState("")
     const [searchResults, setSearchResults] = useState([])
 
-    useEffect(()=>{
-        fetch("http://localhost:8080/post/all", {
-            headers:{
-                Authorization:`Bearer ${token}`,
-            }
-        })
-        .then(res => res.json())
-        .then(data =>{
-            let dataToReturn = []
-            data.forEach(dataTrade => {
 
-                dataToReturn=[...dataToReturn,
-                    {
-                        gameName:dataTrade.game.name,
-                        username:dataTrade.user.username,
-                        offered:dataTrade.tradeItems.filter(t=>t.tradeDirection==='OFFERED'),
-                        wanted:dataTrade.tradeItems.filter(t=>t.tradeDirection==='WANTED')
-                    }]
-            })
-            setTrades(dataToReturn);
-            setSearchResults(dataToReturn)
-        })
-    },[token])
+    useEffect(() => {
+        const fetchPosts = async () => {
+          try {
+            const posts = await ApiService.getPosts(token);
+            setTrades(posts);
+            setSearchResults(posts);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+    
+        fetchPosts();
+      }, [token]);
 
-
+    /*Updates the array eery time user changes the input value*/  
     useEffect(()=>{
         (searchPostInput!=="")
             ? setSearchResults(searchPost(trades,searchPostInput))
@@ -60,7 +52,7 @@ export default function Home(){
             </div>
 }
 
-
+/*Function to filter all posts array looking for coincidences beetwen search and username,game name or item name */
 function searchPost(posts, search){
     const lowerCaseSearchTerm = search.toLowerCase()
     let filteredPosts = posts.filter(post=>{

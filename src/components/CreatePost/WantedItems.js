@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import ItemImg from "../ItemImage/ItemImg"
 import "./CreatePost.css"
+import ApiService from "../../services/ApiService"
 
 export default function OfferItems({gameName,wantedItems,setWantedItems}){
     const{token} = useContext(UserContext)
@@ -9,15 +10,17 @@ export default function OfferItems({gameName,wantedItems,setWantedItems}){
 
     /* Call the API to get all the items and filter them by game */
     useEffect(()=>{
-        if(gameName !== ""){fetch("http://localhost:8080/inventory/all", {
-            headers:{
-                Authorization:`Bearer ${token}`,
+        async function fetchInventory(){
+            try{
+                const inventory = await ApiService.getInventory()
+                setFilteredItems(inventory.filter((item) => item.game.name === gameName));
+            }catch(error){
+                console.error(error)
             }
-        })
-        .then(res => res.json())
-        .then(data =>{
-            setFilteredItems(data.filter((item) => item.game.name === gameName));
-        })}
+        }
+
+        if(gameName!==""){fetchInventory()}
+            
     },[token,gameName])
 
 

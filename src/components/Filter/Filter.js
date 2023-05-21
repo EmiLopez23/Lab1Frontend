@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import ApiService from "../../services/ApiService"
 
 export default function Filter({setFilteredItems,allItems, myItems=false}){
     const[games,setGames]=useState([])
@@ -6,12 +7,17 @@ export default function Filter({setFilteredItems,allItems, myItems=false}){
 
     /*Call the API to get all games */
     useEffect(()=>{
-        fetch("http://localhost:8080/games/all")
-        .then(resp=>resp.json())
-        .then(data=>{
-            setGames(data)
-             })
-        },[])
+        async function fetchGames(){
+            try{
+                const gamesFetched = await ApiService.getGames()
+                const gamesNameList = Object.keys(gamesFetched)
+                setGames(gamesNameList) 
+            }catch(error){
+                console.error(error)
+            }
+        } 
+        fetchGames()
+    },[])
     
     /*Every time activeGame changes it triggers this UseEffect to filter the items */
     useEffect(()=>{ 
@@ -31,7 +37,7 @@ export default function Filter({setFilteredItems,allItems, myItems=false}){
         <div className="d-flex pt-4">
             <select className="form-select" style={{width:160}} onChange={(e)=>setActiveGame(e.target.value)}>
                 <option value={""}>All</option>
-                {games?.map((game,index) => <option value={game.name} key={index}>{game.name}</option>)}
+                {games?.map((game,index) => <option value={game} key={index}>{game}</option>)}
             </select>
         </div>
     )

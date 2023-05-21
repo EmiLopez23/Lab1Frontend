@@ -2,35 +2,142 @@
 const localhost = "http://localhost:8080/" 
 
 const AuthUrl = localhost + "api/auth/"
-//const userUrl = localhost + "user/"
+const postsUrl = localhost + "post/"
+const inventoryUrl = localhost + "inventory/"
+const userUrl = localhost + "user/"
+const gamesUrl = localhost + "games/"
 
 
 
 const ApiService = {
 
     login : async (userData) => {
+        try{
         const response =  await fetch(AuthUrl + "login", 
                                     {
                                         method:"POST",
                                         headers: {"Content-Type": "application/json"},
                                         body: JSON.stringify(userData),
                                     })
+
+        if(!response.ok){
+            throw new Error("Invalid Credentials")
+        }                                  
         const data = await response.json()
         return data;
+        } catch(error){
+            throw error
+        }
     }
 
     ,
 
     register: async (userData) =>{
+        try{
         const response =  await fetch(AuthUrl + "register", 
                                     {
                                         method:"POST",
                                         headers: {"Content-Type": "application/json"},
                                         body: JSON.stringify(userData),
                                     })
+
+        if(!response.ok){
+            throw new Error(response.statusText)
+        }                                  
         const data = await response.json()
         return data;
+        }catch(error){
+            throw error
+        }
     }
+
+    , 
+
+    getPosts: async(token)=>{
+        try{
+            const response = await  fetch(postsUrl+"all", 
+                                        {
+                                            headers:{Authorization:`Bearer ${token}`}
+                                        })
+            if(!response.ok){
+                throw new Error("Invalid token")
+            }
+            const data = await response.json()
+            let dataToReturn = []
+            data.forEach(dataTrade => {
+
+                dataToReturn=[...dataToReturn,
+                    {
+                        gameName:dataTrade.game.name,
+                        username:dataTrade.user.username,
+                        offered:dataTrade.tradeItems.filter(t=>t.tradeDirection==='OFFERED'),
+                        wanted:dataTrade.tradeItems.filter(t=>t.tradeDirection==='WANTED')
+                    }]
+            })
+            return dataToReturn
+        }catch(error){
+            throw error
+        }
+    }
+
+    ,
+
+    getInventory: async()=>{
+        try{
+            const response = await fetch(inventoryUrl + "all")
+            if(!response.ok){
+                throw new Error("Invalid Token")
+            }
+            const data = await response.json()
+            return data
+        }catch(error){
+            throw error
+        }
+
+    }
+
+    ,
+
+    getUserInventory: async(token)=>{
+        try{
+            const response = await fetch(userUrl + "inventory",{
+                headers:{
+                    Authorization:`Bearer ${token}`}
+                })
+            if(!response.ok){
+                throw new Error("Invalid Token")
+            }            
+            const data = await response.json()
+            return data
+        }catch(error){
+            throw error
+        }
+    }
+
+    ,
+
+    getGames: async()=>{
+        try{
+            const response = await fetch(gamesUrl + "all")
+            
+            if(!response.ok){
+                throw new Error("An error has occured")
+            }
+            
+            const data = await response.json()
+            let dataToReturn = {}
+            data.forEach((item)=> {
+                dataToReturn = {
+                  ...dataToReturn,
+                  [item.name]: item
+                }
+               })
+            return dataToReturn
+        }catch(error){
+            throw error
+        }
+    }
+
 }
 
 export default ApiService
