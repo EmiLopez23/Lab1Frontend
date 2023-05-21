@@ -68,26 +68,26 @@ function searchPost(posts, search){
             return true;
         }
 
-        // Buscar en el nombre del juego
+        // Search game name
         if (post.gameName.toLowerCase().includes(lowerCaseSearchTerm)) {
             return true;
         }
 
-        // Buscar en los items ofrecidos
+        // Search offered items
         for (let offeredItem of post.offered) {
             if (offeredItem.item.name.toLowerCase().includes(lowerCaseSearchTerm)) {
                 return true;
             }
         }
 
-        // Buscar en los items deseados
+        // Search wanted items
         for (let wantedItem of post.wanted) {
             if (wantedItem.item.name.toLowerCase().includes(lowerCaseSearchTerm)) {
                 return true;
             }
         }
 
-        // Si nada coincide, no incluir el post
+        // if nothing matches return false
         return false;
     })
     return filteredPosts
