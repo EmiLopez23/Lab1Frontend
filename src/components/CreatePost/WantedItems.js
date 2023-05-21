@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../contexts/UserContext"
-import ItemImg from "../ItemCard/ItemImg"
+import ItemImg from "../ItemImage/ItemImg"
 import "./CreatePost.css"
 
 export default function OfferItems({gameName,wantedItems,setWantedItems}){

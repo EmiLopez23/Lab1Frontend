@@ -2,10 +2,13 @@
     display: flex;
     flex-direction: column;
     background-color: rgb(16 19 22);
+    margin-bottom: 20px;
 }
 
 .post-header{
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     border-bottom: 1px solid blueviolet;
 }
 
@@ -13,7 +16,7 @@
     display: grid;
     grid-template-columns: minmax(100px,1fr) 5% minmax(100px,1fr);
     grid-auto-flow: row;
-    column-gap: 10px;
+    column-gap: 25px;
 }
 
 .trade-icon{

@@ -3,7 +3,7 @@ import "./ItemInfoCard.css"
 import { UserContext } from "../../contexts/UserContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck,faCircleXmark } from "@fortawesome/free-solid-svg-icons"
-import ItemImg from "../ItemCard/ItemImg"
+import ItemImg from "../ItemImage/ItemImg"
 
 
 export default function ItemInfoCard({item}){

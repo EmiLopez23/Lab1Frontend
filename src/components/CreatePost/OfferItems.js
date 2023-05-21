@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react"
 import { useState } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import "./CreatePost.css"
-import ItemImg from "../ItemCard/ItemImg"
+import ItemImg from "../ItemImage/ItemImg"
 
 export default function OfferItems({gameName,offeredItems,setOfferedItems}){
     const{token} = useContext(UserContext)

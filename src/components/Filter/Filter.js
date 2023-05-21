@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export default function Filter({setFilteredItems,allItems}){
+export default function Filter({setFilteredItems,allItems, myItems=false}){
     const[games,setGames]=useState([])
     const[activeGame,setActiveGame]=useState("")
 
@@ -20,9 +20,9 @@ export default function Filter({setFilteredItems,allItems}){
         
         ? setFilteredItems(allItems)
         
-        : setFilteredItems(allItems.filter((item)=>item.game.name === activeGame))
+        : setFilteredItems(allItems.filter((itemDta)=>(myItems ? itemDta.item : itemDta).game.name === activeGame))
 
-    },[activeGame, allItems, setFilteredItems])
+    },[activeGame, allItems, setFilteredItems, myItems])
 
     
 

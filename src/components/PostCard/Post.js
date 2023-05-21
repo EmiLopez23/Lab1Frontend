@@ -1,44 +1,29 @@
-import { faCircleUser } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./Post.css"
 import { faRotate } from "@fortawesome/free-solid-svg-icons";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../../contexts/UserContext";
 import ImgSlider from "../ImgSlider/ImgSlider";
 
-export default function Post(){
-    const [items,setItems] =useState([])
-    const{token} = useContext(UserContext)
+export default function Post({trade}){
+    
 
-    useEffect(()=>{
-        fetch("http://localhost:8080/inventory/all", {
-            headers:{
-                Authorization:`Bearer ${token}`,
-            }
-        })
-        .then(res => res.json())
-        .then(data =>{
-            setItems(data);
-        })
-    })
-
-    return <div className="post-card rounded-1 text-secondary w-75 p-3">
-        <div className="post-header mb-2 p-2 fs-5">
-            <div className="profile-pic me-2"><FontAwesomeIcon icon={faCircleUser} /></div>
-            <div className="username">username</div>
+    return <div className="post-card rounded-1 text-secondary w-50 p-3">
+        <div className="post-header mb-2 px-2 pb-2">
+            <div className="username fs-5">{trade.username}</div>
+            <div className="gameName fs-6">{trade.gameName}</div>
         </div>
         <div className="post-main">
             <div>
                 <div className="mb-2">Offered</div>
-                <ImgSlider items={items}/>
+                <ImgSlider itemsArray={trade.offered} hasQty={true}/>
             </div>
             <div className="text-light trade-btn-container">
                 <FontAwesomeIcon icon={faRotate} className="trade-icon"/>
             </div>
             <div>
                 <div className="mb-2">Wanted</div>
-                <ImgSlider items={items}/>
+                <ImgSlider itemsArray={trade.wanted} hasQty={true}/>
             </div>
+        
         </div>
     </div>
 }
