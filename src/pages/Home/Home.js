@@ -33,18 +33,10 @@ export default function Home(){
     },[searchPostInput,trades])
 
     return <div className="home mt-4 p-3">
-            <input 
-                placeholder="Search post..." 
-                className="form-control w-25"
-                onChange={(e)=>setSearchPost(e.target.value)}
-            />
-            <div 
-                className="text-light" 
-                style={{fontSize:"0.8rem", paddingLeft:5}}
-                >
-                    Note: you can search by username, item or game
-                </div>
-            
+            <div className="search-post-container">
+                <input placeholder="Search post..." className="form-control search-post" onChange={(e)=>setSearchPost(e.target.value)}/>
+                <div className="text-light" style={{fontSize:"0.8rem"}}>Note: you can search by username, item or game</div>
+            </div>
             <h4 className="text-light">Latest Posts</h4>
             <div className="posts-container">
                 {searchResults.map((trade,index)=><Post key={index} trade={trade}/>)}

@@ -1,5 +1,24 @@
 .posts-container{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit,minmax(450px,1fr));
     column-gap: 2%;
+}
+
+.search-post-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.search-post{
+    width: 30%;
+}
+
+
+@media only screen and (max-width: 970px) {
+    .posts-container{
+        grid-template-columns: repeat(auto-fit,minmax(340px,1fr));
+    }
 }
