@@ -42,7 +42,8 @@ const ApiService = {
                                     })
 
         if(!response.ok){
-            throw new Error(response.statusText)
+            const errMsg = await response.text();
+            throw new Error(errMsg);
         }                                  
         const data = await response.json()
         return data;
@@ -68,8 +69,8 @@ const ApiService = {
 
                 dataToReturn=[...dataToReturn,
                     {
-                        gameName:dataTrade.game.name,
-                        username:dataTrade.user.username,
+                        gameName:dataTrade.gameName,
+                        username:dataTrade.username,
                         offered:dataTrade.tradeItems.filter(t=>t.tradeDirection==='OFFERED'),
                         wanted:dataTrade.tradeItems.filter(t=>t.tradeDirection==='WANTED')
                     }]

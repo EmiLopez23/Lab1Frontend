@@ -5,13 +5,13 @@ import "./Login.css"
 import { UserContext } from "../../contexts/UserContext";
 import { useContext } from "react";
 import ApiService from "../../services/ApiService";
+import { Toaster, toast } from "react-hot-toast";
 
 
 export default function Login(){
     const navigate = useNavigate()
     const [user,setUser] = useState({username:"",password:""})
-    const [error, setError] = useState(false)
-    const [validation,SetValidation] = useState(false)
+    const [error,setError] = useState(false)
     const {login,token} = useContext(UserContext)
 
     useEffect(()=>{
@@ -24,18 +24,13 @@ export default function Login(){
     const handleInputChange = (event)=>{
       const{name,value} = event.target;
       setUser({...user,[name]:value})
+
+      if(error) setError(false)
     }
 
 
     async function handleSubmit(event){
       event.preventDefault();
-      
-      if(!event.target.checkValidity()){
-        event.stopPropagation();
-        SetValidation(true)
-        return;
-      }
-      
       
       try {  
           const data = await ApiService.login(user)
@@ -44,7 +39,7 @@ export default function Login(){
 
         } catch (error) {
           setError(true)
-          SetValidation(false)
+          toast.error(error.message)
         }
       
       };
@@ -52,26 +47,22 @@ export default function Login(){
 
 
     return <div className="d-flex justify-content-center align-items-center bg-dark vh-100">
+      <Toaster position="top-right" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
       <div className="login text-light form-card p-5 rounded-3">
-        <form className={`mb-5 ${validation ? "was-validated" : "needs-validation"}`} onSubmit={handleSubmit} noValidate>
+        <form className={`mb-5`} onSubmit={handleSubmit}>
+        
           <h3 className="text-center mb-3">LOG IN</h3>
-          
-          
-
+        
           <div className="mb-3">
             <label className="form-label">Username</label>
-            <input className={`form-control validation-form-control ${error ? "is-invalid" : ""}`} type="text" value={user.username} name="username" placeholder="Username" onChange={handleInputChange} required/>
-            <div className="invalid-feedback">
-              Check Credentials.
-            </div>
+            <input className={`form-control validation-form-control ${error ? "invalid" : ""}`} type="text" value={user.username} name="username" placeholder="Username" onChange={handleInputChange} required/>
+            {error && <p style={{color:"rgb(196, 54, 54)",paddingTop:5}}>Check credentials</p>}
           </div>
           
           <div className="mb-3">
             <label className="form-label">Password</label>
-            <input className={`form-control validation-form-control ${error ? "is-invalid" : ""}`} type="password" value={user.password} name="password" placeholder="Password" onChange={handleInputChange} required/>
-            <div className="invalid-feedback">
-            Check Credentials.
-            </div>
+            <input className={`form-control validation-form-control ${error ? "invalid" : ""}`} type="password" value={user.password} name="password" placeholder="Password" onChange={handleInputChange} required/>
+            {error && <p style={{color:"rgb(196, 54, 54)",paddingTop:5}}>Check credentials</p>}
           </div>
           
           <div>

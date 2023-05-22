@@ -29,7 +29,7 @@ function App() {
               <Route element={<Wrapper/>}>
               <Route exact path={PrivateRoutes.HOME} element={<Home/>} />
               <Route exact path={PrivateRoutes.INVENTORY} element={<Inventory/>}/>
-              <Route exact path='/create-post' element={<CreatePost/>}/>
+              <Route exact path={PrivateRoutes.CREATE_POST} element={<CreatePost/>}/>
               </Route>
             </Route>
           </RoutesWithNotFound>
