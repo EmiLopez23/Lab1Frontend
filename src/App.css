@@ -15,6 +15,10 @@
   border: 1px solid var(--primary-violet);
   box-shadow: 8px 8px 10px rgba(0, 0, 0, 0.2);
 }
+
+.auth-container{
+  width: 30%;
+}
   
 
 .validation-form-control{
@@ -74,4 +78,22 @@
 }
 
 
+@media only screen and (max-width:1000px) {
+  .auth-container{
+    width: 40%;
+  }
+}
+
+
+@media only screen and (max-width:850px) {
+  .auth-container{
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width:400px) {
+  .auth-container{
+    width: 100%;
+  }
+}
 
