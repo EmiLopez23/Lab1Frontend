@@ -1,11 +1,5 @@
 @import url("/src/App.css");
 
-
-.search-btn{
-    border-color: var(--primary-violet) !important;
-    color: var(--primary-violet) !important;
-}
-
 .logo{
     width: 40px;
     height: auto;
@@ -13,10 +7,10 @@
     cursor: pointer;
 }
 
-.search-btn:hover{
-    background-color: var(--primary-violet) !important;
-    color: white !important;
+.navbar{
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(255,255,255,0.15);
 }
+
 
 .items-container{
     display: flex;
@@ -30,6 +24,12 @@
     margin: 0;
     padding: 0;
     gap: 20px;
+}
+
+.notificacion-icon{
+    margin-right: 20px;
+    font-size: 1.3rem;
+    cursor: pointer;
 }
 
 .navbar-link{
