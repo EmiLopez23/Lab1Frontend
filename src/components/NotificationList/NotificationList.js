@@ -21,6 +21,6 @@ export default function NotificationList(){
 
 
     return <div className={`notifications-container rounded-1 text-light`}>
-        {invites.map(invite=><Notification message={`${invite.requesterUsername} wants to trade with you`} onClick={()=>navigate(`/post-invite/${invite.tradeId}`)}/>)}
+        {invites.map((invite,index)=><Notification key={index} message={`${invite.requesterUsername} wants to trade with you`} onClick={()=>navigate(`/post-invite/${invite.tradeId}`)}/>)}
     </div>
 }
