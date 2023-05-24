@@ -33,7 +33,7 @@ export default function Login(){
       
       try {  
           const data = await ApiService.login(user)
-          login(data.token, data.role)
+          login(data.token, data.role,data.username)
           navigate("/", { replace: true })
 
         } catch (error) {

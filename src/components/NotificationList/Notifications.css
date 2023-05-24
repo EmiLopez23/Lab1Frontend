@@ -1,0 +1,48 @@
+.notifications-container{
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    overflow-y: scroll;
+    max-height: 80vh;
+    background-color: rgb(22 25 29);
+    position: absolute;
+    z-index: 1000;
+    right: 15px;
+    gap: 5px;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(0,0,0,0.15);
+}
+
+
+.individual-notification{
+    padding: 10px;
+    background-color: rgb(16, 19, 22);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.notification-btn-container{
+    gap: 10px;
+    display: flex;
+}
+
+.notificacion-btn{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.chat-btn:hover{
+    color: rgb(117, 117, 255);
+}
+
+.accept-btn:hover{
+    color: rgb(8, 205, 8);
+}
+
+.close-btn:hover{
+    color: rgb(245, 75, 75);
+}
+

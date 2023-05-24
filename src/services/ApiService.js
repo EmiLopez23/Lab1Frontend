@@ -69,6 +69,7 @@ const ApiService = {
 
                 dataToReturn=[...dataToReturn,
                     {
+                        id:dataTrade.id,
                         gameName:dataTrade.gameName,
                         username:dataTrade.username,
                         offered:dataTrade.tradeItems.filter(t=>t.tradeDirection==='OFFERED'),

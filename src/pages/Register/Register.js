@@ -31,7 +31,7 @@ export default function Register(){
         event.preventDefault()
         try{
             const data = await ApiService.register(newUser)
-            login(data.token, data.role)
+            login(data.token, data.role, data.username)
             navigate("/", { replace: true })
 
         }catch(error){
