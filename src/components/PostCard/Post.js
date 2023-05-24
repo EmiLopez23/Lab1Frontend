@@ -4,7 +4,7 @@ import { faRotate } from "@fortawesome/free-solid-svg-icons";
 import ImgSlider from "../ImgSlider/ImgSlider";
 import { toast } from "react-hot-toast";
 
-export default function Post({trade,token}){
+export default function Post({trade,token, canTrade=true}){
     
 
     function createInvite(){
@@ -33,7 +33,7 @@ export default function Post({trade,token}){
                 <ImgSlider itemsArray={trade.offered} hasQty={true}/>
             </div>
             <div className="text-light trade-btn-container">
-                <FontAwesomeIcon icon={faRotate} className="trade-icon" style={{cursor:"pointer"}} onClick={createInvite}/>
+                {canTrade &&  <FontAwesomeIcon icon={faRotate} className="trade-icon" style={{cursor:"pointer"}} onClick={createInvite}/>}
             </div>
             <div>
                 <div className="mb-2">Wanted</div>

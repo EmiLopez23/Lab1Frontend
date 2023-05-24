@@ -28,7 +28,7 @@ export default function Navbar(){
           <button className="btn btn-outline-danger flex-end" onClick={logout}>Log Out</button>
         </div>
       </div>
-      {showNoti && <NotificationList/>}
+      {showNoti && <NotificationList show={showNoti}/>}
     </>
 }
 

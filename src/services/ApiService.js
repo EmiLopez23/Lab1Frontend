@@ -140,6 +140,23 @@ const ApiService = {
         }
     }
 
+    ,
+
+    getInvites: async(token)=>{
+        try{
+            const response = await fetch(postsUrl + "all-invites",{
+                headers:{
+                    Authorization:`Bearer ${token}`}
+                })
+            if(!response.ok){
+                throw new Error("Invalid Token")
+            }            
+            const data = await response.json()
+            return data
+        }catch(error){
+            throw error
+        }
+    }
 }
 
 export default ApiService
