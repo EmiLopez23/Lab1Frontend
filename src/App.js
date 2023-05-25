@@ -7,13 +7,14 @@ import { Suspense, lazy } from 'react';
 import Loader from './components/Loader/Loader';
 import { UserProvider } from './contexts/UserContext';
 import Wrapper from './wrapper/Wrapper';
-import CreatePost from './components/CreatePost/CreatePost';
-import PostInvite from './pages/PostInvite/PostInvite';
+
 
 const Login = lazy(()=> import("./pages/Login/Login"))
 const Register = lazy(()=> import('./pages/Register/Register'))
 const Home = lazy(()=>import('./pages/Home/Home'))
 const Inventory = lazy(()=>import('./pages/Inventory/Inventory'))
+const PostInvite = lazy(()=>import('./pages/PostInvite/PostInvite'))
+const CreatePost = lazy(()=>import('./components/CreatePost/CreatePost'))
 
 function App() {
 

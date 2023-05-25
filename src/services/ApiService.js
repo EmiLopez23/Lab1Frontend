@@ -149,6 +149,7 @@ const ApiService = {
                     Authorization:`Bearer ${token}`}
                 })
             if(!response.ok){
+                console.log(response)
                 throw new Error(response.json())
             }            
             const data = await response.json()

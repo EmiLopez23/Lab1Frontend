@@ -34,28 +34,28 @@ export default function PostInvite(){
 
     function acceptTrade(){
         fetch(`http://localhost:8080/post/accept-invite/${invite.tradeId}`,{
-            method:'Post',
+            method:'POST',
             headers:{Authorization:`Bearer ${token}`}
         }).then(resp=>{
             if(!resp.ok){
                 throw new Error("Couldn't accept Trade")
             }
             toast.success("Trade Accepted, you can see your new Items in your Inventory")
-            navigate("/",{replace:true})
+            
         }).catch(error=>{
             toast.error(error.message)
         })
     }
 
     return <div className="invite-container">
-        <Toaster position="top-center" toastOptions={{duration: 10000,style: {background: '#333',color: '#fff',}}}/>
+        <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
         <h3 className="invite-desc text-light mb-0">{invite.requesterUsername} wants to trade with you the following items</h3>
         <div className="post-container">
             <Post canTrade={false} trade={trade}/>
         </div>
         <div className="invite-btns">
             <button className="btn btn-primary"><FontAwesomeIcon icon={faMessage} /> Chat</button>
-            <button className="btn btn-success"><FontAwesomeIcon icon={faRepeat} onClick={()=>acceptTrade()}/> Accept Trade</button>
+            <button className="btn btn-success" onClick={()=>acceptTrade()}><FontAwesomeIcon icon={faRepeat}/> Accept Trade</button>
             <button className="btn btn-danger"><FontAwesomeIcon icon={faXmark} /> Reject Trade</button>
         </div>
     </div>

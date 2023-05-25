@@ -13,7 +13,8 @@ export default function NotificationList(){
     useEffect(()=>{
         async function fetchInvites(){
             const data = await ApiService.getInvites(token)
-            setInvites(data)
+            const filtered = data.filter(trade=> !trade.accepted)
+            setInvites(filtered)
         }
 
         fetchInvites()
@@ -21,6 +22,8 @@ export default function NotificationList(){
 
 
     return <div className={`notifications-container rounded-1 text-light`}>
-        {invites.map((invite,index)=><Notification key={index} message={`${invite.requesterUsername} wants to trade with you`} onClick={()=>navigate(`/post-invite/${invite.tradeId}`)}/>)}
+        {invites.length 
+            ? invites.map((invite,index)=><Notification key={index} message={`${invite.requesterUsername} wants to trade with you`} onClick={()=>navigate(`/post-invite/${invite.tradeId}`)}/>)
+            : <Notification message={"Nothing yet"} empty={true}/>}
     </div>
 }
