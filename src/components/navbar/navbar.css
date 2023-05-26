@@ -26,10 +26,11 @@
     gap: 20px;
 }
 
-.notificacion-icon{
+.notification-icon{
     margin-right: 20px;
     font-size: 1.3rem;
     cursor: pointer;
+    padding: 10px !important;
 }
 
 .navbar-link{

@@ -16,7 +16,7 @@ export default function Home(){
         const fetchPosts = async () => {
           try {
             const posts = await ApiService.getPosts(token);
-            const filteredPosts = posts.filter(post=>post.username!==username)
+            const filteredPosts = posts.filter(post=>post.username!==username).reverse()
             setTrades(filteredPosts);
             setSearchResults(filteredPosts);
           } catch (error) {

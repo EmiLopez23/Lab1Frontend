@@ -3,8 +3,9 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
+import {faBell as faBellRegular} from "@fortawesome/free-regular-svg-icons";
 import NotificationList from "../NotificationList/NotificationList";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
 
 
 export default function Navbar(){
@@ -24,7 +25,7 @@ export default function Navbar(){
           </ul>     
         </div>
         <div className="items-container">
-          <FontAwesomeIcon icon={faBell} className="text-light notificacion-icon" shake={false} onClick={()=>setShowNoti(!showNoti)}/>
+          <FontAwesomeIcon icon={showNoti ? faBell : faBellRegular} className=" notification-icon btn btn-secondary" shake={false} onClick={()=>setShowNoti(!showNoti)}/>
           <button className="btn btn-outline-danger flex-end" onClick={logout}>Log Out</button>
         </div>
       </div>

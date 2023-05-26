@@ -71,7 +71,6 @@ export default function AddItem(){
         form.append("game",item.game)
         form.append("valuesId",Object.values(item.valuesId))
         form.append("img",item.img)
-        const toastId = toast.loading("Creating...")
         fetch("http://localhost:8080/inventory/item/add",{
             method:"POST",
             headers:{
@@ -80,9 +79,9 @@ export default function AddItem(){
             body: form
         }).then(resp=>{
           if(resp.ok){
-            toast.success("Successfully created",{ id: toastId })}
+            toast.success("Successfully created")}
           else{throw new Error("Error while creating Item")}
-        }).catch(err=>toast.error(err.message,{ id: toastId }))
+        }).catch(err=>toast.error(err.message))
     }
     
     return <> 

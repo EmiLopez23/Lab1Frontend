@@ -24,7 +24,6 @@ export default function AddGame(){
 
   function handleSubmit(e) {
     e.preventDefault();
-    const toastId = toast.loading("Creating game...")
     fetch("http://localhost:8080/games/add",{
       method:"POST",
       headers: {"Content-Type": "application/json",
@@ -33,13 +32,13 @@ export default function AddGame(){
     })
     .then(resp=>{
       if(resp.ok){
-        toast.success("Succesfully Created", { id: toastId })
+        toast.success("Succesfully Created")
       }
       else{
         throw new Error("Could not create Game")
         }
     })
-    .catch(error=>toast.error(error.message,{ id: toastId }))
+    .catch(error=>toast.error(error.message))
   }
 
     

@@ -43,7 +43,6 @@ export default function CreatePost(){
                             "offeredItems":transformObject(offeredItems),
                             "wantedItems":transformObject(wantedItems)}
         
-        const toastId = toast.loading("Creating post...")
         fetch("http://localhost:8080/post/create-post",{
             method:"POST",
             headers:{
@@ -57,10 +56,10 @@ export default function CreatePost(){
                 throw new Error("Error while creating Post")
             }
             else{
-                toast.success("Successfully created",{id:toastId})
+                toast.success("Successfully created")
             }
         })
-        .catch(error=>toast.error(error.message, {id:toastId}))
+        .catch(error=>toast.error(error.message))
     }
 
     return <>

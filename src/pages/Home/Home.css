@@ -1,7 +1,7 @@
 .posts-container{
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    gap: 2%;
+    grid-gap: 20px;
 }
 
 .search-post-container{
