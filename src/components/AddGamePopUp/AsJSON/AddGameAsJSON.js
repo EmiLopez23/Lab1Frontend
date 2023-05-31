@@ -78,8 +78,11 @@ export default function AddGameAsJSON(){
     
     return <>
         <form className="text-light"> 
-        <div id="img" className="mb-3 form-group">
-        <label className="form-label text-light">Insert JSON File</label>
+        <div id="img" className=" form-group mt-1">
+        <label className="form-label text-light">Insert .JSON or .txt File</label>
+        </div>
+        
+        <div className="position-relative">
         <label htmlFor="file" className="form-label"></label>
         <input 
         id="file" 
@@ -88,10 +91,10 @@ export default function AddGameAsJSON(){
         name="json"
         onChange={handleFileChange} 
         required/>
-        
+
         </div>
 
-        <div className="d-flex justify-content-end mt-5">
+        <div className="d-flex justify-content-end mt-4">
             <button className="btn btn-violet ms-2" onClick={handleSubmit}>Submit</button>
         </div>
 
