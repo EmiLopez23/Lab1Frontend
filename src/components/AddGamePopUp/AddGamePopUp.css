@@ -1,0 +1,30 @@
+.toggle-tab-btn {
+    padding: 10px;
+    border: 2px solid var(--primary-violet);
+    color: white;
+}
+
+.toggle-tab-btn:hover {
+    padding: 10px;
+    border: 2px solid var(--primary-violet);
+    color: white;
+    background-color: var(--primary-violet);
+}
+
+.toggle-tab-btn:active,.active {
+    padding: 10px;
+    border: 2px solid var(--primary-violet) !important;
+    color: white !important;
+    background-color: var(--primary-violet) !important;
+}
+
+
+.inventory-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tab-content-container {
+    width: 50%
+}

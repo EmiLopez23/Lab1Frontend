@@ -3,9 +3,9 @@ import "./inventory.css"
 import { UserContext } from "../../contexts/UserContext";
 import AddItem from "../../components/AddItem/AddItem";
 import PopUpContainer from "../../components/PopUpContainer/PopUpContainer";
-import AddGame from "../../components/AddGame/AddGame";
 import GeneralInventory from "../../components/Inventories/GeneralInventory";
 import PersonalInventory from "../../components/Inventories/PersonalInventory";
+import AddGamePopUp from "../../components/AddGamePopUp/AddGamePopUp";
 
 export default function Inventory(){
     const {role} = useContext(UserContext)
@@ -37,6 +37,6 @@ export default function Inventory(){
         }
         </div>
         {addItem && <PopUpContainer element={<AddItem/>} onClick={()=>toggleItem(false)} />}
-        {addGame && <PopUpContainer element={<AddGame/>} onClick={()=>toggleGame(false)} />}
+        {addGame && <PopUpContainer element={<AddGamePopUp/>} onClick={()=>toggleGame(false)} />}
     </> 
 }

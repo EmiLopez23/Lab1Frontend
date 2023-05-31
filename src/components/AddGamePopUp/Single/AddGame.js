@@ -3,7 +3,7 @@ import "./AddGame.css"
 import CategoryForm from "./categoryForm/categoryForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { UserContext } from "../../contexts/UserContext";
+import { UserContext } from "../../../contexts/UserContext";
 import { Toaster, toast } from "react-hot-toast";
 
 export default function AddGame(){
@@ -43,7 +43,6 @@ export default function AddGame(){
 
     
     return <>
-        <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
         <form className="text-light"> 
         <div className="form-group">
             <label className="form-label text-light">Insert Game Name</label>
