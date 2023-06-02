@@ -7,6 +7,7 @@ import { Suspense, lazy } from 'react';
 import Loader from './components/Loader/Loader';
 import { UserProvider } from './contexts/UserContext';
 import Wrapper from './wrapper/Wrapper';
+import Chat from './components/Chat/Chat';
 
 
 const Login = lazy(()=> import("./pages/Login/Login"))
@@ -28,12 +29,13 @@ function App() {
             <Route exact path={PublicRoutes.LOGIN} element={<Login/>} />
             <Route exact path={PublicRoutes.REGISTER} element={<Register/>} />
             <Route element={<AuthGuard/>}>
-                <Route element={<Wrapper/>}>
+              <Route element={<Wrapper/>}>
                 <Route exact path={PrivateRoutes.HOME} element={<Home/>} />
                 <Route exact path={PrivateRoutes.INVENTORY} element={<Inventory/>}/>
                 <Route exact path={PrivateRoutes.CREATE_POST} element={<CreatePost/>}/>
                 <Route path='/post-invite/:id' element={<PostInvite/>}/>
               </Route>
+              <Route exact path='/chat/:receiverId' element={<Chat/>}/>
             </Route>
           </RoutesWithNotFound>
         </Router>

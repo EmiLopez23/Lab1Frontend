@@ -33,7 +33,7 @@ export default function Login(){
       
       try {  
           const data = await ApiService.login(user)
-          login(data.token, data.role,data.username)
+          login(data.token, data.role,data.username,data.id)
           navigate("/", { replace: true })
 
         } catch (error) {
@@ -68,7 +68,7 @@ export default function Login(){
             <FormButton className="w-75 fs-5" text="Log In"/>
           </div>
         </form>
-        <p className="text-center">Don't have an account? <Link to="/register" className="link text-decoration-none">Register</Link></p>
+        <p className="text-center">Don't have an account? <Link to="/register" className="toggle-auth text-decoration-none">Register</Link></p>
       </div>
     </div>
 }

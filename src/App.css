@@ -3,6 +3,10 @@
   --secondary-violet:#6e13b9;
 }
 
+*{
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
 .text-violet{
   color: var(--primary-violet);
 }
@@ -27,6 +31,11 @@
 }
 
 .link{
+  text-decoration: none;
+  color: white;
+}
+
+.toggle-auth{
   color: var(--primary-violet);
 }
 

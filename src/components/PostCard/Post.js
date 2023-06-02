@@ -15,7 +15,7 @@ export default function Post({trade,token, canTrade=true}){
                 })
             .then(resp=>{
                 resp.ok 
-                    ? toast.success(`Invite succesfuly sended to ${trade.username}`)
+                    ? toast.success(`Invite succesfuly sent to ${trade.username}`)
                     : toast.error('error sending invite')
             })
             

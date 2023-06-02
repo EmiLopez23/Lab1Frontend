@@ -1,14 +1,12 @@
 import "./AddGamePopUp.css"
-import React, {useContext, useState} from "react";
-import { UserContext } from "../../contexts/UserContext";
-import { Toaster, toast } from "react-hot-toast";
+import React, {useState} from "react";
+import { Toaster } from "react-hot-toast";
 import AddGame from "./Single/AddGame";
 import AddGameAsJSON from "./AsJSON/AddGameAsJSON";
 
 
 
 export default function AddGamePopUp() {
-    const{token} = useContext(UserContext)
     const [tab,setTab] = useState(0)
 
 

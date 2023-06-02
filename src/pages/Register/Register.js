@@ -31,7 +31,7 @@ export default function Register(){
         event.preventDefault()
         try{
             const data = await ApiService.register(newUser)
-            login(data.token, data.role, data.username)
+            login(data.token, data.role, data.username,data.id)
             navigate("/", { replace: true })
 
         }catch(error){
@@ -64,7 +64,7 @@ export default function Register(){
                     <FormButton className="w-75 fs-5" text="Register"/>
                 </div>
             </form>
-            <p className="text-center">Already have an account? <Link to="/login" className="link text-decoration-none">Log In</Link></p>
+            <p className="text-center">Already have an account? <Link to="/login" className="toggle-auth text-decoration-none">Log In</Link></p>
         </div>
     </div>
 }

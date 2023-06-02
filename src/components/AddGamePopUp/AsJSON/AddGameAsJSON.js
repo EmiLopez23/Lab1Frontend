@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import "./AddGameAsJSON.css"
 import { UserContext } from "../../../contexts/UserContext";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export default function AddGameAsJSON(){
     const{token} = useContext(UserContext)

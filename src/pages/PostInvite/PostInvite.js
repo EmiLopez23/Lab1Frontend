@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import {useNavigate, useParams } from "react-router-dom";
 import ApiService from "../../services/ApiService";
 import { UserContext } from "../../contexts/UserContext";
 import Post from "../../components/PostCard/Post";
@@ -40,12 +40,13 @@ export default function PostInvite(){
             if(!resp.ok){
                 throw new Error("Couldn't accept Trade")
             }
-            toast.success("Trade Accepted, you can see your new Items in your Inventory")
-            
-        }).catch(error=>{
+        })
+        .finally(()=>toast.success("Trade Accepted, you can see your new Items in your Inventory"))
+        .catch(error=>{
             toast.error(error.message)
         })
     }
+
 
     return <div className="invite-container">
         <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
@@ -54,7 +55,7 @@ export default function PostInvite(){
             <Post canTrade={false} trade={trade}/>
         </div>
         <div className="invite-btns">
-            <button className="btn btn-primary"><FontAwesomeIcon icon={faMessage} /> Chat</button>
+            <button className="btn btn-primary" onClick={()=>navigate(`/chat/${invite.requesterId}`)}><FontAwesomeIcon icon={faMessage} /> Chat</button>
             <button className="btn btn-success" onClick={()=>acceptTrade()}><FontAwesomeIcon icon={faRepeat}/> Accept Trade</button>
             <button className="btn btn-danger"><FontAwesomeIcon icon={faXmark} /> Reject Trade</button>
         </div>

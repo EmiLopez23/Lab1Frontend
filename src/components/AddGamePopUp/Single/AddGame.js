@@ -4,7 +4,7 @@ import CategoryForm from "./categoryForm/categoryForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { UserContext } from "../../../contexts/UserContext";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export default function AddGame(){
     const{token} = useContext(UserContext)
