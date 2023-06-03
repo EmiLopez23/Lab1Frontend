@@ -83,6 +83,22 @@
   display: none;
 }
 
+/*------ Animation for Showing Objects ------*/
+.has-animation-to-show{
+  animation: showAnimation 0.3s ease-out;
+  transform-origin: center;
+}
+
+
+@keyframes showAnimation {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+/*-------- Media Queries -------*/
 
 @media only screen and (max-width:1000px) {
   .auth-container{

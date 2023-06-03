@@ -6,7 +6,7 @@ import { UserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
 
 export default function Chat() {
-    const {id:senderId} = useContext(UserContext)
+    const {id:senderId,username} = useContext(UserContext)
     const {receiverId} = useParams()
     const [stompClient, setStompClient] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -27,7 +27,7 @@ export default function Chat() {
           setIsConnected(false);
         }
       };
-    }, []);
+    },[]);
   
     useEffect(() => {
       fetch(`http://localhost:8080/messages/${senderId}/${receiverId}`)
@@ -46,9 +46,9 @@ export default function Chat() {
         console.error(error)
       });
       if (stompClient) {
-        stompClient.subscribe(`/user/${senderId}/queue/messages`, handleReceivedMessage);
+        stompClient.subscribe(`/user/${username}/queue/messages`, handleReceivedMessage);
       }
-    }, [stompClient,senderId,receiverId]);
+    }, [stompClient,senderId,username,receiverId]);
   
     const handleReceivedMessage = (message) => {
       const chatMessage = JSON.parse(message.body);
@@ -66,21 +66,25 @@ export default function Chat() {
               senderId: senderId,
               receiverId: receiverId,
             };
-        
             stompClient.send('/app/chat', headers, JSON.stringify(chatMessage));
+          
+            const chatMessagetoAdd = {
+              ...chatMessage,
+              sender: username
+            };
+      
+            setMessages(prevMessages => [...prevMessages, chatMessagetoAdd]);
         }
       };
   
     return (
       <div className="bg-light">
         <h2>Chat</h2>
-        <ul>
-          {messages.map((message) => (
-            <li key={message.id}>
-              {message.sender}: {message.content}
-            </li>
-          ))}
-        </ul>
+        {messages.map((message,index) => (
+          <div key={index}>
+            {message.sender}: {message.content}
+          </div>
+        ))}
         <form
           onSubmit={(e) => {
             e.preventDefault();
