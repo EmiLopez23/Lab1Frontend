@@ -4,6 +4,11 @@ import SockJS from "sockjs-client";
 import { over } from "stompjs";
 import { UserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
+import MyMessage from "./MyMessage";
+import OtherMessage from "./OtherMessage";
+import "./Messages.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function Chat() {
     const {id:senderId,username} = useContext(UserContext)
@@ -11,6 +16,7 @@ export default function Chat() {
     const [stompClient, setStompClient] = useState(null);
     const [messages, setMessages] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
+    const [message,setMessage] = useState("")
   
     useEffect(() => {
       const socket = new SockJS('http://localhost:8080/ws');
@@ -39,7 +45,6 @@ export default function Chat() {
         }
       })
       .then(chatMessages => {
-        console.log(chatMessages)
         setMessages(chatMessages.sort((messageA, messageB) => new Date(messageA.timeStamp) - new Date(messageB.timeStamp)))
       })
       .catch(error => {
@@ -76,25 +81,26 @@ export default function Chat() {
             setMessages(prevMessages => [...prevMessages, chatMessagetoAdd]);
         }
       };
+
+    function handleMessage(event){
+      event.preventDefault();
+      sendMessage(message);
+      setMessage("")
+    }
   
     return (
-      <div className="bg-light">
-        <h2>Chat</h2>
+      <div className="bg-dark chat-container">
+        <h2 className="text-light">Chat</h2>
+        <div className="chat-messages">
         {messages.map((message,index) => (
-          <div key={index}>
-            {message.sender}: {message.content}
-          </div>
+          message.sender === username
+            ? <MyMessage sender={"You"} message={message.content} key={index}/>
+            : <OtherMessage sender={message.sender} message={message.content} key={index}/>
         ))}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const content = e.target.elements.message.value;
-            sendMessage(content);
-            e.target.elements.message.value = '';
-          }}
-        >
-          <input type="text" name="message" />
-          <button type="submit">Enviar</button>
+        </div>
+        <form onSubmit={handleMessage} className="message-form">
+          <input type="text" name="message" className="form-control" onChange={e=>setMessage(e.target.value)} value={message}/>
+          <button type="submit" className="btn btn-violet"><FontAwesomeIcon icon={faArrowRight} /></button>
         </form>
       </div>
     );

@@ -1,0 +1,69 @@
+.chat-container{
+    display: grid;
+    grid-template-rows: 40px 1fr 45px;
+    height: 100vh;
+    padding: 3px;
+}
+
+.chat-messages{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.message-form{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 3px;
+}
+  
+
+/*----- My message css ------*/
+
+.my-message-div{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.my-message-container{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(199, 143, 252);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.my-message-sender{
+    text-align: end;
+}
+
+.my-message{
+    text-align: justify;
+}
+
+
+/*----- Other Message css ------*/
+.other-message-div{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.other-message-container{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.other-message-sender{
+    text-align: start;
+}
+
+.other-message{
+    text-align: justify;
+}
