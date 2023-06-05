@@ -1,8 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
-import { UserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router-dom";
 import MyMessage from "./MyMessage";
 import OtherMessage from "./OtherMessage";
@@ -10,8 +9,7 @@ import "./Messages.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-export default function Chat() {
-    const {id:senderId,username} = useContext(UserContext)
+export default function Chat({username,senderId}) {
     const {receiverId} = useParams()
     const [stompClient, setStompClient] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -90,7 +88,7 @@ export default function Chat() {
   
     return (
       <div className="bg-dark chat-container">
-        <h2 className="text-light">Chat</h2>
+        <h2 className="text-light chat-title">Chat</h2>
         <div className="chat-messages">
         {messages.map((message,index) => (
           message.sender === username

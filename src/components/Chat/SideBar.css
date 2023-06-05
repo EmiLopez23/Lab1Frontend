@@ -1,0 +1,9 @@
+.sidebar-container{
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-username{
+    background-color: rgb(168, 86, 245);
+    padding: 10px;
+}

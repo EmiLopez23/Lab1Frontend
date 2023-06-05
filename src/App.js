@@ -7,7 +7,7 @@ import { Suspense, lazy } from 'react';
 import Loader from './components/Loader/Loader';
 import { UserProvider } from './contexts/UserContext';
 import Wrapper from './wrapper/Wrapper';
-import Chat from './components/Chat/Chat';
+import ChatRoom from './components/Chat/ChatRoom';
 
 
 const Login = lazy(()=> import("./pages/Login/Login"))
@@ -35,7 +35,7 @@ function App() {
                 <Route exact path={PrivateRoutes.CREATE_POST} element={<CreatePost/>}/>
                 <Route path='/post-invite/:id' element={<PostInvite/>}/>
               </Route>
-              <Route exact path='/chat/:receiverId' element={<Chat/>}/>
+              <Route exact path='/chat/:receiverId' element={<ChatRoom/>}/>
             </Route>
           </RoutesWithNotFound>
         </Router>
