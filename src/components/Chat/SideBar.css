@@ -4,6 +4,8 @@
 }
 
 .sidebar-username{
-    background-color: rgb(168, 86, 245);
+    background-color: #6852d2ab;
     padding: 10px;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(0,0,0,0.15);
+    margin-bottom: 0px !important;
 }

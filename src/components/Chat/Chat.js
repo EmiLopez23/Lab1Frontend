@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
@@ -11,26 +11,35 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function Chat({username,senderId}) {
     const {receiverId} = useParams()
+    const lastMessageRef = useRef(null)
     const [stompClient, setStompClient] = useState(null);
     const [messages, setMessages] = useState([]);
     const [isConnected, setIsConnected] = useState(false);
     const [message,setMessage] = useState("")
   
     useEffect(() => {
-      const socket = new SockJS('http://localhost:8080/ws');
-      const stomp = over(socket);
-  
-      stomp.connect({}, () => {
-        setStompClient(stomp);
-        setIsConnected(true);
-      });
-  
-      return () => {
-        if (stompClient) {
-          stompClient.disconnect();
+      let stomp = null;
+
+      const connectToWebSocket = () => {
+        const socket = new SockJS('http://localhost:8080/ws');
+        stomp = over(socket);
+      
+        stomp.connect({}, () => {
+          setStompClient(stomp);
+          setIsConnected(true);
+        });
+      };
+    
+      const disconnectFromWebSocket = () => {
+        if (stomp) {
+          stomp.disconnect();
           setIsConnected(false);
         }
       };
+    
+      connectToWebSocket();
+    
+      return disconnectFromWebSocket;
     },[]);
   
     useEffect(() => {
@@ -52,6 +61,10 @@ export default function Chat({username,senderId}) {
         stompClient.subscribe(`/user/${username}/queue/messages`, handleReceivedMessage);
       }
     }, [stompClient,senderId,username,receiverId]);
+
+    useEffect(() => {
+      scrollToBottom();
+    }, [messages]);
   
     const handleReceivedMessage = (message) => {
       const chatMessage = JSON.parse(message.body);
@@ -84,17 +97,25 @@ export default function Chat({username,senderId}) {
       event.preventDefault();
       sendMessage(message);
       setMessage("")
+      scrollToBottom()
     }
+
+    function scrollToBottom(){
+      if (lastMessageRef.current) {
+        lastMessageRef.current.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+      }
+    };
   
     return (
       <div className="bg-dark chat-container">
-        <h2 className="text-light chat-title">Chat</h2>
+        <h2 className="text-light chat-title mb-0">Chat</h2>
         <div className="chat-messages">
         {messages.map((message,index) => (
           message.sender === username
             ? <MyMessage sender={"You"} message={message.content} key={index}/>
             : <OtherMessage sender={message.sender} message={message.content} key={index}/>
         ))}
+        <div ref={lastMessageRef}/>
         </div>
         <form onSubmit={handleMessage} className="message-form">
           <input type="text" name="message" className="form-control" onChange={e=>setMessage(e.target.value)} value={message}/>

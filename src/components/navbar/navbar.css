@@ -18,6 +18,10 @@
     justify-content: center;
 }
 
+.items-container:last-child{
+    gap: 10px;
+}
+
 .navbar-items{
     display: flex;
     list-style: none;
@@ -26,8 +30,8 @@
     gap: 20px;
 }
 
+
 .notification-icon{
-    margin-right: 20px;
     font-size: 1.3rem;
     cursor: pointer;
     padding: 10px !important;

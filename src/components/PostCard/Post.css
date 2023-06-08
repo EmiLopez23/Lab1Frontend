@@ -18,6 +18,10 @@
     column-gap: 25px;
 }
 
+.username{
+    cursor: pointer;
+}
+
 .trade-icon{
     background-color: blueviolet;
     font-size: 1.5rem;

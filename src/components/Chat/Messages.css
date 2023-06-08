@@ -1,6 +1,6 @@
 .chat-container{
     display: grid;
-    grid-template-rows: 10% 1fr 45px;
+    grid-template-rows: auto 1fr auto;
     height: 100vh;
 }
 
@@ -20,8 +20,9 @@
 }
 
 .chat-title{
-    background-color: darkblue;
+    background-color: #6852d2ab;
     padding: 10px;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(0,0,0,0.15);
 }
   
 
@@ -43,10 +44,6 @@
 
 .my-message-sender{
     text-align: end;
-}
-
-.my-message{
-    text-align: justify;
 }
 
 

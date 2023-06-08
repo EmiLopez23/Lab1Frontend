@@ -7,7 +7,7 @@ import { Suspense, lazy } from 'react';
 import Loader from './components/Loader/Loader';
 import { UserProvider } from './contexts/UserContext';
 import Wrapper from './wrapper/Wrapper';
-import ChatRoom from './components/Chat/ChatRoom';
+
 
 
 const Login = lazy(()=> import("./pages/Login/Login"))
@@ -16,6 +16,8 @@ const Home = lazy(()=>import('./pages/Home/Home'))
 const Inventory = lazy(()=>import('./pages/Inventory/Inventory'))
 const PostInvite = lazy(()=>import('./pages/PostInvite/PostInvite'))
 const CreatePost = lazy(()=>import('./components/CreatePost/CreatePost'))
+const ChatRoom = lazy(()=>import('./components/Chat/ChatRoom'))
+const Profile = lazy(()=>import ('./components/Profile/Profile'))
 
 function App() {
 
@@ -34,6 +36,7 @@ function App() {
                 <Route exact path={PrivateRoutes.INVENTORY} element={<Inventory/>}/>
                 <Route exact path={PrivateRoutes.CREATE_POST} element={<CreatePost/>}/>
                 <Route path='/post-invite/:id' element={<PostInvite/>}/>
+                <Route path='/user/:username' element={<Profile/>}/>
               </Route>
               <Route exact path='/chat/:receiverId' element={<ChatRoom/>}/>
             </Route>
