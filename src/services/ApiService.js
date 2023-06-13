@@ -81,6 +81,35 @@ const ApiService = {
             throw error
         }
     }
+    ,
+
+    getActivePosts: async(token)=>{
+        try{
+            const response = await  fetch(postsUrl+"allActive", 
+                                        {
+                                            headers:{Authorization:`Bearer ${token}`}
+                                        })
+            if(!response.ok){
+                throw new Error("Invalid token")
+            }
+            const data = await response.json()
+            let dataToReturn = []
+            data.forEach(dataTrade => {
+
+                dataToReturn=[...dataToReturn,
+                    {
+                        id:dataTrade.id,
+                        gameName:dataTrade.gameName,
+                        username:dataTrade.username,
+                        offered:dataTrade.tradeItems.filter(t=>t.tradeDirection==='OFFERED'),
+                        wanted:dataTrade.tradeItems.filter(t=>t.tradeDirection==='WANTED')
+                    }]
+            })
+            return dataToReturn
+        }catch(error){
+            throw error
+        }
+    }
 
     ,
 

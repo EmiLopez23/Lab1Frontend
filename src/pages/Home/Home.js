@@ -17,7 +17,7 @@ export default function Home(){
     useEffect(() => {
         const fetchPosts = async () => {
           try {
-            const posts = await ApiService.getPosts(token);
+            const posts = await ApiService.getActivePosts(token);
             const filteredPosts = posts.filter(post=>post.username!==username).reverse()
             setTrades(filteredPosts);
             setSearchResults(filteredPosts);
