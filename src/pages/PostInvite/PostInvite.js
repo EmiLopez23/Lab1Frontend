@@ -33,6 +33,7 @@ export default function PostInvite(){
     },[token,id])
 
     function acceptTrade(){
+        //HAY QUE REVISAR QUE EL USUARIO Q MANDA EL INVITE TENGA LOS ITEMS QUE SE SUPONE Q VA A DAR - SI NO TIENE LOS ITEMS TE AGREGA IGUAL
         fetch(`http://localhost:8080/post/accept-invite/${invite.tradeId}`,{
             method:'POST',
             headers:{Authorization:`Bearer ${token}`}
