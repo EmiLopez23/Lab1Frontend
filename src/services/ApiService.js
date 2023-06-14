@@ -6,6 +6,7 @@ const postsUrl = localhost + "post/"
 const inventoryUrl = localhost + "inventory/"
 const userUrl = localhost + "user/"
 const gamesUrl = localhost + "games/"
+const adminUrl = localhost + "admin/"
 
 
 
@@ -174,6 +175,24 @@ const ApiService = {
     getInvites: async(token)=>{
         try{
             const response = await fetch(postsUrl + "all-invites",{
+                headers:{
+                    Authorization:`Bearer ${token}`}
+                })
+            if(!response.ok){
+                console.log(response)
+                throw new Error(response.json())
+            }            
+            const data = await response.json()
+            return data
+        }catch(error){
+            throw error
+        }
+    }
+    ,
+    
+    getReports: async(token)=>{
+        try{
+            const response = await fetch(adminUrl + "reports",{
                 headers:{
                     Authorization:`Bearer ${token}`}
                 })
