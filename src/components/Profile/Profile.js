@@ -68,14 +68,18 @@ export default function Profile(){
                 <ImgSlider itemsArray={inventory} hasQty={true}/>
             </div>
             <div className="all-type-user-posts">
-              <div className="user-posts">
+              <div className="user-posts-container">
                   <h4>Posts</h4>
+                  <div className="user-posts">
                   {activetrades?.map((trade,index)=><Post key={index} trade={trade} token={token}/>)}
+                  </div>
               </div>
 
-              <div className="user-confirmed-trades">
+              <div className="user-confirmed-trades-container">
                   <h4>Trade History</h4>
+                  <div className="user-posts">
                   {confirmedTrades?.map((trade,index)=><Post key={index} trade={trade} token={token} canTrade={false} requester={trade.requesterUsername}/>)}
+                  </div>
               </div>
             </div>
         </div>

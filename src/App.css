@@ -85,7 +85,7 @@
 
 /*------ Animation for Showing Objects ------*/
 .has-animation-to-show{
-  animation: showAnimation 0.3s ease-out;
+  animation: showAnimation 0.2s ease-out;
   transform-origin: center;
 }
 
