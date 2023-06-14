@@ -18,7 +18,7 @@ export default function ReportPage(){
             }
         }
         fetchReports()   
-    },[])
+    },[token])
     
     return <div className="text-light p-3">
         <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
