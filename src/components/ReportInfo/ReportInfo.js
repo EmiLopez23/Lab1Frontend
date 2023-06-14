@@ -1,7 +1,9 @@
 import { toast } from "react-hot-toast"
 import "./ReportInfo.css"
 
-export default function ReportInfo({subject,reporter,content,reportId}){
+export default function ReportInfo({subject,reporter,content,reportId,fetchReports}){
+
+
 
     function handleBan(action){
         fetch(`http://localhost:8080/admin/report/${reportId}?ban=${action}`,{
@@ -11,8 +13,10 @@ export default function ReportInfo({subject,reporter,content,reportId}){
             if(!resp.ok){
                 toast.error("couldn't ban user")
             }
-            else if(action){ toast.success(`${subject} banned`)}
-            else toast.success(`Report Dismissed`)
+            else if(action){ toast.success(`${subject} banned`)
+                    fetchReports()}
+            else{ toast.success(`Report Dismissed`)
+                    fetchReports()}
         })
     }
 

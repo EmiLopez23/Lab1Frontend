@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faBell as faBellRegular} from "@fortawesome/free-regular-svg-icons";
 import NotificationList from "../NotificationList/NotificationList";
-import { faBell } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import ChatNotification from "../ChatNotification.js/ChatNotification";
 import image from "../../logoTradePal.png"
 import { Toaster } from "react-hot-toast";
@@ -13,7 +13,7 @@ import { Toaster } from "react-hot-toast";
 
 export default function Navbar(){
     const navigate = useNavigate()
-    const {logout,role} = useContext(UserContext)
+    const {logout,role,username} = useContext(UserContext)
     const [showNoti,setShowNoti] = useState(false)
     
 
@@ -30,6 +30,7 @@ export default function Navbar(){
         <div className="items-container btns-cont">
           <ChatNotification onClick={()=>navigate("/chat")}/>
           <FontAwesomeIcon icon={showNoti ? faBell : faBellRegular} className=" notification-icon btn btn-secondary" onClick={()=>setShowNoti(!showNoti)}/>
+          <FontAwesomeIcon icon={faUser} onClick={()=>navigate(`/user/${username}`)} className=" profile-icon btn btn-secondary"/>
           <button className="btn btn-outline-danger flex-end" onClick={logout}>Log Out</button>
         </div>
       </div>

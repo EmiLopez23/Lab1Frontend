@@ -12,7 +12,7 @@ import ReportUserForm from "../ReportUserForm.js/ReportUserForm"
 
 export default function Profile(){
     const {username} = useParams()
-    const {token} = useContext(UserContext)
+    const {token, username:currentUser} = useContext(UserContext)
     const [activetrades,setActiveTrades] = useState([])
     const [inventory,setInventory] = useState([])
     const [confirmedTrades,setConfirmedTrades] = useState([])
@@ -51,7 +51,7 @@ export default function Profile(){
     return <div className="text-light user-page-container">
       <div className="user-page-header">
       <h1 className="m-0">{username}</h1>
-      <button className="btn btn-outline-danger" onClick={()=>setReportForm(true)}><FontAwesomeIcon icon={faCircleExclamation} /> Report</button>
+      {currentUser !== username && <button className="btn btn-outline-danger" onClick={()=>setReportForm(true)}><FontAwesomeIcon icon={faCircleExclamation} /> Report</button>}
       </div>
         
         <div className="user-page-body">
