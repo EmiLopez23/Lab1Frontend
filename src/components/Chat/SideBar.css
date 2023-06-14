@@ -7,5 +7,28 @@
     background-color: #6852d2ab;
     padding: 10px;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(0,0,0,0.15);
-    margin-bottom: 0px !important;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar-chats{
+    background-color: rgb(22 25 29);
+    height: 100%;
+}
+
+.contact{
+    height: 70px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.contact:hover,.contact.active{
+    background-color: rgb(68, 68, 68);
+    
 }
