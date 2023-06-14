@@ -8,6 +8,7 @@ import NotificationList from "../NotificationList/NotificationList";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
 import ChatNotification from "../ChatNotification.js/ChatNotification";
 import image from "../../logoTradePal.png"
+import { Toaster } from "react-hot-toast";
 
 
 export default function Navbar(){
@@ -17,6 +18,7 @@ export default function Navbar(){
     
 
     return <> 
+    <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
       <div className="navbar navbar-expand-lg bg-dark p-3 justify-content-between">
         <div className="items-container">
           <img src={image} alt="logo" className="logo" onClick={()=>navigate("/",{replace:true})}/>

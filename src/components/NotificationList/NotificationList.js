@@ -14,7 +14,8 @@ export default function NotificationList(){
     useEffect(()=>{
         async function fetchInvites(){
             const data = await ApiService.getInvites(token)
-            setNotifications(data)
+            const newestFirst = data.reverse()
+            setNotifications(newestFirst)
         }
 
         fetchInvites()

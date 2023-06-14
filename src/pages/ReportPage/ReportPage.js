@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react"
 import ApiService from "../../services/ApiService"
 import { UserContext } from "../../contexts/UserContext"
 import ReportInfo from "../../components/ReportInfo/ReportInfo"
-import { Toaster } from "react-hot-toast"
 
 export default function ReportPage(){
     const {token} = useContext(UserContext)
@@ -21,7 +20,6 @@ export default function ReportPage(){
     },[token])
     
     return <div className="text-light p-3">
-        <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
         <h3>Reports</h3>
         <div className="info-header">
             <div>Subject</div>

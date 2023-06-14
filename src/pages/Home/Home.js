@@ -3,7 +3,6 @@ import Post from "../../components/PostCard/Post"
 import "./Home.css"
 import { UserContext } from "../../contexts/UserContext"
 import ApiService from "../../services/ApiService"
-import { Toaster } from "react-hot-toast"
 import { Link } from "react-router-dom"
 import { PrivateRoutes } from "../../consts/Constants"
 
@@ -37,7 +36,6 @@ export default function Home(){
     },[searchPostInput,trades])
 
     return <div className="home mt-4 p-3">
-            <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
             <div className="search-post-container">
                 <input placeholder="Search post..." className="form-control search-post" onChange={(e)=>setSearchPost(e.target.value)}/>
                 <div className="text-light" style={{fontSize:"0.8rem",paddingTop:5}}>Note: you can search by item, game or username</div>

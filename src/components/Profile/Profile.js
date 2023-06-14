@@ -9,7 +9,6 @@ import "./Profile.css"
 import ImgSlider from "../ImgSlider/ImgSlider"
 import PopUpContainer from "../PopUpContainer/PopUpContainer"
 import ReportUserForm from "../ReportUserForm.js/ReportUserForm"
-import { Toaster } from "react-hot-toast"
 
 export default function Profile(){
     const {username} = useParams()
@@ -50,7 +49,6 @@ export default function Profile(){
         fetchPosts();
       }, [token,username]);
     return <div className="text-light user-page-container">
-      <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
       <div className="user-page-header">
       <h1 className="m-0">{username}</h1>
       <button className="btn btn-outline-danger" onClick={()=>setReportForm(true)}><FontAwesomeIcon icon={faCircleExclamation} /> Report</button>

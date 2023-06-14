@@ -5,8 +5,9 @@ import WantedItems from "./WantedItems"
 import { UserContext } from "../../contexts/UserContext"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import ApiService from "../../services/ApiService"
-import { Toaster, toast } from "react-hot-toast"
+import {toast } from "react-hot-toast"
 import { faRepeat } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -17,6 +18,7 @@ export default function CreatePost(){
     const [activeGame,setActiveGame]=useState("")
     const [offeredItems,setOfferedItems] = useState([])
     const [wantedItems,setWantedItems] = useState([])
+    const navigate = useNavigate()
 
     useEffect(()=>{
         async function fetchGames(){
@@ -57,14 +59,14 @@ export default function CreatePost(){
             }
             else{
                 toast.success("Successfully created")
+                navigate("/home")
             }
         })
         .catch(error=>toast.error(error.message))
     }
 
     return <>
-    <Toaster position="bottom-right" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
-     <div className="create-post-card p-5">
+    <div className="create-post-card p-5">
         <select className="form-select mb-3" onChange={(e)=>setActiveGame(e.target.value)}>
                 <option>Select a game...</option> 
                 {games?.map((game,index) => <option value={game} key={index}>{game}</option>)}

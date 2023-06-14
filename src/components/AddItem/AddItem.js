@@ -4,7 +4,7 @@ import FormButton from "../button/FormButton";
 import ItemInput from "../ItemInput/ItemInput";
 import ApiService from "../../services/ApiService";
 import { UserContext } from "../../contexts/UserContext";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export default function AddItem(){
     const {token} = useContext(UserContext)
@@ -85,7 +85,6 @@ export default function AddItem(){
     }
     
     return <> 
-    <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
     <form onSubmit={handleSubmit} className="text-light">
         <div id="game" className="mb-3 form-group">
         <label htmlFor="game-select" className="form-label">Game</label>

@@ -6,7 +6,7 @@ import Post from "../../components/PostCard/Post";
 import "./PostInvite.css"
 import { faMessage, faRepeat, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export default function PostInvite(){
     const {id} = useParams()
@@ -33,7 +33,6 @@ export default function PostInvite(){
     },[token,id])
 
     function acceptTrade(){
-        //HAY QUE REVISAR QUE EL USUARIO Q MANDA EL INVITE TENGA LOS ITEMS QUE SE SUPONE Q VA A DAR - SI NO TIENE LOS ITEMS TE AGREGA IGUAL
         fetch(`http://localhost:8080/post/accept-invite/${invite.tradeId}`,{
             method:'POST',
             headers:{Authorization:`Bearer ${token}`}
@@ -41,8 +40,11 @@ export default function PostInvite(){
             if(!resp.ok){
                 throw new Error("Couldn't accept Trade")
             }
-        })
-        .finally(()=>toast.success("Trade Accepted, you can see your new Items in your Inventory"))
+            else{
+                toast.success("Trade Accepted, you can see your new Items in your Inventory")
+                navigate("/home")}
+            }
+        )
         .catch(error=>{
             toast.error(error.message)
         })
@@ -63,7 +65,6 @@ export default function PostInvite(){
 
 
     return <div className="invite-container">
-        <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
         <h3 className="invite-desc text-light mb-0">{invite.requesterUsername} wants to trade with you the following items</h3>
         <div className="post-container">
             <Post canTrade={false} trade={trade}/>
