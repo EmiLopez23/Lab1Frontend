@@ -7,12 +7,15 @@ import "./PostInvite.css"
 import { faMessage, faRepeat, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { toast } from "react-hot-toast";
+import PopUpContainer from "../../components/PopUpContainer/PopUpContainer";
+import OpinionPost from "../../components/OpinionPost/OpinionPost";
 
 export default function PostInvite(){
     const {id} = useParams()
     const {token} = useContext(UserContext)
     const [invite,setInvite] = useState({})
     const [trade,setTrade] = useState({id:0,gameName:"",username:"",offered:[],wanted:[]})
+    const [showComment,setShowComment] = useState(false)
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -50,6 +53,24 @@ export default function PostInvite(){
         })
     }
 
+    function rejectTrade(){
+        fetch(`http://localhost:8080/post/reject-invite/${invite.tradeId}`,{
+            method:'POST',
+            headers:{Authorization:`Bearer ${token}`}
+        }).then(resp=>{
+            if(!resp.ok){
+                throw new Error("Couldn't accept Trade")
+            }
+            else{
+                toast.error("Trade Rejected")
+                navigate("/home")}
+            }
+        )
+        .catch(error=>{
+            toast.error(error.message)
+        })
+    }
+
     function chat(){
         fetch(`http://localhost:8080/create-chat?id=${invite.requesterId}`,{
             method:"POST",
@@ -71,8 +92,9 @@ export default function PostInvite(){
         </div>
         <div className="invite-btns">
             <button className="btn btn-primary" onClick={()=>chat()}><FontAwesomeIcon icon={faMessage} /> Chat</button>
-            <button className="btn btn-success" onClick={()=>acceptTrade()}><FontAwesomeIcon icon={faRepeat}/> Accept Trade</button>
-            <button className="btn btn-danger"><FontAwesomeIcon icon={faXmark} /> Reject Trade</button>
+            <button className="btn btn-success" onClick={()=>setShowComment(true)}><FontAwesomeIcon icon={faRepeat}/> Accept Trade</button>
+            <button className="btn btn-danger" onClick={()=>rejectTrade()}><FontAwesomeIcon icon={faXmark} /> Reject Trade</button>
         </div>
+        {showComment && <PopUpContainer canClose={false} element={<OpinionPost username={invite.requesterUsername} token={token}/>}/>}
     </div>
 }
