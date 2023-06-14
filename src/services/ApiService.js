@@ -187,6 +187,44 @@ const ApiService = {
             throw error
         }
     }
+
+    , 
+
+    getUserInformation: async(username,token)=>{
+        try{
+            const response = await fetch(userUrl + username,{
+                headers:{
+                    Authorization:`Bearer ${token}`}
+                })
+            if(!response.ok){
+                throw new Error("Couldn't fetch data")
+            }
+            const data = await response.json()
+            return data
+        }
+        catch(error){
+            throw error
+        }
+    }
+
+    ,
+
+    getContacts:async(token)=>{
+        try{
+            const response = await fetch(localhost + "contacts",{
+                headers:{
+                    Authorization:`Bearer ${token}`}
+                })
+            if(!response.ok){
+                throw new Error("Couldn't fetch data")
+            }
+            const data = await response.json()
+            return data
+        }
+        catch(error){
+            throw error
+        }
+    }
 }
 
 export default ApiService

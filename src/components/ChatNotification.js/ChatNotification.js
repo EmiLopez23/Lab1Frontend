@@ -6,7 +6,7 @@ import { over } from "stompjs";
 import { UserContext } from "../../contexts/UserContext";
 import "./ChatNotification.css"
 
-export default function ChatNotification(){
+export default function ChatNotification({onClick}){
     const {username} = useContext(UserContext)
     const [stompClient, setStompClient] = useState(null);
     const [notifications, setNotifications] = useState([]);
@@ -45,7 +45,7 @@ export default function ChatNotification(){
       setNotifications((prevNoti) => [...prevNoti, notification]);
     };
 
-    return <div style={{position:"relative", cursor:"pointer"}}>
+    return <div style={{position:"relative", cursor:"pointer"}} onClick={onClick}>
       {notifications.length !== 0 && <div className="notification-bubble"></div>}
       <FontAwesomeIcon icon={faMessage} className="notification-icon btn btn-secondary"/>
     </div> 
