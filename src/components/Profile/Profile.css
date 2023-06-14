@@ -47,3 +47,9 @@
 .stat{
     font-size: 25px;
 }
+
+.stats-container{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

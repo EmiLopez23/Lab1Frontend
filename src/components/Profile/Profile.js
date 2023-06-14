@@ -9,6 +9,7 @@ import "./Profile.css"
 import ImgSlider from "../ImgSlider/ImgSlider"
 import PopUpContainer from "../PopUpContainer/PopUpContainer"
 import ReportUserForm from "../ReportUserForm.js/ReportUserForm"
+import Comment from "../CommentCard/Comment"
 
 export default function Profile(){
     const {username} = useParams()
@@ -17,6 +18,8 @@ export default function Profile(){
     const [inventory,setInventory] = useState([])
     const [confirmedTrades,setConfirmedTrades] = useState([])
     const [showReportForm,setReportForm] = useState(false)
+    const [comments, setComments] = useState([])
+    const [rating, setRating] = useState([])
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -37,8 +40,14 @@ export default function Profile(){
               wanted:post.postResponse.tradeItems?.filter(t=>t.tradeDirection==='WANTED'),
               requesterUsername:post.requesterUsername
             })
+            const comments = info.comments?.map(Comment=>Comment = {
+              commenter:Comment.commenter,
+              content:Comment.content
+            })
+            setComments(comments)
             setActiveTrades(activePosts)
             setInventory(info.inventory)
+            setRating(info.rating)
             setConfirmedTrades(acceptedTrades)
             console.log(info)
           } catch (error) {
@@ -60,6 +69,10 @@ export default function Profile(){
               <div className="stat-title">Trades Completed</div>
               <div className="stat">{confirmedTrades.length}</div>
             </div>
+            <div className="stat-card">
+              <div className="stat-title">User Rating</div>
+              <div className="stat">{rating}/5</div>
+            </div>
           </div>
           <div className="user-inventory">
                 <h4>Inventory</h4>
@@ -79,6 +92,12 @@ export default function Profile(){
                   {confirmedTrades?.map((trade,index)=><Post key={index} trade={trade} token={token} canTrade={false} requester={trade.requesterUsername}/>)}
                   </div>
               </div>
+            </div>
+            <div className="comments">
+              <h4>Comments</h4>
+                  <div className="user-comments">
+                  {comments?.map((comment,index)=><Comment key={index} commenter={comment.commenter} content={comment.content}/>)}
+                  </div>
             </div>
         </div>
         
