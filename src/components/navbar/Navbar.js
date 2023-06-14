@@ -25,7 +25,7 @@ export default function Navbar(){
           </ul>     
         </div>
         <div className="items-container btns-cont">
-          <ChatNotification/>
+          <ChatNotification onClick={()=>navigate("/chat")}/>
           <FontAwesomeIcon icon={showNoti ? faBell : faBellRegular} className=" notification-icon btn btn-secondary" onClick={()=>setShowNoti(!showNoti)}/>
           <button className="btn btn-outline-danger flex-end" onClick={logout}>Log Out</button>
         </div>

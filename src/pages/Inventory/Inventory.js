@@ -20,12 +20,12 @@ export default function Inventory(){
         
         <div className="d-flex justify-content-between align-items-center gap-2">
             <div className="d-flex gap-2">
-                <button className={`btn toggle-inventory-btn ${inventory===0 ? "active" : ""}`} onClick={()=>setInventory(0)}>All</button>
-                <button className={`btn toggle-inventory-btn ${inventory===1 ? "active" : ""}`} onClick={()=>setInventory(1)}>My Inventory</button>
+                <button className={`btn btn-outline-violet ${inventory===0 ? "active" : ""}`} onClick={()=>setInventory(0)}>All</button>
+                <button className={`btn btn-outline-violet ${inventory===1 ? "active" : ""}`} onClick={()=>setInventory(1)}>My Inventory</button>
             </div>
             {role==="ADMIN" && <div className="d-flex gap-2">
-                        <button onClick={()=>toggleGame(true)} className="btn toggle-inventory-btn">Add Game</button>
-                        <button onClick={()=>toggleItem(true)} className="btn toggle-inventory-btn" >Add New Item</button>
+                        <button onClick={()=>toggleGame(true)} className="btn btn-outline-violet">Add Game</button>
+                        <button onClick={()=>toggleItem(true)} className="btn btn-outline-violet" >Add New Item</button>
                     </div>
             }
         

@@ -1,0 +1,43 @@
+.user-page-container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.user-page-header{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid var(--primary-violet);
+    padding: 10px 0;
+}
+
+.user-page-body{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.all-type-user-posts{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    column-gap: 20px;
+}
+
+.stat-card{
+    background-color: rgb(22 25 29);
+    border-radius: 5px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+}
+
+.stat-title{
+    text-align: center;
+}
+
+.stat{
+    font-size: 25px;
+}
