@@ -39,7 +39,7 @@ function App() {
                 <Route path='/user/:username' element={<Profile/>}/>
                 <Route exact path='/reports' element={<ReportPage/>}/>
               </Route>
-              <Route exact path='/chat/:receiverId' element={<ChatRoom/>}/>
+              <Route exact path='/chat' element={<ChatRoom/>}/>
             </Route>
           </RoutesWithNotFound>
         </Router>

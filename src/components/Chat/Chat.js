@@ -39,25 +39,29 @@ export default function Chat({username,senderId,receiverId}) {
     
       return disconnectFromWebSocket;
     },[]);
+    
   
     useEffect(() => {
-      fetch(`http://localhost:8080/messages/${senderId}/${receiverId}`)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Error al obtener los mensajes del chat');
+      if(receiverId!==null){
+        fetch(`http://localhost:8080/messages/${senderId}/${receiverId}`)
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Error al obtener los mensajes del chat');
+          }
+        })
+        .then(chatMessages => {
+          setMessages(chatMessages.sort((messageA, messageB) => new Date(messageA.timeStamp) - new Date(messageB.timeStamp)))
+        })
+        .catch(error => {
+          console.error(error)
+        });
+        if (stompClient) {
+          stompClient.subscribe(`/user/${username}/queue/messages`, handleReceivedMessage);
         }
-      })
-      .then(chatMessages => {
-        setMessages(chatMessages.sort((messageA, messageB) => new Date(messageA.timeStamp) - new Date(messageB.timeStamp)))
-      })
-      .catch(error => {
-        console.error(error)
-      });
-      if (stompClient) {
-        stompClient.subscribe(`/user/${username}/queue/messages`, handleReceivedMessage);
       }
+      
     }, [stompClient,senderId,username,receiverId]);
 
     useEffect(() => {

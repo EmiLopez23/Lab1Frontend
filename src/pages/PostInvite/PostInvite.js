@@ -48,6 +48,19 @@ export default function PostInvite(){
         })
     }
 
+    function chat(){
+        fetch(`http://localhost:8080/create-chat?id=${invite.requesterId}`,{
+            method:"POST",
+            headers:{Authorization:`Bearer ${token}`}
+        })
+        .then(resp=>{
+            if(resp.ok){
+                navigate("/chat")
+            }
+        }
+        )
+    }
+
 
     return <div className="invite-container">
         <Toaster position="top-center" toastOptions={{duration: 3000,style: {background: '#333',color: '#fff',}}}/>
@@ -56,7 +69,7 @@ export default function PostInvite(){
             <Post canTrade={false} trade={trade}/>
         </div>
         <div className="invite-btns">
-            <button className="btn btn-primary" onClick={()=>navigate(`/chat/${invite.requesterId}`)}><FontAwesomeIcon icon={faMessage} /> Chat</button>
+            <button className="btn btn-primary" onClick={()=>chat()}><FontAwesomeIcon icon={faMessage} /> Chat</button>
             <button className="btn btn-success" onClick={()=>acceptTrade()}><FontAwesomeIcon icon={faRepeat}/> Accept Trade</button>
             <button className="btn btn-danger"><FontAwesomeIcon icon={faXmark} /> Reject Trade</button>
         </div>
