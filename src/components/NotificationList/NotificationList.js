@@ -4,17 +4,17 @@ import "./Notifications.css"
 import { UserContext } from "../../contexts/UserContext"
 import ApiService from "../../services/ApiService"
 import { useNavigate } from "react-router-dom"
+import { faArrowRightLong, faCircleCheck, faFaceFrown } from "@fortawesome/free-solid-svg-icons"
 
 export default function NotificationList(){
     const {token} = useContext(UserContext)
-    const[invites,setInvites] = useState([])
+    const[notifications,setNotifications] = useState([])
     const navigate = useNavigate()
 
     useEffect(()=>{
         async function fetchInvites(){
             const data = await ApiService.getInvites(token)
-            const filtered = data.filter(trade=> !trade.accepted)
-            setInvites(filtered)
+            setNotifications(data)
         }
 
         fetchInvites()
@@ -22,8 +22,11 @@ export default function NotificationList(){
 
 
     return <div className={`notifications-container rounded-1 text-light`}>
-        {invites.length 
-            ? invites.map((invite,index)=><Notification key={index} message={`${invite.requesterUsername} wants to trade with you`} onClick={()=>navigate(`/post-invite/${invite.tradeId}`)}/>)
-            : <Notification message={"Nothing yet"} empty={true}/>}
+        {notifications.length 
+            ? notifications.map((noti,index)=>{
+                return noti.accepted
+                    ? <Notification key={index} message={`${noti.postResponse.username} accepted your invite`} icon={faCircleCheck} color={"green"}/>
+                    : <Notification key={index} message={`${noti.requesterUsername} wants to trade with you`} onClick={()=>navigate(`/post-invite/${noti.tradeId}`)} icon={faArrowRightLong} color={"#8492db"}/>})
+            : <Notification message={"Nothing yet"} icon={faFaceFrown} color={"#aa5353"}/>}
     </div>
 }

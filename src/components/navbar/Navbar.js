@@ -12,7 +12,7 @@ import image from "../../logoTradePal.png"
 
 export default function Navbar(){
     const navigate = useNavigate()
-    const {logout} = useContext(UserContext)
+    const {logout,role} = useContext(UserContext)
     const [showNoti,setShowNoti] = useState(false)
     
 
@@ -22,6 +22,7 @@ export default function Navbar(){
           <img src={image} alt="logo" className="logo" onClick={()=>navigate("/",{replace:true})}/>
           <ul className="navbar-items">
             <li className="navbar-li"><Link className="navbar-link" to={"/inventory"}>Inventory</Link></li>
+            {role==="ADMIN" && <li className="navbar-li"><Link className="navbar-link" to={"/reports"}>Reports</Link></li>}
           </ul>     
         </div>
         <div className="items-container btns-cont">

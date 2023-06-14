@@ -9,7 +9,6 @@ import { UserProvider } from './contexts/UserContext';
 import Wrapper from './wrapper/Wrapper';
 
 
-
 const Login = lazy(()=> import("./pages/Login/Login"))
 const Register = lazy(()=> import('./pages/Register/Register'))
 const Home = lazy(()=>import('./pages/Home/Home'))
@@ -18,6 +17,7 @@ const PostInvite = lazy(()=>import('./pages/PostInvite/PostInvite'))
 const CreatePost = lazy(()=>import('./components/CreatePost/CreatePost'))
 const ChatRoom = lazy(()=>import('./components/Chat/ChatRoom'))
 const Profile = lazy(()=>import ('./components/Profile/Profile'))
+const ReportPage = lazy(()=>import ('./pages/ReportPage/ReportPage'))
 
 function App() {
 
@@ -37,6 +37,7 @@ function App() {
                 <Route exact path={PrivateRoutes.CREATE_POST} element={<CreatePost/>}/>
                 <Route path='/post-invite/:id' element={<PostInvite/>}/>
                 <Route path='/user/:username' element={<Profile/>}/>
+                <Route exact path='/reports' element={<ReportPage/>}/>
               </Route>
               <Route exact path='/chat/:receiverId' element={<ChatRoom/>}/>
             </Route>
