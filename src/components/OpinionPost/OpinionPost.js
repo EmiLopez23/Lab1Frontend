@@ -3,7 +3,7 @@ import StarRating from "../StartRating/StarRating"
 import { toast } from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
 
-export default function OpinionPost({username,token}){
+export default function OpinionPost({username,token,acceptTrade}){
     const [rating,setRate] = useState(0)
     const [content,setContent] = useState("")
     const navigate = useNavigate()
@@ -11,6 +11,7 @@ export default function OpinionPost({username,token}){
     function handleSubmit(event){
         event.preventDefault()
         const send = {subjectUsername:username,rating,content}
+        acceptTrade()
         fetch("http://localhost:8080/user/review",{
             method:"POST",
             headers:{Authorization: `Bearer ${token}`,
@@ -22,7 +23,6 @@ export default function OpinionPost({username,token}){
                 toast.error("couldn't send review")
             }
             else{
-                toast.success("review sent")
                 navigate("/home")
             }
         })

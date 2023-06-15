@@ -30,7 +30,7 @@ export default function Navbar(){
         <div className="items-container btns-cont">
           <ChatNotification onClick={()=>navigate("/chat")}/>
           <FontAwesomeIcon icon={showNoti ? faBell : faBellRegular} className=" notification-icon btn btn-secondary" onClick={()=>setShowNoti(!showNoti)}/>
-          <FontAwesomeIcon icon={faUser} onClick={()=>navigate(`/user/${username}`)} className=" profile-icon btn btn-secondary"/>
+          <FontAwesomeIcon icon={faUser} onClick={()=>navigate(`/user/${username}`)} className="profile-icon btn btn-secondary"/>
           <button className="btn btn-outline-danger flex-end" onClick={logout}>Log Out</button>
         </div>
       </div>

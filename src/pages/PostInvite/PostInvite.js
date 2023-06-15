@@ -95,6 +95,6 @@ export default function PostInvite(){
             <button className="btn btn-success" onClick={()=>setShowComment(true)}><FontAwesomeIcon icon={faRepeat}/> Accept Trade</button>
             <button className="btn btn-danger" onClick={()=>rejectTrade()}><FontAwesomeIcon icon={faXmark} /> Reject Trade</button>
         </div>
-        {showComment && <PopUpContainer canClose={false} element={<OpinionPost username={invite.requesterUsername} token={token}/>}/>}
+        {showComment && <PopUpContainer canClose={false} element={<OpinionPost username={invite.requesterUsername} token={token} acceptTrade={acceptTrade}/>}/>}
     </div>
 }
