@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
 import { UserContext } from "../../contexts/UserContext";
-import "./ChatNotification.css"
+import BubbleWrapper from "../NotiBubble/BubbleWrapper";
 
 export default function ChatNotification({onClick}){
     const {username} = useContext(UserContext)
@@ -45,10 +45,7 @@ export default function ChatNotification({onClick}){
       setNotifications((prevNoti) => [...prevNoti, notification]);
     };
 
-    return <div style={{position:"relative", cursor:"pointer"}} onClick={onClick}>
-      {notifications.length !== 0 && <div className="notification-bubble"></div>}
-      <FontAwesomeIcon icon={faMessage} className="notification-icon btn btn-secondary"/>
-    </div> 
+    return <BubbleWrapper element={<FontAwesomeIcon icon={faMessage} className="notification-icon btn btn-secondary"/>} notifications={notifications} onClick={onClick}/>
     
     
 }

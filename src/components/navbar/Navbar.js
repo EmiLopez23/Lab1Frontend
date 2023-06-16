@@ -1,20 +1,18 @@
 import "./navbar.css"
-import { useContext, useState } from "react";
+import { useContext} from "react";
 import { UserContext } from "../../contexts/UserContext";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faBell as faBellRegular} from "@fortawesome/free-regular-svg-icons";
-import NotificationList from "../NotificationList/NotificationList";
-import { faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import ChatNotification from "../ChatNotification.js/ChatNotification";
 import image from "../../logoTradePal.png"
 import { Toaster } from "react-hot-toast";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import NotificationButton from "../NotificationList/NotificationButton";
 
 
 export default function Navbar(){
     const navigate = useNavigate()
     const {logout,role,username} = useContext(UserContext)
-    const [showNoti,setShowNoti] = useState(false)
     
 
     return <> 
@@ -29,12 +27,11 @@ export default function Navbar(){
         </div>
         <div className="items-container btns-cont">
           <ChatNotification onClick={()=>navigate("/chat")}/>
-          <FontAwesomeIcon icon={showNoti ? faBell : faBellRegular} className=" notification-icon btn btn-secondary" onClick={()=>setShowNoti(!showNoti)}/>
+          <NotificationButton/>
           <FontAwesomeIcon icon={faUser} onClick={()=>navigate(`/user/${username}`)} className="profile-icon btn btn-secondary"/>
           <button className="btn btn-outline-danger flex-end" onClick={logout}>Log Out</button>
         </div>
       </div>
-      {showNoti && <NotificationList show={showNoti}/>}
     </>
 }
 
