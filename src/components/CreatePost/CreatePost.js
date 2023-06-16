@@ -55,7 +55,7 @@ export default function CreatePost(){
         })
         .then(resp=>
             {if(!resp.ok){
-                throw new Error("Error while creating Post")
+                return resp.text().then((errMsg) => {throw new Error(errMsg)});
             }
             else{
                 toast.success("Successfully created")

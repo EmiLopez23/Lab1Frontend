@@ -11,7 +11,7 @@ export default function NotificationList({notifications}){
         {notifications.length 
             ? notifications.map((noti,index)=>{
                 return noti.accepted
-                    ? <Notification key={index} message={`${noti.postResponse.username} accepted your invite`} icon={faCircleCheck} color={"green"}/>
+                    ? <Notification key={index} message={`${noti.postResponse.username} accepted your trade`} icon={faCircleCheck} color={"green"}/>
                     : <Notification key={index} message={`${noti.requesterUsername} wants to trade with you`} onClick={()=>navigate(`/post-invite/${noti.tradeId}`)} icon={faArrowRightLong} color={"#8492db"}/>})
             : <Notification message={"Nothing yet"} icon={faFaceFrown} color={"#aa5353"}/>}
     </div>

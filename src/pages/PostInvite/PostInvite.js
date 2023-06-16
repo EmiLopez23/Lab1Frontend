@@ -35,24 +35,7 @@ export default function PostInvite(){
         fetchInvites()
     },[token,id])
 
-    function acceptTrade(){
-        fetch(`http://localhost:8080/post/accept-invite/${invite.tradeId}`,{
-            method:'POST',
-            headers:{Authorization:`Bearer ${token}`}
-        }).then(resp=>{
-            if(!resp.ok){
-                throw new Error("You don't have the necessary items")
-            }
-            else{
-                toast.success("Trade Accepted, you can see your new Items in your Inventory")
-                navigate("/home")}
-            }
-        )
-        .catch(error=>{
-            toast.error(error.message)
-            setShowComment(false)
-        })
-    }
+
 
     function rejectTrade(){
         fetch(`http://localhost:8080/post/reject-invite/${invite.tradeId}`,{
@@ -96,6 +79,6 @@ export default function PostInvite(){
             <button className="btn btn-success" onClick={()=>setShowComment(true)}><FontAwesomeIcon icon={faRepeat}/> Accept Trade</button>
             <button className="btn btn-danger" onClick={()=>rejectTrade()}><FontAwesomeIcon icon={faXmark} /> Reject Trade</button>
         </div>
-        {showComment && <PopUpContainer canClose={false} element={<OpinionPost username={invite.requesterUsername} token={token} acceptTrade={acceptTrade}/>}/>}
+        {showComment && <PopUpContainer element={<OpinionPost username={invite.requesterUsername} token={token} tradeId={invite.tradeId} setShowComment={setShowComment}/>} onClick={()=>setShowComment(false)}/>}
     </div>
 }

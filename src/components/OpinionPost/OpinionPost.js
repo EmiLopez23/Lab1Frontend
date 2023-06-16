@@ -1,17 +1,38 @@
 import { useState } from "react"
 import StarRating from "../StartRating/StarRating"
-import { toast } from "react-hot-toast"
+import { toast } from "react-hot-toast" 
 import { useNavigate } from "react-router-dom"
 
-export default function OpinionPost({username,token,acceptTrade}){
+export default function OpinionPost({username,token,tradeId,setShowComment}){
     const [rating,setRate] = useState(0)
     const [content,setContent] = useState("")
     const navigate = useNavigate()
 
     function handleSubmit(event){
-        event.preventDefault()
+        event.preventDefault()  
+        fetch(`http://localhost:8080/post/accept-invite/${tradeId}`,{
+            method:'POST',
+            headers:{Authorization:`Bearer ${token}`}
+        }).then(resp=>{
+            if(!resp.ok){
+                return resp.text().then((errMsg) => {throw new Error(errMsg)});
+            }
+            else{
+                toast.success("Trade Accepted, you can see your new Items in your Inventory")
+                sendReview()
+                navigate("/home")}
+            }
+        )
+        .catch(error=>{
+            toast.error(error.message)
+            setShowComment(false)
+        })
+        
+    }
+
+    function sendReview(){
+        if(rating!==0 && content!==""){
         const send = {subjectUsername:username,rating,content}
-        acceptTrade()
         fetch("http://localhost:8080/user/review",{
             method:"POST",
             headers:{Authorization: `Bearer ${token}`,
@@ -22,10 +43,8 @@ export default function OpinionPost({username,token,acceptTrade}){
             if(!resp.ok){
                 toast.error("couldn't send review")
             }
-            else{
-                navigate("/home")
-            }
-        })
+        })}
+        else toast.error("You must fill every field")
     }
 
     return <form onSubmit={handleSubmit} className="text-light d-flex flex-column gap-2">

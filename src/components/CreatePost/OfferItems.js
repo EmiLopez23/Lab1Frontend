@@ -2,8 +2,8 @@ import { useContext, useEffect } from "react"
 import { useState } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import "./CreatePost.css"
-import ItemImg from "../ItemImage/ItemImg"
 import ApiService from "../../services/ApiService"
+import ItemImgWithQty from "../ItemImage/ItemImgWithQty"
 
 export default function OfferItems({gameName,offeredItems,setOfferedItems}){
     const{token} = useContext(UserContext)
@@ -47,7 +47,7 @@ export default function OfferItems({gameName,offeredItems,setOfferedItems}){
         <h6 className="text-light">Your Items</h6>
             <div className="items mb-3">
                 {filteredItems.map((itemData,index)=>
-                        <ItemImg key={index} width={100}  item={itemData.item} onClick={()=>addItem(itemData.item)}/>)
+                        <ItemImgWithQty key={index} width={100}  data={itemData} onClick={()=>addItem(itemData.item)}/>)
                 }
             </div>
         <h5 className="text-light">Items you Offer</h5>
