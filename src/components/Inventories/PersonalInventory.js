@@ -30,8 +30,8 @@ export default function PersonalInventory(){
     return (
         <div>
             <Filter allItems={itemsData} setFilteredItems={setFilteredItems} myItems={true}/>
-            {filteredItems.length === 0
-                ? <NoContent text={"No Items"} height={"50vh"}/>
-                : <div className="inventory-container py-3">{filteredItems.map((data, index)=><ItemCard item={data} key={index} hasQty={true}/>)}</div>}
+            {filteredItems.length !== 0
+                ? <div className="inventory-container py-3">{filteredItems.map((data, index)=><ItemCard item={data} key={index} hasQty={true}/>)}</div>
+                : <NoContent text={"No Items"} height={"50vh"}/>}
         </div>)
 }

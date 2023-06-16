@@ -12,6 +12,7 @@ import ReportUserForm from "../ReportUserForm.js/ReportUserForm"
 import Comment from "../CommentCard/Comment"
 import StatCard from "../StatCard/StatCard"
 import CommentForm from "../CommentCard/CommentForm"
+import NoContent from "../NoContent/NoContent"
 
 export default function Profile(){
     const {username} = useParams()
@@ -75,14 +76,19 @@ export default function Profile(){
               <div className="user-posts-container">
                   <h4>Posts</h4>
                   <div className="user-posts">
-                  {activetrades?.map((trade,index)=><Post key={index} trade={trade} token={token}/>)}
+                  {activetrades.length!==0
+                    ? activetrades?.map((trade,index)=><Post key={index} trade={trade} token={token}/>)
+                    : <NoContent text={"0 Active Posts"} height="20vh"/>}
                   </div>
               </div>
 
               <div className="user-confirmed-trades-container">
                   <h4>Trade History</h4>
                   <div className="user-posts">
-                  {confirmedTrades?.map((trade,index)=><Post key={index} trade={trade} token={token} canTrade={false} requester={trade.requesterUsername}/>)}
+                  {confirmedTrades.length !== 0
+                    ? confirmedTrades?.map((trade,index)=><Post key={index} trade={trade} token={token} canTrade={false} requester={trade.requesterUsername}/>)
+                    : <NoContent text={"0 trades completed"} height="20vh"/>
+                  }
                   </div>
               </div>
             </div>
@@ -90,7 +96,10 @@ export default function Profile(){
               <h4>Comments</h4>
                   {username !== currentUser && <CommentForm token={token} username={currentUser} subjectUsername={username} commentSetter={setComments} comments={comments}/>}
                   <div className="user-comments">
-                  {comments?.map((comment,index)=><Comment key={index} commenter={comment.commenter} content={comment.content}/>)}
+                  {comments.length !== 0
+                    ? comments?.map((comment,index)=><Comment key={index} commenter={comment.commenter} content={comment.content}/>)
+                    : <NoContent text={"No comments"} height="10vh"/>
+                  }
                   </div>
             </div>
         </div>

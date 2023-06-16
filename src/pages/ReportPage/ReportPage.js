@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import ApiService from "../../services/ApiService"
 import { UserContext } from "../../contexts/UserContext"
 import ReportInfo from "../../components/ReportInfo/ReportInfo"
+import NoContent from "../../components/NoContent/NoContent"
 
 export default function ReportPage(){
     const {token} = useContext(UserContext)
@@ -31,6 +32,8 @@ export default function ReportPage(){
             <div>Content</div>
             <div>Actions</div>
         </div>
-        {reports?.map((report,index)=><ReportInfo subject={report.subjectUsername} reporter={report.reporterUsername} content={report.content} reportId={report.reportId} key={index} fetchReports={fetchReports}/>)}
+        {reports.length === 0
+        ? <NoContent text={"No reports"} height={"50vh"}/>
+        : reports?.map((report,index)=><ReportInfo subject={report.subjectUsername} reporter={report.reporterUsername} content={report.content} reportId={report.reportId} key={index} fetchReports={fetchReports}/>)}
     </div>
 }

@@ -33,8 +33,8 @@ export default function GeneralInventory(){
     return(
         <div> 
             <Filter allItems={items} setFilteredItems={setFilteredItems}/>
-            {filteredItems.length === 0 
-                ? <NoContent text={"No items"} height={"50vh"}/>
-                : <div className="inventory-container py-3">{filteredItems.map(item=><ItemCard key={item.name} item={item}/>)}</div>}
+            {filteredItems.length !== 0 
+                ? <div className="inventory-container py-3">{filteredItems.map(item=><ItemCard key={item.name} item={item}/>)}</div>
+                : <NoContent text={"No items"} height={"50vh"}/>}
         </div>)
 }

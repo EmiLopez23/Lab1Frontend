@@ -1,3 +1,9 @@
+.user-posts,.user-confirmed-trades{
+    background-color: #16191d;
+    padding: 10px;
+    border-radius: 3px;
+}
+
 .user-page-container{
     padding: 20px;
     display: flex;
