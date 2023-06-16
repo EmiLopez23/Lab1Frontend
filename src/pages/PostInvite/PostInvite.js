@@ -41,7 +41,7 @@ export default function PostInvite(){
             headers:{Authorization:`Bearer ${token}`}
         }).then(resp=>{
             if(!resp.ok){
-                throw new Error("Couldn't accept Trade")
+                throw new Error("You don't have the necessary items")
             }
             else{
                 toast.success("Trade Accepted, you can see your new Items in your Inventory")
@@ -50,6 +50,7 @@ export default function PostInvite(){
         )
         .catch(error=>{
             toast.error(error.message)
+            setShowComment(false)
         })
     }
 

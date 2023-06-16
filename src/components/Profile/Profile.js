@@ -10,6 +10,8 @@ import ImgSlider from "../ImgSlider/ImgSlider"
 import PopUpContainer from "../PopUpContainer/PopUpContainer"
 import ReportUserForm from "../ReportUserForm.js/ReportUserForm"
 import Comment from "../CommentCard/Comment"
+import StatCard from "../StatCard/StatCard"
+import CommentForm from "../CommentCard/CommentForm"
 
 export default function Profile(){
     const {username} = useParams()
@@ -40,10 +42,7 @@ export default function Profile(){
               wanted:post.postResponse.tradeItems?.filter(t=>t.tradeDirection==='WANTED'),
               requesterUsername:post.requesterUsername
             })
-            const comments = info.comments?.map(Comment=>Comment = {
-              commenter:Comment.commenter,
-              content:Comment.content
-            })
+            const comments = info.comments?.reverse()
             setComments(comments)
             setActiveTrades(activePosts)
             setInventory(info.inventory)
@@ -65,14 +64,8 @@ export default function Profile(){
         
         <div className="user-page-body">
           <div className="stats-container">
-            <div className="stat-card">
-              <div className="stat-title">Trades Completed</div>
-              <div className="stat">{confirmedTrades.length}</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-title">User Rating</div>
-              <div className="stat">{rating}/5</div>
-            </div>
+            <StatCard title={"Trades Completed"} stat={confirmedTrades.length}/>
+            <StatCard title={"User Rating"} stat={`${rating}/5`}/>
           </div>
           <div className="user-inventory">
                 <h4>Inventory</h4>
@@ -95,6 +88,7 @@ export default function Profile(){
             </div>
             <div className="comments">
               <h4>Comments</h4>
+                  {username !== currentUser && <CommentForm token={token} username={currentUser} subjectUsername={username} commentSetter={setComments} comments={comments}/>}
                   <div className="user-comments">
                   {comments?.map((comment,index)=><Comment key={index} commenter={comment.commenter} content={comment.content}/>)}
                   </div>

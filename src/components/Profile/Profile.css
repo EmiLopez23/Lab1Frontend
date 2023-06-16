@@ -53,3 +53,9 @@
     flex-direction: row;
     gap: 20px;
 }
+
+.user-comments{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
