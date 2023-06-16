@@ -20,16 +20,15 @@ export default function PostInvite(){
 
     useEffect(()=>{
         async function fetchInvites(){
-            const data = await ApiService.getInvites(token)
-            const filtered = data.find(trade=>trade.tradeId === parseInt(id))
+            const data = await ApiService.getInvite(token,id)
             setTrade({
-                id: filtered.postResponse.id,
-                username:filtered.postResponse.username,
-                gameName:filtered.postResponse.gameName,
-                offered:filtered.postResponse.tradeItems.filter(t=>t.tradeDirection==='OFFERED'),
-                wanted:filtered.postResponse.tradeItems.filter(t=>t.tradeDirection==='WANTED')
+                id: data.postResponse.id,
+                username:data.postResponse.username,
+                gameName:data.postResponse.gameName,
+                offered:data.postResponse.tradeItems.filter(t=>t.tradeDirection==='OFFERED'),
+                wanted:data.postResponse.tradeItems.filter(t=>t.tradeDirection==='WANTED')
             })
-            setInvite(filtered)
+            setInvite(data)
         }
 
         fetchInvites()

@@ -17,7 +17,6 @@ export default function NotificationButton(){
             const data = await ApiService.getInvites(token)
             const newestFirst = data.reverse()
             setNotifications(newestFirst)
-            console.log(newestFirst)
         }
 
         fetchInvites()

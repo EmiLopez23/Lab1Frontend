@@ -179,7 +179,6 @@ const ApiService = {
                     Authorization:`Bearer ${token}`}
                 })
             if(!response.ok){
-                console.log(response)
                 throw new Error(response.json())
             }            
             const data = await response.json()
@@ -190,6 +189,24 @@ const ApiService = {
     }
 
     , 
+
+    getInvite: async(token,tradeId)=>{
+        try{
+            const response = await fetch(postsUrl + "getInvite/" + tradeId,{
+                headers:{
+                    Authorization:`Bearer ${token}`}
+                })
+            if(!response.ok){
+                throw new Error(response.json())
+            }            
+            const data = await response.json()
+            return data
+        }catch(error){
+            throw error
+        }
+    }
+
+    ,
 
     getUserInformation: async(username,token)=>{
         try{
@@ -235,7 +252,6 @@ const ApiService = {
                     Authorization:`Bearer ${token}`}
                 })
             if(!response.ok){
-                console.log(response)
                 throw new Error(response.json())
             }            
             const data = await response.json()
