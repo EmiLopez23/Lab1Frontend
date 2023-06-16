@@ -5,6 +5,7 @@ import { UserContext } from "../../contexts/UserContext"
 import ApiService from "../../services/ApiService"
 import { Link } from "react-router-dom"
 import { PrivateRoutes } from "../../consts/Constants"
+import NoContent from "../../components/NoContent/NoContent"
 
 export default function Home(){
     const [trades,setTrades] =useState([])
@@ -44,9 +45,11 @@ export default function Home(){
                 <h4 className="text-light m-0">Posts</h4>
                 <button className="btn btn-violet"><Link to={`/${PrivateRoutes.CREATE_POST}`} className="link">Create Post</Link></button>
             </div>
-            <div className="posts-container">
-                {searchResults.map((trade,index)=><Post key={index} trade={trade} token={token}/>)}
-            </div>
+            {searchResults.length === 0
+                ? <NoContent text={"Ooppss...seems like there are no posts"} height={"50vh"}/>
+                : <div className="posts-container">{searchResults.map((trade,index)=><Post key={index} trade={trade} token={token}/>)}</div>
+            }
+            
             </div>
 }
 

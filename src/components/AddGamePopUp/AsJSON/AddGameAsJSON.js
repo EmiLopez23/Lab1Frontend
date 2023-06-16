@@ -77,13 +77,10 @@ export default function AddGameAsJSON(){
 
     
     return <>
-        <form className="text-light"> 
-        <div id="img" className=" form-group mt-1">
-        <label className="form-label text-light">Insert .JSON or .txt File</label>
-        </div>
-        
+        <form className="text-light mt-4"> 
+         
         <div className="position-relative">
-        <label htmlFor="file" className="form-label"></label>
+        <label htmlFor="file" className="form-label">Insert .JSON or .txt File</label>
         <input 
         id="file" 
         className="form-control input-focus bg-dark text-light" 

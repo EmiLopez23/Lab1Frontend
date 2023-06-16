@@ -29,7 +29,7 @@
     position: relative;
 }
 
-.contact:hover,.contact.active{
+.contact:hover{
     background-color: rgb(68, 68, 68);
     
 }

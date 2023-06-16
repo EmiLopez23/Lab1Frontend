@@ -4,6 +4,7 @@ import { UserContext } from "../../contexts/UserContext"
 import ItemCard from "../ItemCard/ItemCard"
 import Filter from "../Filter/Filter"
 import ApiService from "../../services/ApiService"
+import NoContent from "../NoContent/NoContent"
 
 export default function PersonalInventory(){
     const {token} = useContext(UserContext)
@@ -29,9 +30,8 @@ export default function PersonalInventory(){
     return (
         <div>
             <Filter allItems={itemsData} setFilteredItems={setFilteredItems} myItems={true}/>
-            <div className="inventory-container py-3">
-                {filteredItems.map((data, index)=>
-                    <ItemCard item={data} key={index} hasQty={true}/>)}
-            </div>
+            {filteredItems.length === 0
+                ? <NoContent text={"No Items"} height={"50vh"}/>
+                : <div className="inventory-container py-3">{filteredItems.map((data, index)=><ItemCard item={data} key={index} hasQty={true}/>)}</div>}
         </div>)
 }

@@ -4,6 +4,7 @@ import "./GeneralInventory.css"
 import { UserContext } from "../../contexts/UserContext";
 import Filter from "../Filter/Filter";
 import ApiService from "../../services/ApiService";
+import NoContent from "../NoContent/NoContent";
 
 
 export default function GeneralInventory(){
@@ -32,8 +33,8 @@ export default function GeneralInventory(){
     return(
         <div> 
             <Filter allItems={items} setFilteredItems={setFilteredItems}/>
-            <div className="inventory-container py-3">
-                {filteredItems.map(item=><ItemCard key={item.name} item={item}/>)}
-            </div>
+            {filteredItems.length === 0 
+                ? <NoContent text={"No items"} height={"50vh"}/>
+                : <div className="inventory-container py-3">{filteredItems.map(item=><ItemCard key={item.name} item={item}/>)}</div>}
         </div>)
 }

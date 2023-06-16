@@ -43,7 +43,7 @@ export default function AddGame(){
 
     
     return <>
-        <form className="text-light"> 
+        <form className="text-light mt-4"> 
         <div className="form-group">
             <label className="form-label text-light">Insert Game Name</label>
             <input className="form-control" id="game-name" value={game} placeholder="Game Name" onChange={e=>setGame(e.target.value)} required/>
