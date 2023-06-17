@@ -77,7 +77,7 @@ export default function Profile(){
                   <h4>Posts</h4>
                   <div className="user-posts">
                   {activetrades.length!==0
-                    ? activetrades?.map((trade,index)=><Post key={index} trade={trade} token={token}/>)
+                    ? activetrades?.map((trade,index)=><Post key={index} trade={trade} token={token} canTrade={currentUser !== username}/>)
                     : <NoContent text={"0 Active Posts"} height="20vh"/>}
                   </div>
               </div>
