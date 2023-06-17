@@ -104,6 +104,6 @@ export default function Profile(){
             </div>
         </div>
         
-        {showReportForm && <PopUpContainer element={<ReportUserForm username={username} token={token}/>} onClick={()=>setReportForm(false)}/>}
+        {showReportForm && <PopUpContainer element={<ReportUserForm username={username} token={token} close={()=>setReportForm(false)}/>} onClick={()=>setReportForm(false)}/>}
     </div>
 }

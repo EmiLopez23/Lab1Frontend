@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
 
-export default function ReportUserForm({username,token}){
+export default function ReportUserForm({username,token,close}){
     const [content,setContent]=useState("")
 
     function handleSubmit(event){
@@ -19,7 +19,9 @@ export default function ReportUserForm({username,token}){
             if(!resp.ok){
                 toast.error("error reporting user")
             }
-            else toast.success("report sent to admins")
+            else {
+                close()
+                toast.success("report sent to admins")}
         })
     }
     return (

@@ -9,17 +9,23 @@ export default function OpinionPost({username,token,tradeId,setShowComment}){
     const navigate = useNavigate()
 
     function handleSubmit(event){
-        event.preventDefault()  
+        event.preventDefault()
+        if(content==="" || rating === 0){
+            toast.error("You must fill all fields")
+            return;
+        }  
         fetch(`http://localhost:8080/post/accept-invite/${tradeId}`,{
             method:'POST',
-            headers:{Authorization:`Bearer ${token}`}
+            headers:{
+                Authorization:`Bearer ${token}`,
+                "Content-Type":"application/json"},
+            body:JSON.stringify({content,rating}),
         }).then(resp=>{
             if(!resp.ok){
                 return resp.text().then((errMsg) => {throw new Error(errMsg)});
             }
             else{
                 toast.success("Trade Accepted, you can see your new Items in your Inventory")
-                sendReview()
                 navigate("/home")}
             }
         )
@@ -28,23 +34,6 @@ export default function OpinionPost({username,token,tradeId,setShowComment}){
             setShowComment(false)
         })
         
-    }
-
-    function sendReview(){
-        if(rating!==0 && content!==""){
-        const send = {subjectUsername:username,rating,content}
-        fetch("http://localhost:8080/user/review",{
-            method:"POST",
-            headers:{Authorization: `Bearer ${token}`,
-            "Content-Type":"application/json"},
-            body:JSON.stringify(send)
-        })
-        .then(resp=>{
-            if(!resp.ok){
-                toast.error("couldn't send review")
-            }
-        })}
-        else toast.error("You must fill every field")
     }
 
     return <form onSubmit={handleSubmit} className="text-light d-flex flex-column gap-2">

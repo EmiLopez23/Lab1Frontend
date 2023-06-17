@@ -3,10 +3,12 @@ import ApiService from "../../services/ApiService"
 import { UserContext } from "../../contexts/UserContext"
 import ReportInfo from "../../components/ReportInfo/ReportInfo"
 import NoContent from "../../components/NoContent/NoContent"
+import { useNavigate } from "react-router-dom"
 
 export default function ReportPage(){
-    const {token} = useContext(UserContext)
+    const {token,role} = useContext(UserContext)
     const [reports,setReports] = useState([])
+    const navigate = useNavigate()
     
     async function fetchReports(){
         try{
@@ -19,8 +21,12 @@ export default function ReportPage(){
         }
     
     useEffect(()=>{
-        fetchReports()   
-    },[token])
+        if(role!=="ADMIN"){
+            navigate("/home")
+        }
+        else fetchReports()
+           
+    },[token,role])
 
     
     
@@ -34,6 +40,6 @@ export default function ReportPage(){
         </div>
         {reports.length === 0
         ? <NoContent text={"No reports"} height={"50vh"}/>
-        : reports?.map((report,index)=><ReportInfo subject={report.subjectUsername} reporter={report.reporterUsername} content={report.content} reportId={report.reportId} key={index} fetchReports={fetchReports}/>)}
+        : reports?.map((report,index)=><ReportInfo report={report} key={index} fetchReports={fetchReports}/>)}
     </div>
 }

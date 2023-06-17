@@ -1,15 +1,15 @@
 .report-container,.info-header{
     display: grid;
-    grid-template-columns: auto auto 1fr auto;
+    grid-template-columns: 0.3fr 0.3fr 3fr 1fr;
     padding: 10px;
-    width: 70%;
     column-gap: 50px;
 }
 
-.report-container{
+.report-section{
     background-color: rgb(22 25 29);
     border-radius: 5px;
     margin-bottom: 10px;
+    padding: 3px;
 }
 
 .report-container>*{
@@ -21,5 +21,16 @@
 .actions-btn{
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.report-chat{
+    max-height: 50vh;
+    padding: 10px !important;
+    background-color: #573974;
+    margin: 0 10px 10px 10px;
+    border-radius: 3px;
 }
