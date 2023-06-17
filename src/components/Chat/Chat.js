@@ -8,7 +8,7 @@ import "./Messages.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-export default function Chat({username,senderId,receiverId}) {
+export default function Chat({username,senderId,receiverId,receiverUsername}) {
     const lastMessageRef = useRef(null)
     const [stompClient, setStompClient] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -110,19 +110,19 @@ export default function Chat({username,senderId,receiverId}) {
   
     return (
       <div className="bg-dark chat-container">
-        <h4 className="text-light chat-title mb-0">Chat</h4>
+        <h4 className="text-light chat-title mb-0">{receiverUsername ? receiverUsername : "Chat"}</h4>
         <div className="chat-messages">
-        {messages.map((message,index) => (
+        {messages.filter(m=>m.sender === receiverUsername || m.sender === username).map((message,index) => (
           message.sender === username
             ? <MyMessage sender={"You"} message={message.content} key={index}/>
             : <OtherMessage sender={message.sender} message={message.content} key={index}/>
         ))}
         <div ref={lastMessageRef}/>
         </div>
-        <form onSubmit={handleMessage} className="message-form">
-          <input type="text" name="message" className="form-control" onChange={e=>setMessage(e.target.value)} value={message}/>
+        {receiverUsername && <form onSubmit={handleMessage} className="message-form">
+          <input type="text" name="message" className="form-control" onChange={e=>{setMessage(e.target.value);console.log(messages)}} value={message}/>
           <button type="submit" className="btn btn-violet"><FontAwesomeIcon icon={faArrowRight} /></button>
-        </form>
+        </form>}
       </div>
     );
 }

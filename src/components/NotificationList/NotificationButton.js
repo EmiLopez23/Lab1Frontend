@@ -20,7 +20,7 @@ export default function NotificationButton(){
         }
 
         fetchInvites()
-    },[token])
+    },[token,showNoti])
 
     return <> 
     <BubbleWrapper element={<FontAwesomeIcon icon={showNoti ? faBell : faBellRegular} className=" notification-icon btn btn-secondary"/>} onClick={()=>setShowNoti(!showNoti)} notifications={notifications}/>

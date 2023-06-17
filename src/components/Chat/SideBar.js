@@ -7,7 +7,7 @@ import { faHouse } from "@fortawesome/free-solid-svg-icons"
 import SockJS from "sockjs-client"
 import { over } from "stompjs"
 
-export default function SideBar({username,token, id,setReceiverId}){
+export default function SideBar({username,token, id,setReceiverId,setReceiverUsername}){
     const [contacts,setContacts] = useState([])
     const [notification,setNotifications] = useState({})
     const [stompClient, setStompClient] = useState(null);
@@ -65,7 +65,7 @@ export default function SideBar({username,token, id,setReceiverId}){
         </div>
 
         <div className="sidebar-chats">
-            {contacts?.map((contact,index)=><div className={`contact ${parseInt(id)===contact.id ? "active" : ""}`} key={index} onClick={()=>{setReceiverId(contact.id);setNotifications(null)}}>
+            {contacts?.map((contact,index)=><div className={`contact ${parseInt(id)===contact.id ? "active" : ""}`} key={index} onClick={()=>{setReceiverUsername(contact.username);setReceiverId(contact.id);setNotifications(null)}}>
                                             {contact.username}
                                             {notification?.senderUsername === contact.username && <div className="in-chat notification-bubble"></div>}
                                             </div>)}
