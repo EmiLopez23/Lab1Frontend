@@ -3,18 +3,19 @@ import StarRating from "../StartRating/StarRating"
 import { toast } from "react-hot-toast" 
 import { useNavigate } from "react-router-dom"
 
-export default function OpinionPost({username,token,tradeId,setShowComment}){
+export default function OpinionPost({username,token,tradeId,setShowComment,completeTrade=false}){
     const [rating,setRate] = useState(0)
     const [content,setContent] = useState("")
     const navigate = useNavigate()
 
     function handleSubmit(event){
         event.preventDefault()
+        console.log({tradeId,content,rating})
         if(content==="" || rating === 0){
             toast.error("You must fill all fields")
             return;
         }  
-        fetch(`http://localhost:8080/post/accept-invite/${tradeId}`,{
+        fetch(`http://localhost:8080/post/${!completeTrade ? "accept-invite" : "complete-invite"}/${tradeId}`,{
             method:'POST',
             headers:{
                 Authorization:`Bearer ${token}`,
@@ -26,7 +27,9 @@ export default function OpinionPost({username,token,tradeId,setShowComment}){
             }
             else{
                 toast.success("Trade Accepted, you can see your new Items in your Inventory")
-                navigate("/home")}
+                completeTrade 
+                    ? setShowComment(false)
+                    : navigate("/home")}
             }
         )
         .catch(error=>{
