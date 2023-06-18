@@ -49,7 +49,6 @@ export default function Profile(){
             setInventory(info.inventory)
             setRating(info.rating)
             setConfirmedTrades(acceptedTrades)
-            console.log(info)
           } catch (error) {
             console.error(error);
           }

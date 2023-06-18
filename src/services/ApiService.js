@@ -200,6 +200,7 @@ const ApiService = {
                 throw new Error(response.json())
             }            
             const data = await response.json()
+            if(data.accepted === "COMPLETED" || data.accepted === "ACCEPTED") throw new Error("trade already completed")
             return data
         }catch(error){
             throw error
