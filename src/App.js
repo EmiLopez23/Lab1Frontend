@@ -14,7 +14,7 @@ const Register = lazy(()=> import('./pages/Register/Register'))
 const Home = lazy(()=>import('./pages/Home/Home'))
 const Inventory = lazy(()=>import('./pages/Inventory/Inventory'))
 const PostInvite = lazy(()=>import('./pages/PostInvite/PostInvite'))
-const CreatePost = lazy(()=>import('./components/CreatePost/CreatePost'))
+const CreatePostWrapper = lazy(()=>import('./components/CreatePost/CreatePostWrapper'))
 const ChatRoom = lazy(()=>import('./components/Chat/ChatRoom'))
 const Profile = lazy(()=>import ('./components/Profile/Profile'))
 const ReportPage = lazy(()=>import ('./pages/ReportPage/ReportPage'))
@@ -34,7 +34,7 @@ function App() {
               <Route element={<Wrapper/>}>
                 <Route exact path={PrivateRoutes.HOME} element={<Home/>} />
                 <Route exact path={PrivateRoutes.INVENTORY} element={<Inventory/>}/>
-                <Route exact path={PrivateRoutes.CREATE_POST} element={<CreatePost/>}/>
+                <Route exact path={PrivateRoutes.CREATE_POST} element={<CreatePostWrapper/>}/>
                 <Route path='/post-invite/:id' element={<PostInvite/>}/>
                 <Route path='/user/:username' element={<Profile/>}/>
                 <Route exact path='/reports' element={<ReportPage/>}/>

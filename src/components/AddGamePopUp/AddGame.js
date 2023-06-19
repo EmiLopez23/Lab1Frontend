@@ -1,10 +1,9 @@
 import React, {useContext, useState } from "react";
-import "./AddGame.css"
 import CategoryForm from "./categoryForm/categoryForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-import { UserContext } from "../../../contexts/UserContext";
 import { toast } from "react-hot-toast";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function AddGame(){
     const{token} = useContext(UserContext)

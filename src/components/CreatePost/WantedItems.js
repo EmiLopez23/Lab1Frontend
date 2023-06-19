@@ -3,11 +3,12 @@ import { UserContext } from "../../contexts/UserContext"
 import ItemImg from "../ItemImage/ItemImg"
 import "./CreatePost.css"
 import ApiService from "../../services/ApiService"
+import useWantedItems from "../../hooks/useWantedItems"
 
-export default function OfferItems({gameName,wantedItems,setWantedItems}){
+export default function OfferItems({gameName}){
     const{token} = useContext(UserContext)
     const [filteredItems,setFilteredItems] = useState([])
-
+    const {wantedItems,deleteItem,addItem} = useWantedItems()
     /* Call the API to get all the items and filter them by game */
     useEffect(()=>{
         async function fetchInventory(){
@@ -22,26 +23,6 @@ export default function OfferItems({gameName,wantedItems,setWantedItems}){
         if(gameName!==""){fetchInventory()}
             
     },[token,gameName])
-
-
-    /* If item doesn´t exists push to array, else udpdate qty and array */
-    function addItem(item){
-        const index =wantedItems.indexOf(item)
-        if(index>-1){
-            item.qty += 1
-            const withoutItem = wantedItems.filter(wantItem=> wantItem.id !== item.id)
-            setWantedItems([item,...withoutItem]) 
-        }
-        else{
-            item.qty=1
-            setWantedItems([...wantedItems,item])
-        }
-    }
-    
-    /* Filters the array to delete the item */
-    function deleteItem(item){
-        setWantedItems(wantedItems.filter(wanted=>wanted!==item))
-    }
     
     
     return (<div className="wanted-item-container">

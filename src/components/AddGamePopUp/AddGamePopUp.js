@@ -1,7 +1,7 @@
+import AddGame from "./AddGame";
+import AddGameAsJSON from "./AddGameAsJSON";
 import "./AddGamePopUp.css"
 import React, {useState} from "react";
-import AddGame from "./Single/AddGame";
-import AddGameAsJSON from "./AsJSON/AddGameAsJSON";
 
 
 

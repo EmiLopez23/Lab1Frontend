@@ -8,6 +8,8 @@ import ApiService from "../../services/ApiService"
 import {toast } from "react-hot-toast"
 import { faRepeat } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from "react-router-dom"
+import useOfferItems from "../../hooks/useOfferItems"
+import useWantedItems from "../../hooks/useWantedItems"
 
 
 
@@ -16,8 +18,8 @@ export default function CreatePost(){
     const{token} = useContext(UserContext)
     const [games,setGames] = useState([])
     const [activeGame,setActiveGame]=useState("")
-    const [offeredItems,setOfferedItems] = useState([])
-    const [wantedItems,setWantedItems] = useState([])
+    const {offeredItems} = useOfferItems()
+    const {wantedItems} = useWantedItems()
     const navigate = useNavigate()
 
     useEffect(()=>{
@@ -33,17 +35,10 @@ export default function CreatePost(){
         fetchGames()
         },[])
 
-    function transformObject(list){
-        return list.map((item) => ({
-            id: parseInt(item.id),
-            qty: parseInt(item.qty),
-          }));
-    }
-
     function handleSubmit(){
         const postObject = {"gameName":activeGame,
-                            "offeredItems":transformObject(offeredItems),
-                            "wantedItems":transformObject(wantedItems)}
+                            "offeredItems":offeredItems,
+                            "wantedItems":wantedItems}
         
         fetch("http://localhost:8080/post/create-post",{
             method:"POST",
@@ -72,11 +67,11 @@ export default function CreatePost(){
                 {games?.map((game,index) => <option value={game} key={index}>{game}</option>)}
             </select>
         <div className="create-post-grid mb-3">
-            <OfferItems gameName={activeGame} offeredItems={offeredItems} setOfferedItems={setOfferedItems}/>
-            <WantedItems gameName={activeGame} wantedItems={wantedItems} setWantedItems={setWantedItems}/>
+            <OfferItems gameName={activeGame}/>
+            <WantedItems gameName={activeGame}/>
         </div>
         <div className="btn-container">
-                <button className="btn btn-violet" onClick={handleSubmit} disabled={(offeredItems.length === 0 || wantedItems.length === 0)}><FontAwesomeIcon icon={faRepeat} /> Post Trade</button>
+                <button className="btn btn-violet" onClick={handleSubmit} disabled={(offeredItems.length === 0 || wantedItems.length === 0)} ><FontAwesomeIcon icon={faRepeat} /> Post Trade</button>
         </div>
     </div>
     </>

@@ -26,7 +26,7 @@ export default function OpinionPost({username,token,tradeId,setShowComment,compl
                 return resp.text().then((errMsg) => {throw new Error(errMsg)});
             }
             else{
-                toast.success("Trade Accepted, you can see your new Items in your Inventory")
+                toast.success("Thank you for your Feedback, you can see your new Items in your Inventory")
                 completeTrade 
                     ? setShowComment(false)
                     : navigate("/home")}

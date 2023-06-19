@@ -4,10 +4,12 @@ import { UserContext } from "../../contexts/UserContext"
 import "./CreatePost.css"
 import ApiService from "../../services/ApiService"
 import ItemImgWithQty from "../ItemImage/ItemImgWithQty"
+import useOfferItems from "../../hooks/useOfferItems"
 
-export default function OfferItems({gameName,offeredItems,setOfferedItems}){
+export default function OfferItems({gameName}){
     const{token} = useContext(UserContext)
     const [filteredItems,setFilteredItems] = useState([])
+    const {offeredItems,addItem,deleteItem} = useOfferItems()
 
     /* Call the API to get all the items and filter them by game */
     useEffect(()=>{
@@ -22,32 +24,15 @@ export default function OfferItems({gameName,offeredItems,setOfferedItems}){
         if(gameName!=="") {fetchUserInventory()}
         
     },[token,gameName])
+    
 
-    /* Filters the array to delete the item */
-    function deleteItem(item){
-        setOfferedItems(offeredItems.filter(wanted=>wanted!==item))
-    }
-
-    /* If item doesn´t exists push to array, else udpdate qty and array */
-    function addItem(item){
-        const index = offeredItems.indexOf(item)
-        if(index>-1){
-            item.qty += 1
-            const withoutItem = offeredItems.filter(element => element.id !== item.id)
-            setOfferedItems([...withoutItem, item])
-        }
-        else{
-            item.qty=1
-            setOfferedItems([...offeredItems,item])
-        }
-    }
     
     
     return (<div className="offer-item-container">
         <h6 className="text-light">Your Items</h6>
             <div className="items mb-3">
                 {filteredItems.map((itemData,index)=>
-                        <ItemImgWithQty key={index} width={100}  data={itemData} onClick={()=>addItem(itemData.item)}/>)
+                        <ItemImgWithQty key={index} width={100}  data={itemData} onClick={()=>addItem(itemData.item,itemData.quantity)}/>)
                 }
             </div>
         <h5 className="text-light">Items you Offer</h5>

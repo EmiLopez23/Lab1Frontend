@@ -37,7 +37,7 @@ export default function PostInvite(){
         }
 
         fetchInvites()
-    },[token,id])
+    },[token,id,navigate])
 
 
 
